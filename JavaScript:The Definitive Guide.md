@@ -1,3 +1,11 @@
+##Chapter 8
+####8.7.4 The bind() Method####
+- any arguments you pass to **bind()** after the first are bound along with the **this** value.
+
+The  bind() method defined by ECMAScript 5 does have some features that cannot be simulated with the ECMAScript 3 code.
+
+1. the true **bind()** method returns a function object with its **length** property properly set to the arity of the bound function minus the number of bound arguments(but not less than zero).
+2. the ECMAScript 5 **bind()** method can be used for partial application of constructor functions. If the function return by **bind()** is used as a constructor, the **this** passed to **bind()** is ignored, and the original function is invoded as a constructor, with some arguments already bound. Functions returned by the **bind()** method do not have a prototype property (the  prototype property of regular functions cannot be deleted) and objects created when these bound functions are used as constructors inherit from the prototype of the original, unbound constructor. Also, a bound constructor works just like the unbound constructor for the purposes of the  instanceof operator.
 
 ##Chapter 9 Classes and Modules
 ####Constructors and Class Identity
