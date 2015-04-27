@@ -13,8 +13,11 @@ The  bind() method defined by ECMAScript 5 does have some features that cannot b
 - two objects are instances of the same class if and only they inherit from the same prototype object.
 - the **instanceof** operator does not actually check whether an instance was initialized by the constructor function. It checks whether it inherits from the constructor function's prototype.
 
+####9.2.2 The constructor Property
+- Every JavaScript function (except functions returned by the ECMAScript 5 **Function.bind()** method) automatically has a **prototype** property. The value of this property is an object that has a single nonenumerable **constructor** property.
 
 ####9.5.1 The Instanceof Operator
 - The expression ***o instanceof c*** evaluates to true if o inherits from c.prototype. (The inheritance need not be direct)
 - **isPrototypeOf()**: test the prototype chain of an object for a specific prototype object.
+
 
