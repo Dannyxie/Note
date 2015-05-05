@@ -28,3 +28,20 @@
 ![](http://i.imgur.com/yeGRrXZ.png)
 
 - text-align does not control the alignment of elements, only their inline content. The actual elements are not shifted from one side to the other. Only the text within them is affected
+- IE6 treat text-align:center as if it were the <center> element, and centers elements as well as text. This does not happen in standards mode in IE6 and later, but it persists in IE5.x and earlier.
+
+
+####text-align:justify
+- In justified text, both ends of a line of text are placed at the inner edge of the parent element. Then, the spacing between words and letters is
+adjusted so that each line is precisely the same length. Justified text is common in the print world.
+
+
+###Vertical Alignment
+####The Height of Lines
+	line-height
+	Values: <length> | <percentage> | <number> | normal | inherit
+	Initial value: normal
+	Applies to: All elements (but see text regarding replaced and block-level elements)
+	Inherited: Yes
+	Percentages: Relative to the font size of the element
+	Computed value: For length and percentage values, the absolute value; otherwise, as specified
