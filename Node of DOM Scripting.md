@@ -40,53 +40,80 @@ nodeType value:
 
 Chapter 6:
 
--  specified function will actually be executed:
-window.onload = firstFunction;
-window.onload = secondFunction;
-secondFunction will replace firstFunction
--  function addLoadEvent(func) {
-var oldonload = window.onload;
-if (typeof window.onload != 'function') {
-window.onload = func;
-} else {
-window.onload = function() {
-oldonload();
-func();
+```javascript
+ function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+    window.onload = function() {
+        oldonload();
+        func();
+    }
 }
-}
--  if element does not have attribute which getAttribute() function specificed ,it will returns null：         element.getAttribute(AttributeNameNotExist) == null
+```
+-  if element does not have attribute which getAttribute() function specificed ,it will returns `null`：         ```element.getAttribute(AttributeNameNotExist) == null```
 -  Ternary operator:    variable = condition ? if true : if false;
--  in HTML documents, nodeName always a returns an uppercase value, even if the element
-is lowercase in the markup
+-  in HTML documents, nodeName always a returns an uppercase value, even if the element is lowercase in the markup
 
 
 
-Chapter 7:Creating Markup on the Fly
+##Chapter 7:Creating Markup on the Fly
 
--  DOM method: createElement, createTextNode, appendChild, insertBefore
--  function insertAfter(newElement,targetElement) {
-var parent = targetElement.parentNode;
-if (parent.lastChild == targetElement) {
-parent.appendChild(newElement);
-} else {
-parent.insertBefore(newElement,targetElement.nextSibling);
+- DOM method: createElement, createTextNode, appendChild, insertBefore
+```javascript
+function insertAfter(newElement,targetElement) {
+    var parent = targetElement.parentNode;
+    if (parent.lastChild == targetElement) {
+     parent.appendChild(newElement);
+    } else {
+       parent.insertBefore(newElement,targetElement.nextSibling);
+    }
 }
-}
+```
 -  createElement:create some element node.
 -  appendChild:insert into the last place, included as a child
--  insertBefore,syntax:parentElement.insertBefore(newElement,targetElement)  and cooperate with parentNode,instance:a.parentNode.insertBefore(newNode,a)
--  
+- insertBefore  syntax:`parentElement.insertBefore(newElement,targetElement)`  and cooperate with parentNode,instance: `a.parentNode.insertBefore(newNode,a)`
 
+```javscript 
+function getHTTPObject(){
+    if(typeof XMLHttpRequest == undefined){
+        XMLHttpRequest = function(){
+            try{    return new ActiveXObject("Msxml2.XMLHttp.6.0");} catch(e){} 
+            try{    return new ActiceXObject("Msxml2.XMLHttp.3.0");} catch(e){}
+            try{    return new ActiveXObject("Msxml2.XMLHttp");} catch(e){}
+        } 
+    }
+    return new XMLHttpRequest();
+}
+```
 
+readyState:
+
+         0:uninitialized
+         1:loading
+         2:loaded
+         3:interative
+         4:complete
+     
 
 Chapter 9:CSS-DOM
 
--   Every element node has style property
--  When you want to reference a style property that uses a minus sign, the DOM requires you to use
-camel-casing. The CSS property font-family becomes the DOM property fontFamily:     element.style.fontFamily
+-  Every element node has style property
+-  When you want to reference a style property that uses a minus sign, the DOM requires you to use camel-casing. The CSS property font-family becomes the DOM property fontFamily:     `element.style.fontFamily`
+- In some browsers, the color property will be returned in RGB
 -  The style object doesn’t include stylistic information that has been declared in an external style
 sheet. It also doesn’t include stylistic information that has been declared in the head of a document.
 
+```javascript
+addClass(element, value){
+    if(!element.className){
+        element.className = value;
+    }else {
+        element.className + = " " + value;
+    }
+}
+```
 
 Chapter 10 An animated slideshow
 
