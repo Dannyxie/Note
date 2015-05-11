@@ -97,7 +97,7 @@ readyState:
          4:complete
      
 
-Chapter 9:CSS-DOM
+##Chapter 9:CSS-DOM
 
 -  Every element node has style property
 -  When you want to reference a style property that uses a minus sign, the DOM requires you to use camel-casing. The CSS property font-family becomes the DOM property fontFamily:     `element.style.fontFamily`
@@ -115,19 +115,36 @@ addClass(element, value){
 }
 ```
 
-Chapter 10 An animated slideshow
+##Chapter 10 An animated slideshow
 
--  The JavaScript function parseInt can extract numeric information from a string. If you pass it a
+- Valid value of the `position` property are "static", "fixed", "relative", and "absolute". Elements have position value of "static" by default, which simply means that they appear one after the other in the same sequence as they accur in the markup. The "relative" value is similar. The difference is that relatively positioned elements can be token out of the regular flow of the document by appliying the float property.
+- By applying a value of "absolute" to an element's position,you can place the element wherever you want in relation to its container. The container is either the document itself or a parent element with a position of "fixed" or "absolute". It doesn't matter where the element appears in the original markup, because its position will be determined by the properties like `top`, `left`, `right` and `bottom`.
+
+###time
+- The JavaScript function `setTimeout` allows us to execute a function after a specified amount of time has elapsed.
+- `clearTimeout`: cancel a pending action.
+- The JavaScript function parseInt can extract numeric information from a string. If you pass it a
 string that begins with a number, it will return the number  
--    
 
-Chapter 12 Putting it all together
+###CSS overflow 
+- The CSS `overflow` property dictates how content within an element should be displayed when the content is larger that its container element. When an element contains content that is larger that itself, there is an overflow. In that situation, you can clip the content so that only a portion of it is visible. You can also specify whether or not the web browser should display a scrollbars, allowing the user to see the rest of the content.
+
+1. "visible": no clipping occurs. The content overflows and is rendered outside the element.
+2. "hidden": A value of "hidden" will cause the excess content to be clipped. Only a protion of the content will be visible.
+3. "scroll": The content will be clipped, but the web browser will display scrollbars so that the rest of the content can be viewed.
+4. "auto": like "scroll", except that the scrollbars will be displayed only if the content overflows its container element. if there is no overflow, no scrollbars appear.
+
+
+
+
+##Chapter 12 Putting it all together
 
 -  Each  Form object has a property called  elements.length . This value returns the number of form elements contained by a form: form.elements.length
 This is different from  childNodes.length , which returns the total number of nodes contained by an element. The elements.length property of a  Form object returns only those elements that are form elements, such as  input elements,  textarea elements, and so on.
 -  encode the values to a URL-safe string:  encodeURIComponent()
 
 
+##DOM Scripting Libraries
 
 JQuery CSS Selector 
 • $('*') selects all elements.
