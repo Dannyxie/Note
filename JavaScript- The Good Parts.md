@@ -73,6 +73,22 @@ if (typeof Object.create !== 'function') {
 - The `delete` operator can be used to remove a property from an object. It will remove a property from the object if it has one. It will no touch any of the objects in the prototype linkage.
 
 ##Chapter 4 Functions
+###Function Objects
+- Every function object is also created with a `prototype` property. Its value is an object with a `constructor` property whose value is the function.
+- If a function is not given a name, it is said to be `anonymous`.
+###Invocation
+- Every function receives two additional parameters: `this` and `arguments`. the `this`'s value is determined by the **invocation pattern**.
+
+Pattern of invocation:
+1. the method invocation pattern
+2. the function invocation pattern
+3. the constructor invocation pattern
+4. the apply invocation pattern
+
+- There is no runtime error when the number of arguments and the number of parameters do not match. If there are too many argument values, the extra argument value will be ignored. If there are too few argument values, the `undefined` value will be substituted for the missing values. There is no type checking on the arguments value: any type of value can be passed to any parameter.
+
+####The Method Invocation Pattern
+- When a function is stored as a property of an object, we call it a `method`
 
 
 
