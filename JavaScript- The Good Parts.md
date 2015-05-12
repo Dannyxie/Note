@@ -92,5 +92,31 @@ Pattern of invocation:
 - When a method is invoked, `this` is bound to that object.
 - A method can use `this` to access the object so that it can retrieve values from the object or modified the object.
 
-###The functij
+###The Function invocation pattern
+- When a function is not the property of an object, then it is invoked as a function
+- When a function is invoked with this pattern, `this` is bound to the global object.
+- When the inner function is invoked, `this` would still be bound to the `this` variable of the outer function. A consequence of this error is that a method cannot employ an inner function to help it do its work because the inner function does not share the method's access to the object as its `this` is bound to the wrong value.
+- If the method defines a variable and assigns it the value of `this`, the inner function will have access `this` through that variable. 
+
+###The Constructor Invocation Pattern
+- If a function is invoked with the `new` prefix, then a new object will be created with a hidden link to the value of the function's `prototype` member, and `this` will be bound to that new object
+- Functions that are intended to be used with the `new` prefix are called `constructor` (recomend:function with capitalized name).
+
+###The Apply Invocation Pattern
+- The `apply` method lets us construct an array of arguments to use to invoke a function.
+- `apply` method takes to arguments: the first is the value that should be bound to `this`.the second is an array of parameters.
+
+
+###Arguments
+- `arguments` is a array-like object. `arguments` has a `length` property, but it lacks all of the array method.
+
+###Return
+- When a `return` is executed, the function returns immediately without executing the remaining statement.
+- A function always return a value. If the `return` is not specified, the `undefined` is returned.
+- If the function was invoked with the `new` prefix and the `return` is not an object, then `this`(the new object) is returned instead.
+
+###Exceptions
+- The `throw` statement interrupts execution of the function. It should be given an exception object containing a `name` property that identifies the type of the exception, and a descriptive `message` property.
+- The `exception` object will be delivered to the `catch` clause of a `try` statement.
+- If an exception is thrown within a `try` block, control will go to its `catch` clause.
 
