@@ -67,7 +67,7 @@ if (typeof Object.create !== 'function') {
 - The prototype link is used only in retrieval. If we try to retrieve a property value from an object, and if the object lacks the property name, then JavaScript attempts to retrieve the property value from the prototype object. And if that object is lacking the property, then it goes to its prototype, and so on until the process finally bottoms out with Object.prototype . If the desired property exists nowhere in the prototype chain, then the result is the undefined value. This is called delegation.
 
 ###Enumeration
-- The `for in` statement can loop over all of the property names in an object(enumerable properties). The enumeration will include all of the properties鈥攊ncluding functions and prototype properties(There is no guarantee on the order of the names).
+- The `for in` statement can loop over all of the property names in an object(enumerable properties). The enumeration will include all of the properties閳ユ攰ncluding functions and prototype properties(There is no guarantee on the order of the names).
 
 ###Delete
 - The `delete` operator can be used to remove a property from an object. It will remove a property from the object if it has one. It will no touch any of the objects in the prototype linkage.
@@ -120,3 +120,58 @@ Pattern of invocation:
 - The `exception` object will be delivered to the `catch` clause of a `try` statement.
 - If an exception is thrown within a `try` block, control will go to its `catch` clause.
 
+###Argumenting Types
+```javascript
+Function.prototype.method = function (name, func){
+    this.prototype[name] = func;
+    return this;
+};
+```
+
+###Recursion
+- A `recursive` function is a function that calls itself, either directly or indirectly.
+
+###Scope
+- `Scope` in a programming language controls the visibility and lifetimes of variables and parameters.
+- JavaScript does have function scope. This means that the parameters and variables defined in a function are not visible outside of the function, and that a variable defined anywhere within a function is visible everywhere within the function. So it is best to declare all of the variables used in a function at the top of the function body.
+
+###Closure
+- Inner functions get access to the parameters and variables of the functions they are defined within (with the exception of `this` and `arguments`)
+```javascript
+//BAD EXAMPLE
+var add_the_handlers = function(nodes){
+    var i;
+    for(i=0; i < node.length; i += 1;){
+        nodes[i].onclick = function(e){
+            alert(i);
+        };
+    }
+};
+
+//BETTER EXAMPLE
+var add_the_handlers = function(nodes){
+    var i;
+    for(i = 0; i < node.length; i += 1 ){
+        nodes[i].onclick = function(i){
+            return function(e){
+                alert(e);
+            };
+        }(i);
+    }
+};
+```
+
+###Callbacks
+
+###Module
+- A module is a function or object that presents an interface but that hides its state and implemention.
+
+###Curry
+
+###Memoization
+
+
+##Chapter 5 Inheritance
+###Pseudoclassical
+- When a function object is created, the `Function` constructor that produces the function object runs some code like this:`this.prototype = {constructor:this}` . The new function object is given a `prototype` property whose value is an object constaining a `constructor` property whose value is the new object.
+- 
