@@ -174,4 +174,81 @@ var add_the_handlers = function(nodes){
 ##Chapter 5 Inheritance
 ###Pseudoclassical
 - When a function object is created, the `Function` constructor that produces the function object runs some code like this:`this.prototype = {constructor:this}` . The new function object is given a `prototype` property whose value is an object constaining a `constructor` property whose value is the new object.
-- 
+
+##Chapter 6 Arrays
+###Enumeration
+- `for in` makes no guarantee about the order of the properties.
+
+###Confusion
+- the `typeof` operator reports that the type of an array is 'object'
+```javascript
+var is_array = function(value){
+    return value && typeof value === 'object' &&
+    typeof value.length === 'number' &&
+    typeof value.splice === 'function' &&
+    !(value.propertyIsEnumeralbe('length')); //length property is unumerable in array.
+};
+```
+
+##Chapter 7 Regular Expressions
+methods: 
+`regexp.exec`
+`regexp.test`
+`string.match`
+`string.replace`
+`string.search`
+`string.split`
+
+- In a JavaScript program, the regular expression must be on a single line.
+
+
+##Chapter 8 Method
+###Array
+- array.concat(item...)  : produce new array
+- array.join(seperator) : default sperator is ','
+- array.pop()
+- array.push(item...)
+- array.reverse()
+- array.shift() : slower that pop
+- array.slice(start,end)    : The first element copied will be `array[start]`. It will be **stop before** copying `array[end]`(opional)
+- array.sort(comparefn)
+- array.splice(start,deleteCount,item...)
+- array.unshift(item....)   : returns the array's new length.
+
+###Function
+- function.apply(thisArg, argArray)
+
+###Number
+- number.toExponential(fractionDigits)
+- number.toFixed(fractionDigits)
+- number.toPrecision(precision)
+- number.toString(radix)
+
+###Object
+- object.hasOwnProperty(name)
+
+###RegExp
+- regexp.exec(string)
+- regexp.test(string)
+
+###String
+- string.charAt(pos)
+- string.charCodeAt(pos)
+- string.concat(string...)
+- string.indexOf(searchString, position)
+- string.lastIndexOf(searchString, position)
+- string.localeCompare(that)
+- string.match(regexp)
+- string.replace(searchValue, replaceValue)
+- string.search(regexp)
+- string.slice(start,end)
+- string.split(separator, limt)
+- string.substring(start, end)
+- string.toLocaleLowerCase()
+- string.toLocaleUpperCase()
+- string.toLowerCase()
+- string.toUpperCase()
+- String.fromCharCode(char...)
+
+
+
