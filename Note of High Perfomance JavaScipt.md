@@ -6,11 +6,11 @@
 - Browsers don’t start rendering anything on the page until the opening  <body> tag is encountered. 
 - Putting scripts at the top of the page in this way typically leads to a noticeable delay, often in the form of a blank white page, before the user can even begin reading or otherwise interacting with the page.
 - Internet Explorer 8, Firefox 3.5, Safari 4, and Chrome 2 all allow parallel downloads of JavaScript files. 
-- Unfortunately, JavaScript downloads still block downloading of other resources, such as images.
-- Because scripts block downloading of all resource types on the page, it’s recommended to place all  <script> tags as close to the bottom of the  <body> tag as possible so as not to affect the download of the entire page.
-- Yahoo! Exceptional Performance team’s first rule about JavaScript: put scripts at the bottom.
+- Unfortunately, JavaScript downloads still block downloading of other resources, such as images. Downloading a script doesn't block other scripts from downloading. The page must still wait for the JavaScript code to be downloaded and executed before continuing. 
+- Because scripts block downloading of all resource types on the page, it’s recommended to place all  <script> tags as close to the bottom of the  <body> tag as possible so as not to affect the download of the entire page : put scripts at the bottom.
 
 ###Grouping Scripts
+- Since each `<script>` tag blocks the page from rendering during intial download, it's helpful to limit the total number of `<script>` tags contained in the page. This applied to both inline script as well as those in external files. Everytime a `<script>` tag is encountered during the parsing of a HTML page, there is going to a delay while the code is executed.
 - an inline script placed after a  <link> tag referencing an external stylesheet caused the browser to block while waiting for the stylesheet to download. Souders recommends never putting an inline script after a <link> tag for this reason.
 - it’s helpful to limit the number of external script files that your page references.You can minimize the performance impact by concatenating several Javascript files together into a single file and then calling that single file with a single  <script> tag. 
 
