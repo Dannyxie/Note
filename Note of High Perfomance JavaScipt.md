@@ -35,10 +35,73 @@ document.getElementsByTagName('head')[0].appendChild(script);
 3. "loaded"	Download has completed
 4. "interactive"	Data is completely downloaded but isn't fully available
 5. "complete"	All data is ready to be used.
-	
+```javascript
+function loadScript(url, callback){
+	var script = document.createElement('script');
+	script.type = 'text/javascript';
+
+	if(script.readyState){	//IE
+		script.onreadystatechange = function(){
+			if(script.readyState == "loaded" || script.readyState == "complete"){
+				scipt.onreadystatechange = null;
+				callback();
+			}
+		};
+
+	} else {
+		script.onload = function(){
+			callback();
+		};
+	}
+
+	script.src = url;
+	document.getElementsByTagName("head")[0].appendChild(script);
+}
+```	
 
 ###XMLHttpRequest Script Injection
+```javascript
+	var xhr = XMLHttpRequest();
+	xhr.open("get", fileURL, true);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState ==4 ){
+			if(xhr.status >= 200 && xhr.status < 300 || xhr.status == 304 ){
+				var script = document.createElement("script");
+				script.type = "text/javascript";
+				script.text = xhr.responseText;
+				document.body.appendChild(script);	
+			}
+		}
+	};
+	xhr.send(null);
+```
 - The  onreadystatechange event handler checks for a  readyState of 4 and then verifies that the HTTP status code is valid (anything in the 200 range means a valid response, and 304 means a cached response). 
+- Primary advantage: the JavaScript code can be download without exectuing immmediately.
+- Limitation: the JavaScript file must be located on the same domain as the page requesting it.
+```javascript
+function loadScript(url, callback){
+	var script = document.createElement("script") script.type = "text/javascript";
+	if (script.readyState){ //IE script.onreadystatechange = function(){
+		if (script.readyState == "loaded" || script.readyState == "complete"){
+			script.onreadystatechange = null;
+			callback(); }
+	};
+	} else { //Others
+		script.onload = function(){
+			callback(); };
+	}
+	script.src = url;
+	document.getElementsByTagName("head")[0].appendChild(script); }
+	loadScript("the-rest.js", function(){
+			Application.init(); });
+```
+##Summary
+- Put all `<script>` tags at the bottom of the page, just inside of the closing `</body>` tag. This ensures that the page can be almost completely rendered before script execution begins.
+- Group scripts together. The fewer `<script>` tags on the page, the faster the page can be loaded and become interactive. This holds true both for `<script>` tags loading external JavaScript files and those with inline code.
+- There are several ways to download JavaScript in a nonblocking fashion:
+1. Use the `defer` attribute of the `<script>` tag (Internet Explorer and Firefox 3.5+ only)
+2. Dynamiclly create `script` elements to download and execute the code
+3. Download the JavaScript code using an XHR object, and then inject the code into the page.
 
 ##Chapter 2: Data Access
 
