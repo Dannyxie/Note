@@ -99,9 +99,9 @@ function loadScript(url, callback){
 - Put all `<script>` tags at the bottom of the page, just inside of the closing `</body>` tag. This ensures that the page can be almost completely rendered before script execution begins.
 - Group scripts together. The fewer `<script>` tags on the page, the faster the page can be loaded and become interactive. This holds true both for `<script>` tags loading external JavaScript files and those with inline code.
 - There are several ways to download JavaScript in a nonblocking fashion:
-1. Use the `defer` attribute of the `<script>` tag (Internet Explorer and Firefox 3.5+ only)
-2. Dynamiclly create `script` elements to download and execute the code
-3. Download the JavaScript code using an XHR object, and then inject the code into the page.
+	1. Use the `defer` attribute of the `<script>` tag (Internet Explorer and Firefox 3.5+ only)
+	2. Dynamiclly create `script` elements to download and execute the code
+	3. Download the JavaScript code using an XHR object, and then inject the code into the page.
 
 ##Chapter 2: Data Access
 
