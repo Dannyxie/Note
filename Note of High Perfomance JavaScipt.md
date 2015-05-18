@@ -136,4 +136,39 @@ try{
 ###Closures, Scope, and Memory
 - Closures allow a function to access data that is outside of its local scope.
 - When outer function is executed, it becomes the first object in the execution context's scope chain, with the global object coming second. When the closure is created, its `[[scope]]`` property is initialized with both of these objects.
-- Since the closure's `[[scope]]` property contain references to the same object as the excution context's scope chain, there is a side effect. Typically, a function's activation object is destroyed when the execution context is destroyed. When there's a closure involved, though, the activation object isn't destroyed, because a referenct still exists in the closure's `[[Scope]]` property. This means that closures require more memory overhead in a script that a nonclosure function.
+- Since the closure's `[[scope]]` property contain references to the same object as the excution context's scope chain, there is a side effect. Typically, a function's activation object is destroyed when the execution context is destroyed. When there's a closure involved, though, the activation object isn't destroyed, because a referenct still exists in the closure's `[[Scope]]` property. This means that closures require more memory overhead in a script that a nonclosure function. Closures can cause memory leaks.
+- When the closure is executed, an execution context is created whose scope chain is initialized with the same two scope chain objects referenced in `[[Scope]]`, and then a new activation object is created for the closure itself.
+- you're often accessing a lot of out-of-scope identifiers and therefore are incurring a performace penalty with each access.
+- advice: store any frequently used out-of-scope variables in local variables, and the access the local variables directly.
+
+###Object Members
+- When a named member referenets a function, it's considered a method, whereas a member referencing a nonfunction data type is considered a property.
+- obejct member access trends to be slower than accesing data in literal or variables and in some browsers slower than accessing array items.
+
+###Prototypes
+- Prototype objects are shared amongst all instances of a given object type, and so all instances also share the prototype object's members.
+- An object is tied to its prototype by an internal property. Firefox, Safari, and Chrome expose this property to developers as `__proto__`; other browsers do not allow script acces to this property.
+- `hasOwnProperty()`: determine whether an object has an instance member with a given name.
+- `in` : determine whether an object has access to a property with a given name.
+
+###Prototype Chains
+- The process of looking up an instance member is still more expensive than accessing data from a literal or a local variable, so adding more overhead to traverse the prototype chain just amplifies this effect.
+
+###Nested Members
+- the deeper the nested member, the slower the data is accessed.
+
+###Caching Object Member values
+- If you're going to read an object property more than one time in a function, it's best to stire that property value in a local variable. The local variable can then be used in place of the property to avoid the performance overhead of another property lookup.
+- Many object methods use `this` to determine the context in which they are being called, and storing a method in a local variable causes `this` to be bound to `window`.
+
+###Summary
+- places to access data: literal value, variable, array items, and object members.
+
+1. Leteral values and local variables can be accessed very quickly, whereas array items and object memebers take longer.
+2. Local variables are faster to access than out-of-scope variables bacause they exist in the first variable object of the scope chain. The further into the scope chain a varible is, the longer it takes to access. Global variables are always the slowest to access because they are always last in the scope chain.
+3. Avoid the `with` statement because it augments the execution context scope chain. Also, be careful with the `catch` clause of a `try-catch` statement because it has the same effect.
+4. Nested object members incur significant performance impact and should be minimized.
+5. The deeper into the prototype chain that a property or method exists, the slower it is to access.
+6. Generally speaking, you can improve the performance of JavaScript code by storing frequently used object members, array items, and out-of-scope variables in local variables. You can then access the local variables faster than the originals.
+
+
