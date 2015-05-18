@@ -172,3 +172,61 @@ try{
 6. Generally speaking, you can improve the performance of JavaScript code by storing frequently used object members, array items, and out-of-scope variables in local variables. You can then access the local variables faster than the originals.
 
 
+##Chapter 3 DOM Scripting
+###DOM in the Browser World
+-  The Document Object Model(DOM) is a language-independent application interface(API) for working with XML and HTML document.
+
+###DOM Access and Modification
+- Modifying elements is even more expensive because it often causes the browser to recalculate changes in the page geometry.
+
+###innerHTML Versus DOM methods
+- `innerHTML` is faster in all browsers except the latest WebKit-based ones(Chrome and Safari)
+- Using an array to concatenate large strings will make `innerHTML` even faster in those browsers.
+- Using `innerHTML` will give faster execution in most browsers in performance-critical operations that require updating a large part of the HTML page. But we should consider readability, maintenance, team preferences, and coding conventions when deciding on our approach.
+
+###Cloning Nodes
+- Clone existing DOM elements: `element.cloneNode()` (where element is an existing node)
+```javascript
+function tableClonedDOM() {
+	var i, table, thead, tbody, tr, th, td, a, ul, li, oth = document.createElement('th'),
+	    otd = document.createElement('td'),
+	    otr = document.createElement('tr'),
+	    oa = document.createElement('a'), oli = document.createElement('li'),
+	    oul = document.createElement('ul'); tbody = document.createElement('tbody'); for (i = 1; i <= 1000; i++) {
+		    tr = otr.cloneNode(false);
+		    td = otd.cloneNode(false); td.appendChild(document.createTextNode((i % 2) ? 'yes' : 'no')); tr.appendChild(td);
+		    td = otd.cloneNode(false); td.appendChild(document.createTextNode(i));
+		    tr.appendChild(td);
+		    td = otd.cloneNode(false); td.appendChild(document.createTextNode('my name is #' + i)); tr.appendChild(td);
+		    // ... the rest of the loop ... }
+		    // ... the rest of the table generation ... }
+```
+
+###HTML Collections
+- `HTMLCollection` object, which are array-like lists, don't have methods such as push() or slice(), but provide a `length` property and allow indexed access to the elements in list.They are automatically updated when the underlying document is updated.
+
+###Expensive collections
+-  Accessing a collection's `length` is even slower than accessing a regular array's `length` because it means rerunning the query every time.
+
+###Local variables when accessing collection elements
+- In general, for any type of DOM access it's best to use a local variable when the same DOM property or method is accessed more than once. When looping over a collection, the first optimization is to store the collection in a local variable and cache the `length` outside the loop, and then use a local variable inside the loop for element that are accessed more than once.
+
+###Waling the DOM
+####Crawling the DOM
+- `childNodes`, `nextSibling`
+- In IE, `nextSibling` performs much better than `childNodes`
+####Element nodes
+- DOM properties such as `childNodes`,`firstChild`, and `nextSibling` don't distinguish between element nodes and other node types, such as comments and text nodes(which are often just spaces between two tags)
+
+DOM properties that distinguish element nodes (HTML tags) versus all nodes
+
+| Property	| Use as a replacement for|
+|---------------|:-----------------------:|
+|children	|childNodes	|
+|childElementCount|childNodes.length|
+|firstElementChild|firstChild|
+|lastElementChild|lastChild|
+|nextElementSibling|nextSibling|
+|previousElementSibling|previousSibling|
+
+
