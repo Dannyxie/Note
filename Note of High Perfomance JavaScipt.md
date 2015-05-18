@@ -103,8 +103,36 @@ function loadScript(url, callback){
 	2. Dynamiclly create `script` elements to download and execute the code
 	3. Download the JavaScript code using an XHR object, and then inject the code into the page.
 
-##Chapter 2: Data Access
+##Chapter 2:Data Access
 
-- Scope Chains and Identifier Resolution
+###Scope Chains and Identifier Resolution
+- Every function in JavaScript is represented as an object -- more specifically, as an instance of `Function`.
+- The internal `[[scope]]` property contains a collection of objects representing the scope in which the function was created. This collection is called the function's `scope chain` and it determines the data that a function can access. Each object in the function's scope chain is called a `variable object`, and each of these contains entires for variables in the form of key-value pairs. When a function is created, its scope chain is populated with objects representing the data that is accessible in the scope in which the function was created. 
 - An execution context defines the environment in which a function is being executed. Each execution context is unique to one particular execution of the function, and so multiple calls to the same function result in multiple execution contexts being created. The execution context is destroyed once the function has been completely executed.
+- An execution context has its own scope chain that is used for indetifier resolution. When the execution context is created, its scope chian is initialized with the objects contained in the execution function's ``[[scope]]`` property. These values are copied over into the execution context scope chain in the order in which they appear in the function. Once this is complete, a new object called the `activation object` is created for the execution context. The activation object acts as the variable object for this execution and contains entries for all local variables, named arguments, the `arguments` collection, and  `this`. This object is then pushed to the front of the scope chain. When the execution context is destroyed, so is the activation object.  
 
+###Indetifier Resolution Performance
+- Local vriables are always the fastest to access inside of a function, whereas global variables will generally be the slowest. Global variables always exist in the last variable object of the execution context's scope chain, so they are always the furthest away to resolve.
+- It's advisable to use local variables whenever possible to improve performance in browsers without optimizing JavaScript engines. A good rule of thumb is to always store out-of-scope values in local variables if they are used more than once within a function.
+
+###Scope Chain Augmentation
+- The `with` statement is used to create variables for all of an object's properties. 
+- Problem: When code execution flows into a `with` statement, the execution context's scope chain is temporarily augmented. A new varable object is created containing al of the properties of the specified object. That object is then pushed to the front of the scope chain, meaning that all of the function's local variables are now in the second scope chain object and are therefore more expensive to access.
+- The `catch` clause of the `try-catch` statement has the same effect. When an error occurs in the `try` block, execution automatically flows to the `catch` and the exception object is pushed into a variable object that is then palced at the front of the scope chain. Inside of the `catch` block, all variables local to the function are now in the second scope chain object. Note that as soon as the `catch` clause is finished executing, the scope chian returns to its previous state.
+- We can minimize the performance impact of the `catch` clause by executing as little code as necessary within it. A good pattern is to have a method for handling errors that the `catch` clause can delegate to.
+```javascript
+try{
+		methodThatMightCauseAnError();
+		} catch (ex){
+				handleError(ex);
+				}
+```
+
+
+###Dynamic Scopes
+- Both the `with` statement and the `catch` clause of a `try-catch` statement, as well as a function containing `eval()`, are all considered to be *dynamic scope*. A dynamic scope is one that exists only through execution of code and therefore cannot be determined simply by static analysis(looking at the code structure);
+
+
+###Closures, Scope, and Memory
+- Closures allow a function to access data that is outside of its local scope.
+- When outer function is executed, it becomes the first object in the execution context's scope chain
