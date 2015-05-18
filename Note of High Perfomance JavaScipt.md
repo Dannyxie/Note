@@ -135,4 +135,5 @@ try{
 
 ###Closures, Scope, and Memory
 - Closures allow a function to access data that is outside of its local scope.
-- When outer function is executed, it becomes the first object in the execution context's scope chain
+- When outer function is executed, it becomes the first object in the execution context's scope chain, with the global object coming second. When the closure is created, its `[[scope]]`` property is initialized with both of these objects.
+- Since the closure's `[[scope]]` property contain references to the same object as the excution context's scope chain, there is a side effect. Typically, a function's activation object is destroyed when the execution context is destroyed. When there's a closure involved, though, the activation object isn't destroyed, because a referenct still exists in the closure's `[[Scope]]` property. This means that closures require more memory overhead in a script that a nonclosure function.
