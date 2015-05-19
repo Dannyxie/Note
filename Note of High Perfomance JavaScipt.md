@@ -175,6 +175,7 @@ try{
 ##Chapter 3 DOM Scripting
 ###DOM in the Browser World
 -  The Document Object Model(DOM) is a language-independent application interface(API) for working with XML and HTML document.
+- DOM is a language-independent API, in the browser the interface is implemented in JavaScript. 
 
 ###DOM Access and Modification
 - Modifying elements is even more expensive because it often causes the browser to recalculate changes in the page geometry.
@@ -212,9 +213,11 @@ function tableClonedDOM() {
 - In general, for any type of DOM access it's best to use a local variable when the same DOM property or method is accessed more than once. When looping over a collection, the first optimization is to store the collection in a local variable and cache the `length` outside the loop, and then use a local variable inside the loop for element that are accessed more than once.
 
 ###Waling the DOM
+
 ####Crawling the DOM
 - `childNodes`, `nextSibling`
 - In IE, `nextSibling` performs much better than `childNodes`
+
 ####Element nodes
 - DOM properties such as `childNodes`,`firstChild`, and `nextSibling` don't distinguish between element nodes and other node types, such as comments and text nodes(which are often just spaces between two tags)
 
@@ -229,4 +232,66 @@ DOM properties that distinguish element nodes (HTML tags) versus all nodes
 |nextElementSibling|nextSibling|
 |previousElementSibling|previousSibling|
 
+All of the properties listed above are supported as of Firefox 3.5, Safari 4, Chrome 2, and Opera 9.62. IE 6,7 and 8 only support `children`.
 
+- Whitespaces in the HTML source code are actually text nodes, and they are not included in the `children` collection.
+
+####The Selectors API
+- `querySelectorAll`: takes a CSS selector string as an argument and returns a `NodeList`-- an array-like object containing matching nodes. The method doesn't return an HTML collection, so the returned nodes do not represent the live structure of the document. 
+- `querySelector`: returns only the first node matched by the query.
+
+###Repaints and Reflows
+- Nodes in the render tree are called `frames` or `boxes` in accordance with the CSS model that treats page elements as boxes with padding, margins, borders, and position. 
+- When a DOM change affects the geometry of an element (width or and height) -- such as a change in the trickness of the border or adding more text to a paragraph, resulting in an additional line -- the browser needs to recalculate the geometry of the element as well as the geometry and position of other elements that could have been affected by the change. The browser invalidates the part of the render tree that was affected by the change and reconstructs the render tree. This process is known as a `reflow`. Once the reflow is complete, the browser redraws the affected parts of the screen in a process called `repaint`.
+
+Reflow happen when:
+	1. Visible DOM elements are added or removed
+	2. Element change position
+	3. Element change size ( because of a change in margin, padding, border thickness, width, height, etc);
+	4. Content is changed, e.g., text changes or an image is replaced with one of a different size.
+	5. Page renders initially
+	6. Browser window is resized.
+	7. Scolling window may cause a reflow of the whole page.
+
+###Queuing and Flushing Render Tree Changes
+- Because of the computation costs associated with each reflow, most browsers optimize the reflow process by queuing changes and performing them in batches. Flusing the queue happens when you want to retrieve layou information, which means using any of the following:
+	- `offsetTop`,`offsetLeft`,`offsetWidth`,`offsetHeight`
+	- `scrollTop`,`scrollLeft`,`scrollWidth`,`scrollHeight`
+	- `clientTop`,`clientLeft`,`clientWidth`,`clientHeight`
+	- `getComputedStyle()`(`currentStyle` in IE)
+
+###Minimizing Repaints and Reflows
+####Style changes
+- combine all the changes and apply them at once, modifying the DOM only once. This can be done using the `cssText` property
+
+####Batching DOM change
+reduce the number of repaints and reflows:
+	1. Take the element off of the document flow.
+	2. Apply multiple changes.
+	3. Bring the element back to the document.
+
+Ways to modify the DOM off the document:
+	- Hide the element, apply changes, and show it again.
+	- Use a document fragment to build a subtree outside of the live DOM and then copy it to the document.
+	- Copy the original element into an off-document node, modify the copy, and then replace the original element once you're done
+
+###Caching Layout Infomation
+unread
+
+###Take Elements Out of the Flow for Animations
+
+###IE and :hover
+
+###Event Delegation
+- Event delegation based on the fact that events bubble up and can be handled by a parent element. With event delegation, we attach only one handler on a wrapper element to handle all events that happen to the children descendant of that parent wrapper.
+- Event phases : `Capturing`, `At target`, `Bubbling`
+- Capturing is not supported by IE.
+
+###Summary
+- Minimize DOM access, and try to work as much as possible in JavaScript.
+- Use local variables to store DOM references you'll access repeatedly
+- Be careful when dealing with HTML collections because they represent the live, underlying document. Cache the collection `length` into a variable and use it when iterating, and make a copy of the collection into an array for heavy work on collections.
+- Use faster APIs when available, such as `querySelectorAll()` and `firstElementChild`
+- Be mindful of repaints and reflows; batch style changes, manipulate the DOM tree "offline," and the cache and minimize access to layout infomation.
+- Position absolutely during animations, and use drag and drop proxies.
+- Use event delegation to minimize the number of event handlers.
