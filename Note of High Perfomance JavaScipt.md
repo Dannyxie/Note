@@ -241,6 +241,11 @@ All of the properties listed above are supported as of Firefox 3.5, Safari 4, Ch
 - `querySelector`: returns only the first node matched by the query.
 
 ###Repaints and Reflows
+- Once the browser has downloaded all the components of a page--HTML markup, JavaScript, CSS, images--it parses through the files and creates two internal data structures:
+	1. A DOM tree: a representation of the page structure
+	2. A render tree: a representation of how the DOM nodes will be displayed
+
+- The render tree has at least one node for every node of the DOM tree that needs to be displayed( hidden DOM elements don't have a corresponding node in the render tree).
 - Nodes in the render tree are called `frames` or `boxes` in accordance with the CSS model that treats page elements as boxes with padding, margins, borders, and position. 
 - When a DOM change affects the geometry of an element (width or and height) -- such as a change in the trickness of the border or adding more text to a paragraph, resulting in an additional line -- the browser needs to recalculate the geometry of the element as well as the geometry and position of other elements that could have been affected by the change. The browser invalidates the part of the render tree that was affected by the change and reconstructs the render tree. This process is known as a `reflow`. Once the reflow is complete, the browser redraws the affected parts of the screen in a process called `repaint`.
 
@@ -260,27 +265,40 @@ Reflow happen when:
 	- `clientTop`,`clientLeft`,`clientWidth`,`clientHeight`
 	- `getComputedStyle()`(`currentStyle` in IE)
 
+- During the process of changing styles, it's best not to use any of the properties shown in the preceding list.
+
 ###Minimizing Repaints and Reflows
+-  combine multiple DOM and style changes into a batch and apply them once.
+
 ####Style changes
 - combine all the changes and apply them at once, modifying the DOM only once. This can be done using the `cssText` property
+- Another way to apply style changes only once is to change the CSS class name instead of changing the inline styles.
 
 ####Batching DOM change
 reduce the number of repaints and reflows:
-	1. Take the element off of the document flow.
+	1. Take the element off of the document flow.(causes reflow)
 	2. Apply multiple changes.
-	3. Bring the element back to the document.
+	3. Bring the element back to the document.(causes reflow)
 
 Ways to modify the DOM off the document:
 	- Hide the element, apply changes, and show it again.
 	- Use a document fragment to build a subtree outside of the live DOM and then copy it to the document.
 	- Copy the original element into an off-document node, modify the copy, and then replace the original element once you're done
 
+- A document fragment is a lightweight version of the `document` object, and it's designed to help with exactly this type of task--updating and moving nodes around.
+
 ###Caching Layout Infomation
-unread
 
 ###Take Elements Out of the Flow for Animations
+- The less the browser needs to reflow, the more responsive your application will be. The more nodes in the render tree that need recalculation, the worse it becomes.
+
+Avoid reflow of a big part of the page:
+	1. Use absolute positioning for the element you want to animate on the page, taking it out of the layout flow of the page.
+	2. Animate the element. When it expands, it will temporarily cover part of the page. This is a repaint, but only of a small part of the page instead of a reflow and repaint, but only of a small part of the page instead of a reflow and repaint of a big page chunk.
+	3. When the animation is done, restore the positioning, thereby pushing down the rest of the document only once.
 
 ###IE and :hover
+- If you have significant number of elements with `a:hover`, the responsiveness degrades.
 
 ###Event Delegation
 - Event delegation based on the fact that events bubble up and can be handled by a parent element. With event delegation, we attach only one handler on a wrapper element to handle all events that happen to the children descendant of that parent wrapper.
