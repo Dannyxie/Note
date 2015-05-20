@@ -328,3 +328,14 @@ Avoid reflow of a big part of the page:
 - The `Array.prototype.join` method merges all elements of an array into a string and accepts a separator string to insert between each element.
 
 ###String.prototype.concat
+- The native string `concat` method accepts any number of arguments and appends each to the string that the method is called on.
+- `concat` is a little slower that simle `+` and `+=` operators in most cases, and can be substantially slower in IE, Opera, and Chrome.
+
+###Summary
+- When concatenating numerous or large strings, array joining is the only method with reasonable performance in IE7 and earlier.
+- If you don't need to worry about IE7 and earlier, array joining is one of the slowest ways to concatenate strings. Use simple `+` and `+=` operators instead, and avoid unnecessary intermediate strings
+- Backtracking is both a fundamental component of regex matching and a frequent source of regex inefficiency.
+- Runaway backtracking can cause a regex that usually finds matches quickly to run slowly or even crash your browser when applied to partially matching strings. Techniques for avoiding this problem include making adjacent tokens mutually exclusive, avoiding nested quantifiers that allow matching the same part of a string more that one way, and eliminating needless backtracking by repurposing the atomic nature of lookahead.
+- A variety of techniques exist for improving regex efficency by helping regexes find matches faster and spend less time considering nonmatching positions.
+- Regexes are not always the best tool for the job, especially when you are merely searching for literal strings.
+- Although there are many ways to trim a string, using two simple regexes(one to remove leading whitespace and another for trailing whitespace) offers a good mix of brevity and cross-browser efficiency with varing string contents and lengths. Looping from the end of the string in search of the first nonwhitespace charcaters, or combining this technique with regexes in a hybrid approach, offers a good alternative that is less affected by overall string length.
