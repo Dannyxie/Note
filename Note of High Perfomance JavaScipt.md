@@ -313,3 +313,18 @@ Avoid reflow of a big part of the page:
 - Be mindful of repaints and reflows; batch style changes, manipulate the DOM tree "offline," and the cache and minimize access to layout infomation.
 - Position absolutely during animations, and use drag and drop proxies.
 - Use event delegation to minimize the number of event handlers.
+
+
+##Chapter 4 Algorithms and Flow Control
+- Placing a `var` statement in the initialization part of a `for` loop creates a function-level variable, not a loop-level one. JavaScript has only function-level scope, and so defining a new variable inside of a `for` loop is the same as defining a new function outside of the loop.
+
+###Loop Performance
+- the `for-in` loop has considerably more overhead per iteration and is therefore slower than the other loops.
+- We should never use `for-in` to iterate over members of an array.
+
+##Chapter 5 Strings and Regular Expressions
+
+###Array Joining
+- The `Array.prototype.join` method merges all elements of an array into a string and accepts a separator string to insert between each element.
+
+###String.prototype.concat
