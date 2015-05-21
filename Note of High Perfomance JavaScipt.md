@@ -323,6 +323,7 @@ Avoid reflow of a big part of the page:
 - We should never use `for-in` to iterate over members of an array.
 
 ##Chapter 5 Strings and Regular Expressions
+- Avoid using temporary string
 
 ###Array Joining
 - The `Array.prototype.join` method merges all elements of an array into a string and accepts a separator string to insert between each element.
