@@ -340,3 +340,8 @@ Avoid reflow of a big part of the page:
 - A variety of techniques exist for improving regex efficency by helping regexes find matches faster and spend less time considering nonmatching positions.
 - Regexes are not always the best tool for the job, especially when you are merely searching for literal strings.
 - Although there are many ways to trim a string, using two simple regexes(one to remove leading whitespace and another for trailing whitespace) offers a good mix of brevity and cross-browser efficiency with varing string contents and lengths. Looping from the end of the string in search of the first nonwhitespace charcaters, or combining this technique with regexes in a hybrid approach, offers a good alternative that is less affected by overall string length.
+
+
+##Chapter 6 Responsive Interfaces
+- Most browsers have a single process that is shared beteewn JavaScript execution and user interface updates. Only one of these operations can bue performed at a time, meaning that the user interface cannot respond to input while JavaScript code is executd and vice versa. The user interface effectively becomes "locked" when JavaScript is executing; 
+
