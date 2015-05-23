@@ -345,3 +345,24 @@ Avoid reflow of a big part of the page:
 ##Chapter 6 Responsive Interfaces
 - Most browsers have a single process that is shared beteewn JavaScript execution and user interface updates. Only one of these operations can bue performed at a time, meaning that the user interface cannot respond to input while JavaScript code is executd and vice versa. The user interface effectively becomes "locked" when JavaScript is executing; 
 
+###Browser Limits
+- Two limits: `call stack size limit`, `long-running script limit`
+- There are two ways of measuring how long a script is executing.
+	- The first is to keep stack of how many statements have been executed since the script began. This approach means that the script may run for different periods of time on different machines, as the available memory and CPU speed can affect how long it takes to execute a single statement.
+	- The second approach is to track the total amount of time that the script has been executing. The amount of script that can be processed within a set amount of time also varies based on the user's machine capabilities, but the script is always stopped after a set amount of times. Each browser has a slightly different approach to long-running script detection.
+
+###Web Workers
+
+###Worker enviroment
+The worker environment is made up of the following:
+	- A `navigator` object: contains only four properties:`appName`,`appVersion`,`userAgent`,`paltform`
+	- A `location` object: same as on `window`,except all properties are read-only.
+	- A `self` object: points to the global worker obect
+	- An `importScripts()` menthod that is used to load external JavaScript for use in the worker
+	- All ECMAScript object, such as `Object`,`Array`,`Date`,etc.
+	- The `XMLHttpRequest` constructor
+	- The `setTimeout()` and `setInterval()` methods
+	- A `close()` method that stops the worker immediately
+
+
+- Because Web workers have a different global environment, you can't create one from any JavaScript code.
