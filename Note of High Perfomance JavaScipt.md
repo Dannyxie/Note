@@ -377,3 +377,34 @@ The worker environment is made up of the following:
 
 
 - The more comlex the web application, the more critical it is to manage the UI thread in a proactive manner. No JavaScript code is so important that is should adversely affect the user's experience. 
+
+##Chapter 7 Ajax
+
+Five general technuques for requesting data from a server:
+	- XMLHttpRequest(XHR)
+	- Dynamic script tag insertion
+	- iframes
+	- Comet
+	- Multipart XHR
+
+###XMLHttpRequest
+- A `readyState of 4 indicates that the entire response has been received and is available for manipulation.
+- It is possible to interact with the server response as it is still being transferred by listening for `readyState` 3.
+- You cannot use XHR to request data from a domain different from the one the code is currently running under, and older versions of IE do not give you access to `readyState 3`, which prevents streaming. Data that comes back from the request is treated as either a string or an XML object.
+
+####POST versus GET when using XHR
+When using XHR to request data, you have a choice between using POST or GET. For requests that don't change the server state and only pull back data(this is called an idempotent action), use GET. GET requests are cached, which can improve performance if you're fetching the same data several times.
+POST should be used to fetch data only when the length of the URL and the parameters are close to or exceed 2048 characters. This is because Internet Explorer limits URLs to that length, and exceeding it will cause you request to be truncated.
+
+###Dynamic script tag insertion
+- can request data from a server on a different domain. 
+```javascript
+var scriptElement = document.createElement('script');
+scriptElement.src = yourSrc;
+document.getElementsByTagName('head')[0].appendChild(scriptElement);
+```
+- dynamic script tag insertion can't send hearder with the request. Parameters can only be passed using GET, not POST. Can't set timeouts or retry the request.
+- Because the response is being used as the source for a script tag, it must be executable JavaScript. We cannot use bare XML, or even bare JSON; any data, regardless of the format, must be enclosed in a callback function.
+
+###Multipart XHR
+- Multipart XHR(MXHR) allows you to pass multiple resources from the server side to the client side using only on HTTP request. 
