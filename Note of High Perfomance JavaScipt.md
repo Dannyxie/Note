@@ -354,7 +354,9 @@ Avoid reflow of a big part of the page:
 ###Web Workers
 
 ###Worker enviroment
+
 The worker environment is made up of the following:
+
 	- A `navigator` object: contains only four properties:`appName`,`appVersion`,`userAgent`,`paltform`
 	- A `location` object: same as on `window`,except all properties are read-only.
 	- A `self` object: points to the global worker obect
@@ -366,3 +368,12 @@ The worker environment is made up of the following:
 
 
 - Because Web workers have a different global environment, you can't create one from any JavaScript code.
+
+###Summary
+- No JavaScript task should take longer than 100 milliseconds to execute. Longer execution times cause a noticeable delay in updates to the UI and negatively impact the overall user experience.
+- Browsers behave differently in response to user interaction during JavaScript execution. Regardless of the behavior, the user exeperience becomes confusing and disjointed when JavaScript takes a long time to execute.
+- Timers can be used to schedule code for later execution, which allows you to split up long-running scripts in to a series of smaller tasks.
+- Web workers are a feature in newer browsers that allow you to execute JavaScript code outside of the UI thread, thus preventing UI locking.
+
+
+- The more comlex the web application, the more critical it is to manage the UI thread in a proactive manner. No JavaScript code is so important that is should adversely affect the user's experience. 
