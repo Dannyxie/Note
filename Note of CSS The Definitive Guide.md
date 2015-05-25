@@ -15,7 +15,31 @@
 
 ###Element Display Roles
 - In addition to replaced and nonreplaced elements, CSS2.1 uses two other basic types of elements: **block-level** and **inline-level**.
+
+####Block-level elements
+- **Block-level elements** generate an element box that(by default) fills its parent element's content area and cannot have other elements at its sides.(`p`,`dic`,etc). Replaced elements can be block-level elements, but they usually are not.
+- List items are a special case of block-level elements. In additon to behaving in a manner consistent with other block elements, they generate a marker--typically a bullet for unoredered lists and a number for oreder lists--that is "attached" to the element box. Except for the represence of this marker, list items are in all other ways identical to other block elements.
+
+####Inline-level elements
+- **Inline-level elements** generate an element box within a line of text and do not break up the flow of that line ( `a`,`strong`, `em`, etc). These elements do not generate a "break" before or after themselves, so they can appear within the content of another element without disrupting its display.
+
+
+- In HTML and XHTML, block-level elements cannot descend from inline-level elements. In CSS, there is no restriction on how display roles can be nested within each other.
+- Typically, the XHTML hierarchy works out such that inlines can descend from blocks, but no the other way around. CSS, on the other hand, has no such restrictions.
+
+ 
+###The link Tag
+`<link rel="stylesheet" type="text/css" href="shee1.css" media="all" />`
+
+- To successfully load an external style sheet, **link** must be placed inside the **head** element but may not be placed inside any other element, rather like title. *This will cause the web browser to locate and load the style sheet and use whatever styles it contains to render the HTML document.
+-  No XHTML or any other markup languague can be included in the style sheet-- only style rules.
+- An external style sheet cannot contain any document markup at all, only CSS rules and CSS comments. The presence of markup in an external style sheet can cause some or all of it to be ignored.
+- The filename extension is not required, but some older browser won't recognize the file as containing a style sheet unless it actually ends with **.css**. In fact, some web servers won't hand over a file as **text/css** unless its filename ends with **.css*, though that can usually be fixed by changing the server's configuration files.
+
+
+
 ##CHAPTER 6 Text Properties 
+
 
 ###Indenting Text
 
