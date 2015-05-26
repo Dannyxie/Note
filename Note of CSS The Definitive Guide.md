@@ -49,7 +49,35 @@
 ###The style element
 - The style element should always start with `<style type="text/css">`, it is possible to be given a **media** attribute.
 - The style between the opening and closing style tags are referred to  as the *document style sheet*, or the *embedded style sheet* since this style sheet is embedded within the document. 
+
+###The @import Directive
+- `@import url(sheet2.css)`
+- `@import` can be used to direct to web browser to load an external style sheet and use its styles  in rendering of the HTML document. `@import` must be placed inside the `style` container
+- the style sheets of every @import directive will be loaded and used; (no way to designate alternate style)
+- We can restrict imported style sheets to one or more media by listing the media to which it should be applied after the style sheet's URL: `@import url(shee2.css) all;`,`@import url(blueworld.css) screen;`
+- External style sheets cannot contain any document makrup, the `link` element can'y be used -- but `@import` can.
+- `@import` also directives appear at the beginning of the style sheet. CSS requires the `@import` directive to come before any other rules in a style sheet. An @import that comes after other rules will be ignored by conforming user agents.
+- Internet Explorer for Whindows does not ignore any @import directive, even those that come after other rules.
+
+###Backward accesibility
+
+###CSS Comments
+`/* This is a CSS1 comment */`
+
+###Inline Styles
+- we can't put an `@import` into a `style` attribute
+- Use of the `style` attribute is not generally recommended. Indeed, it is marked as deprecated by XHTML 1.1 and is very unlikely to appear in XML languages other than XHTML. Some of the primary advantages of CSS -- the ability to organize centralized styles that control an entire document's appearance or the apperance of all documents on a web server -- are negated when you place styles into a `style` attribute 
 	
+
+###Summary
+
+
+
+##Chapter 2 Selctors
+
+###Declarations and Keywords
+- In the CSS property font, there is exactly one place where a forward slach (/) can be used to seperate two specific keywords. `h2 {font: large/150% sans-serif;}`. This is the only place the slash is allowed to appear in the `font` declaration.
+
 
 
 
