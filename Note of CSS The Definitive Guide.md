@@ -22,7 +22,7 @@
 
 ####Inline-level elements
 - **Inline-level elements** generate an element box within a line of text and do not break up the flow of that line ( `a`,`strong`, `em`, etc). These elements do not generate a "break" before or after themselves, so they can appear within the content of another element without disrupting its display.
-
+  
 
 - In HTML and XHTML, block-level elements cannot descend from inline-level elements. In CSS, there is no restriction on how display roles can be nested within each other.
 - Typically, the XHTML hierarchy works out such that inlines can descend from blocks, but no the other way around. CSS, on the other hand, has no such restrictions.
