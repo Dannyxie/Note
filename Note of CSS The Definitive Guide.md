@@ -27,14 +27,29 @@
 - In HTML and XHTML, block-level elements cannot descend from inline-level elements. In CSS, there is no restriction on how display roles can be nested within each other.
 - Typically, the XHTML hierarchy works out such that inlines can descend from blocks, but no the other way around. CSS, on the other hand, has no such restrictions.
 
+###Bringing CSS and XHTML Together
+- documents are supported to have an internal structure, which is altogether different than a visual structure.
  
 ###The link Tag
 `<link rel="stylesheet" type="text/css" href="shee1.css" media="all" />`
 
-- To successfully load an external style sheet, **link** must be placed inside the **head** element but may not be placed inside any other element, rather like title. *This will cause the web browser to locate and load the style sheet and use whatever styles it contains to render the HTML document.
+- To successfully load an external style sheet, **link** must be placed inside the **head** element but may not be placed inside any other element, rather like title. This will cause the web browser to locate and load the style sheet and use whatever styles it contains to render the HTML document.
 -  No XHTML or any other markup languague can be included in the style sheet-- only style rules.
 - An external style sheet cannot contain any document markup at all, only CSS rules and CSS comments. The presence of markup in an external style sheet can cause some or all of it to be ignored.
 - The filename extension is not required, but some older browser won't recognize the file as containing a style sheet unless it actually ends with **.css**. In fact, some web servers won't hand over a file as **text/css** unless its filename ends with **.css*, though that can usually be fixed by changing the server's configuration files.
+
+####Attribute
+- type is always set to **text/css**. This value describes the type of data that will be loaded using the **link** tag.
+
+**media** attribute:
+	all: Use in all presentational media
+	print: Use when printing the document for sighted users and also when displaying a "print preview" of the document.
+	screen: Use when presenting the document in a screen medium like a desktop computer monitor. All web browsers running on such systems are screen-medium user agents.
+
+###The style element
+- The style element should always start with `<style type="text/css">`, it is possible to be given a **media** attribute.
+- The style between the opening and closing style tags are referred to  as the *document style sheet*, or the *embedded style sheet* since this style sheet is embedded within the document. 
+	
 
 
 
