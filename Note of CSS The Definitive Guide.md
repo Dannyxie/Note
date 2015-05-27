@@ -116,6 +116,28 @@
 |:visited| Refers to any anchor that is a hyperlink to an already visited address|
 
  
+###Dynamic pseudo-classes
+|name|Description|
+|----|-------|
+|:focus| Refers to any element that currently has the input focus -- i.e., can accept keyboard input or be activated in some way.|
+|:hover| Refers to any element over which the mouse pointer is placed --e.g., a hyperlink over which the mouse pointer is hovering.|
+|:active| Refers to any element that has been activated by user input --e.g., a hyperlink on which a user clicks during the time the mouse button is held down.|
+
+- THe dynamic pseudo-classes can be applied to any element.
+- IE6 does not permit dynamic pseudo-classes to select any elements other that hyperlinks. IE7 added support for `:hover` on any element, but not `:focus` styles for form elements.
+
+###Selecting a first child
+- `:first-child`, is used to select elements that are the first children of other elements. support: IE7+
+
+###Selecting based on language
+-  In terms of its matching patterns, the `:lang()` pseudo-class is exactly like the |= attribute selector. `*:lang(fr) { font-style: italic;}`
+
+- The primary difference between the pseudo-selector and the attribute selector is that the language information can be derived from a number of sources, some of which are outside the element itself.
+
+###Combining pseudo-classes
+- With CSS2.1, we can combine pseudo-classes in the same selector: `a:link:hover{color:red;}` exclusive pseudo-classes can to be combine together.
+- IE6 juse pay attention to the last of the combined pseudo-classes.
+
 
 
 ##CHAPTER 6 Text Properties 
