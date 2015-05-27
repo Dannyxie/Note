@@ -79,6 +79,43 @@
 - In the CSS property font, there is exactly one place where a forward slach (/) can be used to seperate two specific keywords. `h2 {font: large/150% sans-serif;}`. This is the only place the slash is allowed to appear in the `font` declaration.
 
 
+###Multiple Classes
+- `.warning.urgent{ background:silver;}`
+- If a multiple class selector contains a name that is not in the space-separated list then the match will fail: `p.warning.help{ background:red;}` It will match a `p` element with both class `warning` and `help`: `<p class="urgent warning help">Help me!</p>
+- In versions previous to IE7, Internet Explorer for both paltforms has problems with correctly handling multiple class selectos. In there older versions, although you ca select a single class name out of a list, selecting based on multiple names in a list does not work properly. Thus, `p.warning` would work as expected, but `p.warning.help` would match any `p` elements that have a `class` attribute with the word `help` because it comes last in the selector. If you wrote `p.help.warning`, then older versions of Explorer would match any `p` elements that have `warning` in their class value, whether or not `help` appears in the same value.
+
+
+###Deciding Between Class and ID
+- In the real world, browser don't usually check for the uniqueness of IDs in HTML, which means that if you sprinkle an HTML document with several elements, all of which have the same value for their ID attributes, you'll probably get the same styles applied to each. This is incorrect behavior, but it happens anyway. Having more that one of the same ID value in a document also makes DOM scripting more difficult, since function like `getElementById()` depend on there being one, and only one, element with a given ID value.
+- ID selectors can't be combined, since ID attributes do not permit a space-separated list of words.
+- class and ID selectors may be case-sensitive, depending on the document language. HTML and XHTML define class and ID values to be case-sensitive.
+
+###Selection Based on Partial Attribute Values
+- `~` is the key to selection based on the presence of a space-separated word within the attribute's value. `p[class~="warning"]{ font-weight: bold;}`
+
+###Understanding the Parent-Child Relationship
+- An element is said to be the parent of another element if it appears directly above that element in the document hierarchy
+- An element is the child of another element if it is directly beneath the other element.
+- THe terms parent and child are specific applications of the terms `ancestor` and `descendant`. In the tree view, if an element is exactly one level above another, then they have a parent-child relationship. If the path from one element to another continues through two or more levels, the elements have an ancestor-descendant relationship, but not a parent-child relationship.(Of course, a child is also a descendant, and a parent is an ancestor.)
+
+###Descendant Selectors
+- `:link` refers to links to resources that haven't been visited.
+
+###Selecting Adjacent Sibling Elements
+- To select an element that immediately follows another element with the same parent, you use the `adjacent-sibling combinator`, represented as a plus symbol (+).
+- Internet Explorer for Windows through IE6 does not support child and adjacent-sibling selectors. IE7 supports both.
+
+###Pseudo-Classes 
+- CSS defines pseudo-classes that make the anchors to visited pages act as though thay have classes of "visited" `a:visited {color:red;}`. The colon separating the a and the visited is the calling card of a pesudo-class or pseudo-element. All pseudo-class and -element keywords are preceded by a colon.
+
+####Link pseudo-classes
+
+|Name|Description|
+|----|----------|
+|:link| Refers to any anchor that is a hyperlink(i.e., has an *href* attribute) and points to an address that has not been visited. Note that some browsers may incorrectly interpret `:link` to refer to any hyperlink, visited or unvisited.|
+|:visited| Refers to any anchor that is a hyperlink to an already visited address|
+
+ 
 
 
 ##CHAPTER 6 Text Properties 
