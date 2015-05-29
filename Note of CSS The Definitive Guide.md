@@ -136,7 +136,12 @@
 
 ###Combining pseudo-classes
 - With CSS2.1, we can combine pseudo-classes in the same selector: `a:link:hover{color:red;}` exclusive pseudo-classes can to be combine together.
-- IE6 juse pay attention to the last of the combined pseudo-classes.
+- IE6 just pay attention to the last of the combined pseudo-classes.
+
+###Pseudo-Element Selectors
+
+####Styling the first letter
+- The first pseudo-element styles the first letter, and only that letter, of a block-level element. `p:first-letter { color:red;}`
 
 
 
