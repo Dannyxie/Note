@@ -143,7 +143,47 @@
 ####Styling the first letter
 - The first pseudo-element styles the first letter, and only that letter, of a block-level element. `p:first-letter { color:red;}`
 
+####Styling the first line
+- The  style is applied to  the first displayed line of text in each paragraph. This is true no matter how wide or narrow the display region is.  
 
+####Restriction on :first-letter and :first-line
+- In CSS2, the `:first-letter` and `:first-line` pseudo-element can be applied only to block-level elements such as headings or paragraphs and not to inline-level elements such as hyperlinks. In CSS2.1, `:first-letter` applies to all elements. 
+
+Properties permitted on pseudo-elements
+|:first-letter 		|	: first-line 	|
+|-------------		|----------		|
+|All font properties 	| All font properties 	|
+| color 		| color 		|
+| All background properties 		| All background properties|
+| All margin properties 		| word-spacing 	|
+| All padding properties 		| letter-spacing 		|
+| All border properties 		| text-decoration 		|
+| text-decoration 	| vertical-align 	|
+| vertical-algin( if float is set to none) 	|  text-transform 	|
+| text-transform 	| line-height 		|
+| line-height 		| clear(CSS2 only; removed in CSS2.1 |
+| float 		| text-shadow(CSS2 only)|
+| letter-spacing(added in CSS2.1) |	|
+| word-spacing(added in CSS2.1)	|	|
+| clear(CSS2 only; removed in CSS2.1) 	|	|
+| text-shadow(CSS2 only) | |
+
+- In addition, all pseudo-elements must be placed at the very end of the selector in which they appear. Therefore, it would not be legal to write `p:first-line em` since the pseudo-element comes before the subject of the selector( the subject is the last element listed). The same rule applies to the other two pseudo-elements CSS2.1 defines.
+
+###Summary
+
+##CHAPTER 3 Structure and the Cascade
+
+###Specificity
+
+The actual specificity of a selector is determined as follow:
+	- For every ID attribute value given in the selector, add 0,1,0,0.
+	- For every class attribute value, attribute selection, or pseudo-class given in the selection, add 0,0,1,0.
+	- For every element and pseudo-element given in the selector, add 0,0,0,1. CSS2 contradicted itself as to whether pseudo-elemens had any specificity at all, but CSS2.1 makes it clear that they do, and this is where they belong.
+	- Combinations and the universal selector do not contribute anything to the specificity ( more on these values later).
+
+
+###Declarations and Specificity
 
 ##CHAPTER 6 Text Properties 
 
