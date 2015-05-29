@@ -150,6 +150,7 @@
 - In CSS2, the `:first-letter` and `:first-line` pseudo-element can be applied only to block-level elements such as headings or paragraphs and not to inline-level elements such as hyperlinks. In CSS2.1, `:first-letter` applies to all elements. 
 
 Properties permitted on pseudo-elements
+
 |:first-letter 		|	: first-line 	|
 |-------------		|----------		|
 |All font properties 	| All font properties 	|
@@ -176,7 +177,8 @@ Properties permitted on pseudo-elements
 
 ###Specificity
 
-The actual specificity of a selector is determined as follow:
+- The actual specificity of a selector is determined as follow:
+
 	- For every ID attribute value given in the selector, add 0,1,0,0.
 	- For every class attribute value, attribute selection, or pseudo-class given in the selection, add 0,0,1,0.
 	- For every element and pseudo-element given in the selector, add 0,0,0,1. CSS2 contradicted itself as to whether pseudo-elemens had any specificity at all, but CSS2.1 makes it clear that they do, and this is where they belong.
@@ -184,6 +186,41 @@ The actual specificity of a selector is determined as follow:
 
 
 ###Declarations and Specificity
+- Once the specificity of a selector has been determined, the value will be conferred on all of its associated declarations.
+
+###Universal Selector Specificity
+- The universal selector does not contribute to the specificity of a selector.
+
+###ID and Attribute Selector Specificity
+
+###Inline Style Specificity
+
+###Importance
+
+###Inheritance
+- Inheritance is the mechanism by which styles are applied not only to a specified element, but also to its descendants.
+- background styles applied to the `body` element can be passed to the `html` element, which is the document's root element and therefore defines its canvas
+- Property `border` does not inherit
+- Most of the box-model properties -- including margins, padding, backgrounds, and borders -- are not inherited. 
+- Inherited values have no specificity at all, not even zero specificity.
+
+###The cascade
+- The later a declaration appears in the style sheet or document, the more weight it is given. Declarations that appear in an imported style sheet are considered to come before all declarations within the style sheet that imports them.
+
+###Sorting by Weight and Origin
+- To sum up, there are five levels to consider in terms of declaration weight. ON order of most to least weight, these are:
+
+	1. Reader important declarations.
+	2. Author important declarations.
+	3. Author normal declarations.
+	4. Reader normal declarations
+	5. User agent declarations
+
+##CHAPTER 4 Values and Units
+
+###Numbers
+- There are two types of numbers in CSS: `interger` ("Whole" numbers) and `reals` (fractional numbers).
+
 
 ##CHAPTER 6 Text Properties 
 
