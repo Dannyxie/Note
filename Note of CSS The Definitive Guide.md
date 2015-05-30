@@ -294,4 +294,47 @@ adjusted so that each line is precisely the same length. Justified text is commo
 
 ####Bottom feeding
 - `vertical-align:bottom` aligns the bottom of the element's inline box with the bottom of the line box.
-- `vertical-align:text-bottom` refers to the bottom of the text in the line. For the purposes of this value, replaced elements, or any other kinds of non-text elements, are ignored.
+- `vertical-align:text-bottom` refers to the bottom of the text in the line. For the purposes of this value, replaced elements, or any other kinds of non-text elements, are ignored. Instead, a "default" text box is considered. This default box is derived from the `font-size` of the parent element. The bottom of the aligned element's inline box is then aligned with the bottom of the default text box.
+
+####Getting on top 
+- Employing `vertical-align:top` has the opposite effect of bottom. Likewise, `vertical-align:text-top` is the reverse of text-bottom.
+
+
+
+###Word Spacing and Letter Spacing
+
+####Word Spacing
+- The `word-spacing` property accepts a positive or negative length. This length is added to the standard space between words. In effect, `word-spacing` is used to modify interword spacing. Therefore, the default value of normal is the same as setting a value of zero(0).
+
+###Spacing and Alignmenet
+- The value of `word-spacing` may be influecned by the value of the property `text-align`
+
+###Text Transformation
+- `uppercase` and `lowercase` convert text into all upper- or lowercase characters. `capitalize` capitalizes only the first letter of each word.
+
+###Text Decoration
+
+###Text Shadow
+
+###Handling Whitespace
+- `white-space` affects the user agent's handling of space, newline, and tab characters within the document source.
+- To a certain extent, default XHTML handling already does this: it collapses any whitespace down to a single space. 
+- `whitespace:nowrap;` means that the only way to end a line is to insert a line-break element. If no such element is inserted, then the line will go forever, forcing the user to scroll horizontally to read whatever can't be initially displayed `<br/>` in the the browser window. 
+- If an element is set to `pre-wrap`, then text within that element has whitespace sequences preserverd, but text lines are wrapped normally.  With this value, line-breaks in the source and those that are generated are also honored. `pre-line` is the opposite of `pre-wrap` and causes whitespace sequences to collapse as in normal text but honors new lines.
+
+| Value | Whitespace | Linefeeds | Auto line wrapping |
+| ----- | ----- | ----- | ----- |
+| pre-line| Collapsed | Honored | Allowed |
+| normal| Collapsed | Ignored | Allowed |
+| nowrap | Collapsed | Ignored | Prevented |
+| pre | Preserved | Honored | Prevented |
+| pre-wrap | Preserved | Honored | Allowed |
+
+###Text Direction
+- The `direction` property affects the writing direction of text in a block-level element, the direction of table column layout, the direction in which content horizontally overflows its element box, and the position of the last line of a fully justified element.
+
+
+##CHAPTER 7 Basic Visual Fomatting
+###Basic Boxes
+- CSS assumes that every element generates one or more rectangular box, called `element box`. Each element box has a `content area` at its core.
+
