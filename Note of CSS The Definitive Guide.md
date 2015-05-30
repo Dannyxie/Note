@@ -285,3 +285,13 @@ adjusted so that each line is precisely the same length. Justified text is commo
 
 ####Baseline alignment
 - `vertical-align: baseline` forces the baseline of an element to align with the baseline of its parent. If a vertically aligned element doesn't have a baseline--that is, if it's an image, a form input, or another replaced element--the the bottom of the element is aligned with the baseline of its parent.
+- This alignment rule is important because ist causes some web browsers to always put a replaced element's bottom edge on the baseline, even if there is no other text in the line
+
+####Superscripting and subscripting
+- The declaration `vertical-align sub` causes an element to be subscripted, meaning that its baseline (or bottom, if it's a replaced element) is lowered with respect to its parent's baseline. The specification doesn't define the distance the elment is lowered, so it may vary depending on the user agent.
+- `super` is the opposite of `sub`; it raises the element's baseline( or bottom of a replaced element) with respect to the parent's baseline. again, the dispance the text is raised depends on the user agent.
+-  The values `sub` and `super` do not change the element's font size, so subscripted or superscripted text will no become smaller(or larger). 
+
+####Bottom feeding
+- `vertical-align:bottom` aligns the bottom of the element's inline box with the bottom of the line box.
+- `vertical-align:text-bottom` refers to the bottom of the text in the line. For the purposes of this value, replaced elements, or any other kinds of non-text elements, are ignored.
