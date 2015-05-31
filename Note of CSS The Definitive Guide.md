@@ -387,3 +387,12 @@ adjusted so that each line is precisely the same length. Justified text is commo
 
 ####Negative margins
 - If negative vertical margins are set, then the browser should take the absolute maximum of both margins. The absolute value of the negative margin is then substracted from the positive margin. In other words, the negative is added to the positive, and the resulting value is the distance between the elements.
+
+
+###Inline Elements
+- The content area is analogous to the content box of a block-level element.
+- The background of an inline element is applied to the content area plus any padding
+- Any border on an inline element surrounds the content area plus any padding and broders.
+- Padding, borders, and margins on nonreplaced elements have no vertical effect on inline elements or the boxes they generate; that is, they do no affect the height of an elements's inline box( and thus the line box that contains the elements).
+- Margins and borders on replaced elements do affect the height of the inline box for that elemen and, by implication, the height of the line box for the line containing the element.
+- Inline boxes are vertically aligned within the line according to their values for the property `vertical-align`
