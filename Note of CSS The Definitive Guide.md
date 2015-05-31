@@ -338,3 +338,52 @@ adjusted so that each line is precisely the same length. Justified text is commo
 ###Basic Boxes
 - CSS assumes that every element generates one or more rectangular box, called `element box`. Each element box has a `content area` at its core.
 
+###Block-level Elements
+- In general the `width` of an element is defined as the distance from the left inner edge to the right inner edge, and the `height` is the distance from the inner top to the inner bottom
+
+####Using auto
+- three properties that can be applied `auto`: `width`, `margin-left`, or `margin-right`
+- If you set `width`, `margin-left`, or `margin-right` to a value of `auto, and give the remaining two properties specific values, then the property that is set to `auto` determines the length required to make the element box's width equal to the parent element's `width`.
+- In the case where all three properties are set to something other than `auto` --  or, in CSS terminology, when these formatting properties have been `overconstrained`-- the `margin-right` is always forced to be `auto`.
+- `margin-right` is forced to be `auto` only for **left-to-right** languages such as English. In **right-to-left** languages, everything is reversed, so `margin-left` is forced to be `auto`, not `margin-right`.
+- If both margins are set explicitly, and `width` is set to `auto`, then the value of `width` will be set to whatever value is needed to reach the required total(which si the content width of the parent element).
+- Setting both margins to equal lengths is the correct way to center elements, as opposed to using `text-align`. ( text-align applies only to the inline content of a block-level element)
+- Set one of the margins and the width to `auto`, the margin set to `auto` is reduced to zero.
+- When all three properties are set to `auto`, both margins are set to zero, and the width is made as wide as possible.
+- Since horizontal margins do not collapse, the paddding, borders, and margins of a parent element can affect its children. The effect is indirect in that the margins( and so on ) of an element can induce an offset for child elements.
+
+####Negative margins
+- The total of the seven horizontal properties always equals the width of the parent element. As long as all properties are zero or greater, an element can never be wider that its parent's content area.
+- Padding, borders, and content widths( and heights) can never be negative. Only margins can be less that zero.
+
+####Percentages
+- Borders cannot have percentage widths, only lengths.
+
+####Replaced elements
+- Replaced block-level elements: if `width` is left as `auto`, then the width of the element is the content's intrinsic width.
+- When a replaced element's width is changed from its intrinsic width, the value of height is scaled to match, unless height has been set to an explicit value of its own. The reverse is also true.
+
+###Vertical Formatting
+- The default height of an element is determined by its content. Height is also affected by the width of the content; the skinnier a paragraph becomes, the taller it must be to contain all of the inline content within it.
+- When the `height` is less than what is needed to display the content, the browser may add a scrollbar to the element. ( depend on the value of the property `ovverflow`)
+- `height` defines the content area's height, not the height of the visible element box. Any padding, borders, or margins on the top or bottom of the element box are added to the value for height.
+
+####Vertical properties
+- Vertical formatting has seven related properties: `margin-top`, `border-top`, `padding-top`, `height`, `padding-bottom`, `border-bottom`, and `margin-bottom`
+- Only three properties may be set to auto: the height of the element's content and the top and bottom margins. The top and bottom padding and borders must be set to specific values or else they default to a width of zero. (Assuming no `border-style` is declared). If `broder-style` has been set, then the width of the borders is set to be the vaguely defined value medium.
+- If either `margin-top` or `margin-bottom` is set to `auto` for a block element in the normal flow, it automatically evaluates to **0**.
+- `height` must be set to `auto` or to a nonnegative value of some type.
+
+####Percentage heights
+- If athe `height` of a block-level, normal-flow element is set to a percentage, then that value is taken as a percentage of the height of the containing block.
+
+####Auto heights
+- A block-level, normal-flow element with `height: auto` is rendered just hight enough to enclose the line boxed of its inline content (including text)
+- auto height sets a border on a paragraph and assumes no padding--expect the bottom border to go just under the bottom line of text and the top border to go just above the top line of text.
+- If an auto-height, block-level, normal-flow element has only block-level childlren, then its default height will be the distance from the top of the topmost block-level child's outer border edge to the bttom of the bottommost block-level child's outer border edge.
+
+####Collapsing vertical margins
+- The smaller of the two magins is eliminated in favor of the larger
+
+####Negative margins
+- If negative vertical margins are set, then the browser should take the absolute maximum of both margins. The absolute value of the negative margin is then substracted from the positive margin. In other words, the negative is added to the positive, and the resulting value is the distance between the elements.
