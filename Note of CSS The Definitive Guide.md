@@ -399,3 +399,18 @@ adjusted so that each line is precisely the same length. Justified text is commo
 - Padding, borders, and margins on nonreplaced elements have no vertical effect on inline elements or the boxes they generate; that is, they do no affect the height of an elements's inline box( and thus the line box that contains the elements).
 - Margins and borders on replaced elements do affect the height of the inline box for that elemen and, by implication, the height of the line box for the line containing the element.
 - Inline boxes are vertically aligned within the line according to their values for the property `vertical-align`
+
+###Inline Formatting
+- All elements have a `line-height`
+- `line-height` actually affects inline elements and other inline content, not block-elements--at least, not directly.
+- Declaring `line-height` on a block-level element sets a minimum line-box height for the content of that block-level element.
+
+###Inline Nonreplaced Elements
+
+####Building the boxes
+- For an inline nonreplaced element or pieve of anonymous text, the value of `font-size` determines the height of the conent area.
+- The line box is defined as the distance from the top of the highest inline box in the line to the bottom of the lowest inline box, and the top of each line box butts up against the bottom of the line box for the preceding line.
+
+####Vertical alignment
+- 
+
