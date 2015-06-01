@@ -322,13 +322,16 @@ adjusted so that each line is precisely the same length. Justified text is commo
 - `whitespace:nowrap;` means that the only way to end a line is to insert a line-break element. If no such element is inserted, then the line will go forever, forcing the user to scroll horizontally to read whatever can't be initially displayed `<br/>` in the the browser window. 
 - If an element is set to `pre-wrap`, then text within that element has whitespace sequences preserverd, but text lines are wrapped normally.  With this value, line-breaks in the source and those that are generated are also honored. `pre-line` is the opposite of `pre-wrap` and causes whitespace sequences to collapse as in normal text but honors new lines.
 
+
 | Value | Whitespace | Linefeeds | Auto line wrapping |
 | ----- | ----- | ----- | ----- |
-| pre-line| Collapsed | Honored | Allowed |
-| normal| Collapsed | Ignored | Allowed |
+| pre-line | Collapsed | Honored | Allowed |
+| normal | Collapsed | Ignored | Allowed |
 | nowrap | Collapsed | Ignored | Prevented |
-| pre | Preserved | Honored | Prevented |
+| pre 	 | Preserved | Honored | Prevented |
 | pre-wrap | Preserved | Honored | Allowed |
+
+
 
 ###Text Direction
 - The `direction` property affects the writing direction of text in a block-level element, the direction of table column layout, the direction in which content horizontally overflows its element box, and the position of the last line of a fully justified element.
@@ -343,7 +346,7 @@ adjusted so that each line is precisely the same length. Justified text is commo
 
 ####Using auto
 - three properties that can be applied `auto`: `width`, `margin-left`, or `margin-right`
-- If you set `width`, `margin-left`, or `margin-right` to a value of `auto, and give the remaining two properties specific values, then the property that is set to `auto` determines the length required to make the element box's width equal to the parent element's `width`.
+- If you set `width`, `margin-left`, or `margin-right` to a value of `auto`, and give the remaining two properties specific values, then the property that is set to `auto` determines the length required to make the element box's width equal to the parent element's `width`.
 - In the case where all three properties are set to something other than `auto` --  or, in CSS terminology, when these formatting properties have been `overconstrained`-- the `margin-right` is always forced to be `auto`.
 - `margin-right` is forced to be `auto` only for **left-to-right** languages such as English. In **right-to-left** languages, everything is reversed, so `margin-left` is forced to be `auto`, not `margin-right`.
 - If both margins are set explicitly, and `width` is set to `auto`, then the value of `width` will be set to whatever value is needed to reach the required total(which si the content width of the parent element).
