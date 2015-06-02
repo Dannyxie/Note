@@ -412,5 +412,34 @@ adjusted so that each line is precisely the same length. Justified text is commo
 - The line box is defined as the distance from the top of the highest inline box in the line to the bottom of the lowest inline box, and the top of each line box butts up against the bottom of the line box for the preceding line.
 
 ####Vertical alignment
-- 
+
+The effects of the assorted keyword values of `vertical-align` are:
+	top: Aligns the top of the element's inline box with the top of the containing line box.
+	bottom: Aligns the bottom of the element's inline box with the bottom of the containing line box.
+	text-top: Aligns the top of the element's inline box with the top of the parent's content area.
+	text-bottom: Aligns the bottom of the element's inline box with the bottom of the parent's content area.
+	middle: Algins the vertical midpoint of the element's inline box with a poing one-half ex above the baseline of the parent.
+	super: Moves the content area and inline box of the element upward. The distance is not specified and may vary by user agent.
+	sub: The same as super, except the element is moved downward instead of upward
+	<percentage> : Shifts the element up or down the distance defined by taking the declared percentage of the element's value of `line-height`
+
+
+
+###Inline Replaced Element
+- Inline replaced element, such as images, are assumed to have an intrinsic height and width.
+- A replaced element with an intrinsic height can cause a line box to become taller than normal. This does no change the value of `line-height` for any element in the line, including the replaced element itself. Replaced element can increase the height of the line box but not the value of line height.
+
+####Adding box properties
+- Padding and borders are applied to replaced elements as usual; These two thing acutally influence the height of the line box because they are part of the inline box of an line replaced element( unlike inline nonreplaced elements)
+- Negative margins are the only way  to cause inline replaced elements to bleed into other lines.
+
+####Replaced elements and the baseline
+- Replaced elements do not actually have baselines of their own, so the next best thing is to align the bottom of their inline boxes with the baseline.
+- An image placed in a table cell all by itself should make the table cell tall enough to contain the line box containing the image
+
+
+###Inline-Block Elements
+- An inline-block element relates to other elements and content as an inline box. In other words, it's laid out in a line of text just as an image would be, and, in fact, inline-block elements are formatted within a line as a replaced element. This means the bottom of the inline-blovk element will rest on the baseline of the text line by default and will not line-break within itself.
+- Inside the inline-blovk element, the content is formatted as thought the element were block-level.
+- If an inline-block element's width is not defined or explicitly declared auto, the element box will shrink to fit the content.
 
