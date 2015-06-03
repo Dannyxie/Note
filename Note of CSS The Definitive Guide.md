@@ -396,7 +396,9 @@ adjusted so that each line is precisely the same length. Justified text is commo
 - `height` must be set to `auto` or to a nonnegative value of some type.
 
 ####Percentage heights
-- If athe `height` of a block-level, normal-flow element is set to a percentage, then that value is taken as a percentage of the height of the containing block.
+- If the `height` of a block-level, normal-flow element is set to a percentage, then that value is taken as a percentage of the height of the containing block.
+- In cases where the `height` of the containing block is not explicitly declared, percentage heights are reset to auto.
+
 
 ####Auto heights
 - A block-level, normal-flow element with `height: auto` is rendered just hight enough to enclose the line boxed of its inline content (including text)
