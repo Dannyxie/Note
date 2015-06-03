@@ -340,9 +340,26 @@ adjusted so that each line is precisely the same length. Justified text is commo
 ##CHAPTER 7 Basic Visual Fomatting
 ###Basic Boxes
 - CSS assumes that every element generates one or more rectangular box, called `element box`. Each element box has a `content area` at its core.
+- If no color is set, then the border takes on the foreground color of the element's content
+- If a border style has gaps of some type, then the element's background is visible through those gaps.
+
+###The Containing Block
+- For an element in the normal, Western-style flow of text, the containing block the formed by the `content edge` of the nearest block-level, table cell, or inline-block ancestor box.
+
+
+- Most elements are in the normal flow, and the only way for an element to leave it is to be floated or positioned.
 
 ###Block-level Elements
 - In general the `width` of an element is defined as the distance from the left inner edge to the right inner edge, and the `height` is the distance from the inner top to the inner bottom
+
+###Horizontal Fomatting
+- The sum of the horizontal components of a block-level element box  in the normal flow always equals the `width` of the parent.
+
+####Horizontal properties
+- "seven properties": `margin-left`,`border-left`,`padding-left`,`width`,`padding-right`,`border-right`, and `margin-right`
+- block-level elements nearly always have block-level elements for parents
+- Only three may be set to auto: `width`, `margin-left`, `margin-right`. 
+- `width` must either be set to `auto` or a nonnegative value of some type.
 
 ####Using auto
 - three properties that can be applied `auto`: `width`, `margin-left`, or `margin-right`
@@ -350,6 +367,7 @@ adjusted so that each line is precisely the same length. Justified text is commo
 - In the case where all three properties are set to something other than `auto` --  or, in CSS terminology, when these formatting properties have been `overconstrained`-- the `margin-right` is always forced to be `auto`.
 - `margin-right` is forced to be `auto` only for **left-to-right** languages such as English. In **right-to-left** languages, everything is reversed, so `margin-left` is forced to be `auto`, not `margin-right`.
 - If both margins are set explicitly, and `width` is set to `auto`, then the value of `width` will be set to whatever value is needed to reach the required total(which si the content width of the parent element).
+- If both margins are set to auto, then they are set to equal lengths.
 - Setting both margins to equal lengths is the correct way to center elements, as opposed to using `text-align`. ( text-align applies only to the inline content of a block-level element)
 - Set one of the margins and the width to `auto`, the margin set to `auto` is reduced to zero.
 - When all three properties are set to `auto`, both margins are set to zero, and the width is made as wide as possible.
