@@ -404,8 +404,10 @@ adjusted so that each line is precisely the same length. Justified text is commo
 - A block-level, normal-flow element with `height: auto` is rendered just hight enough to enclose the line boxed of its inline content (including text)
 - auto height sets a border on a paragraph and assumes no padding--expect the bottom border to go just under the bottom line of text and the top border to go just above the top line of text.
 - If an auto-height, block-level, normal-flow element has only block-level childlren, then its default height will be the distance from the top of the topmost block-level child's outer border edge to the bttom of the bottommost block-level child's outer border edge.
+- If a block-level element has either top or bottom padding, or top or bottom borders, then its height will be the distance from the top of the outer top margin edge of its topmost child to the outer bottom margin edge of its bottommost child.
 
 ####Collapsing vertical margins
+- Collapsing behavior applies only to margins. Padding and borders, where they exist, are never collapsed by anything.(overlap)
 - The smaller of the two magins is eliminated in favor of the larger
 
 ####Negative margins
