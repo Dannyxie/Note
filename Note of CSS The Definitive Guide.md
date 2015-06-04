@@ -422,8 +422,14 @@ adjusted so that each line is precisely the same length. Justified text is commo
 - Margins and borders on replaced elements do affect the height of the inline box for that elemen and, by implication, the height of the line box for the line containing the element.
 - Inline boxes are vertically aligned within the line according to their values for the property `vertical-align`
 
+
+###Basic Term and Concepts
+- For nonreplaced elements, the height of the **inline box** of an element will be exactly equal to the value for `line-height`. For replaced elements, the height of the inline box of an element will be exactly equal to the content area since leading is not applied to replaced elements.
+- The top edge of the **line box** is placed along the top of the highest inline box top, and the bottom of the **line box**  is placed along the bottom of the lowest inline box bottom
+
 ###Inline Formatting
 - All elements have a `line-height`
+- A line's height ( or the height of the line box) is determined by the height of its constituent elements and other content, such as text.
 - `line-height` actually affects inline elements and other inline content, not block-elements--at least, not directly.
 - Declaring `line-height` on a block-level element sets a minimum line-box height for the content of that block-level element.
 
@@ -464,4 +470,18 @@ The effects of the assorted keyword values of `vertical-align` are:
 - An inline-block element relates to other elements and content as an inline box. In other words, it's laid out in a line of text just as an image would be, and, in fact, inline-block elements are formatted within a line as a replaced element. This means the bottom of the inline-blovk element will rest on the baseline of the text line by default and will not line-break within itself.
 - Inside the inline-blovk element, the content is formatted as thought the element were block-level.
 - If an inline-block element's width is not defined or explicitly declared auto, the element box will shrink to fit the content.
+
+##CHAPTER 8 Padding, Borders, and Margins
+
+###Basic Element Boxes
+- Boxes can overlap if they have been manually positioned, and visual overlap can occur if negative margins are used on normal-flow elements.
+
+###Width and Height
+- `width` and `height` don't apply to inline-nonreplaced elements. (they apply to Block-level and replaced elements)
+
+Problem( Both of these behaviors were fixed in IE6, but only in "standard" mode. "quirks" mode will still use the previously described behaviors.):
+	
+	- IE/Win used `width` and `height` to define the dimensions of the visible element box, not the content of the element box. In other words, IE6/Win used `width` to describe the total of the element's content area, left and right padding, and left and right border.
+	- IE/Win applied `width` and `height` to inline nonreplaced elements.
+
 
