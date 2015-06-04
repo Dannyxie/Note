@@ -484,4 +484,32 @@ Problem( Both of these behaviors were fixed in IE6, but only in "standard" mode.
 	- IE/Win used `width` and `height` to define the dimensions of the visible element box, not the content of the element box. In other words, IE6/Win used `width` to describe the total of the element's content area, left and right padding, and left and right border.
 	- IE/Win applied `width` and `height` to inline nonreplaced elements.
 
+###Margins Versus Padding
+- Background will extend into the padding but not the margin
+
+###Margins
+
+###Length Values and Margins
+
+###Pecentages and Margins
+- Pencentage margin(top and bottom) relate to the `width` of the parent, not the `height`
+
+###Replicating Values
+
+	1. If the value for *left* is missing, use the value provided for *right*
+	2. If the value for *bottom* is missing, use the value provided for *top*
+	3. If the value for *right* is missing, use the value provided for *top*
+
+
+###Single-Side Margin Properties
+
+###Negative and Collapsed Margins
+- Vertically adjacent margins in the normal flow will collapse.
+
+###Margins and Inline Elements
+- Applying the margins to an inline nonreplaced element, it will have absolutely no effect on the line height. Margins are effectively transparent, this declaration will have no visual effect whatsoever. Margins on inline nonreplaced elements don't change the line height of an element.
+- The only properties that can change the distance between lines **containing only text** are `line-height`, `font-size`, and `vertical-align`.
+- When an inline nonreplaced element with a margin is displayed across multiple lines, the left margin is applied to the beginning of the element and the right margin to the end of it. Margins are not applied to the right and left side of each line. Margins only affect line breaking by changing the point at which the element's content begins within a line
+- When apply negative margins to inline nonreplaced elements. The top and bottom of the element aren't affected, and neither are the heights of lines, but the left and right ends of the elements can overlap other content 
+- Margins set on replaced elements do affect the height of a line. The left and right margins of an inline replaced element act the same as for a nonreplaced element
 
