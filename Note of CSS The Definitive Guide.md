@@ -513,3 +513,23 @@ Problem( Both of these behaviors were fixed in IE6, but only in "standard" mode.
 - When apply negative margins to inline nonreplaced elements. The top and bottom of the element aren't affected, and neither are the heights of lines, but the left and right ends of the elements can overlap other content 
 - Margins set on replaced elements do affect the height of a line. The left and right margins of an inline replaced element act the same as for a nonreplaced element
 
+###Borders
+- Every border has three aspects: its width, or thickness; its style, or appearance; and its color. 
+- The default value for the width of a border is `medium`, which is no explicitly defined but is usually two pixels. The default style for borders is `none`. The default border color is the foreground color of the element itself. If no color has been declared for the border, it will be the same color as the text of the element. If the element has no text, the border color will be the text color of its parent element(due to the fact that color is inherited)
+
+###Borders and Backgrounds
+- The background of an element extends to the outside edge of the border. The element's background should appear in the spaces between the visible protions of the border.
+- CSS2.1 explicitly states that the element's background is the background of the content, apdding, and border areas.
+
+###Borders with Style
+- Without a style, there wouldn't be any border at all.
+- The style value `hidden` is equivalent to `none`, except when applied to talbes.
+- `double`: the width of the two lines, plus the width of the space between them, is equal to the value of `border-width`. When a border-width is set for `double`, border thickness, or space between two line, are decided by the user agent.
+
+####Multiple styles
+- order: top-right-bottom-left.
+
+####Single-side styles
+
+###Border widths
+- Since the default value of `border-style` is none,failing to declare a style is exactly the same as declaring `border-style:none`. Therefore, if you want a border to appear, you must declare a border style.
