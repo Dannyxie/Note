@@ -531,5 +531,30 @@ Problem( Both of these behaviors were fixed in IE6, but only in "standard" mode.
 
 ####Single-side styles
 
-###Border widths
+###Border Widths
 - Since the default value of `border-style` is none,failing to declare a style is exactly the same as declaring `border-style:none`. Therefore, if you want a border to appear, you must declare a border style.
+
+###Border Colors
+- The default color is the foreground color of the element.
+
+####Transparent borders
+- `border-color:transparent;` : be used to create an invisible border that has width.
+- Support for `transparent` is not present in versions of IE/Win before IE7. In the affected versions, IE will instead base the border color on the element's color value
+
+###Shorthand Border Properties
+
+###Borders and Inline Elements
+- No matter how thick you make your borders on inline elements, the line height of the element won't change. This is true only for the top and bottom sides of inline elements; If you apply a left or right border, not only will it be visible, but it will displace the text around it. 
+
+###Padding
+- By default, elements have no padding.
+- Padding does not collapse.
+
+###Percentage Values and Padding
+
+###Padding and Inline Elements
+- As with margins, the left padding is applied to the beginning of the elements, and the right padding to the end of it; However, padding is not applied to the right and left side of each line. The same holds true for replaced elements as well, although of course such elements don't break acoss lines.
+
+###Padding and Replaced Elements.
+- Regardless of whether the replaced element is block-level or inline, the padding will surround its content, and the background color will fill into that padding.
+
