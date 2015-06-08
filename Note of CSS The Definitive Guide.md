@@ -589,3 +589,54 @@ A series of specific rules govern the placement of floated element:
 	7. A left (or right) floating element that has another floating element to its left (right) may not have its right outer edge to the right (left) of its containing block's right (left) edge.
 	8. A floating element must be placed as high as possible.
 	9. A left-floating element must be put as far to the left as possible, and a right-floating element as far to the right as possible. A higher position is preferred to one that is further to the right or left.
+
+###Applied Behavior
+- A floated element will expand to contain any floated descendants.
+
+###Negative margins
+- Negative margins can cause floated elements to move outside of their parent elements.
+- If you set the margins to be negative, the content will overrun the outer edge without technically violating the specification.
+- When the floated element is wider than its parent. In that case, the floated element will simply overflow the right or left inner edge--depending on which way the element is floated--in its best attempt to display correctly.
+
+###Floats, Content, and Overlapping
+- An inline box that overlaps with a float has its borders, background, and content all rendered "on top" of the float.
+- A block box that overlaps with a float has its borders and background rendered "behind" the float, whereare its content is rendered "on top" of the float
+
+###Clearing 
+- In CSS2.1 clearance is extra spacing added above an element's top margin to push it past any floated elements. This means that the top margin of a cleared element does not change when an element is cleared. Its downward movemenet is caused by the clearance instead.
+- The way to make sure a cleared element has some space between its top and the bottom of a float is to put a bottom margin on the float itself.
+- The margin edges of a floated element define the edges of the floated box.
+
+
+###Position
+
+- static(initial value): The element's box is generated as normal. Block-level elements generate a rectangular box that is part of the document's flow, and inline-level boxes cause the creation of one or more line boxes that are flowed within their parent element.
+- relative: The element's box is offset by some distance. The element retains the shape it would have had were it not positioned, and the space that it would ordinarily have occupied is preserved.
+- absolute: The element's box is completely removed from the flow of the document and positioned with respect to its containing block, which may be another element in the document or the initial containing block. Whatever space the element might have occupied in the normal document flow is closed up, as though the element did not exist. The positioned element generates a block-level box, regardless of the type of box it would have generated if it were in the normal flow.
+- fixed: The element's box behaves as though it were set to `absolute`, but its containing block is the viewport itself.
+
+####The containing block
+- a float's containing block was defined as the nearest block-level ancestor element.
+
+- The containing block of the "root element" is established by the user agent. In HTML, the root element is the `html` element, although some browsers use `body`. In most browsers, the initial containing block is a rectangle the size of the viewport.
+- For a non-root element whose `position` value is `relative` or `static`, the containing block is formed by the content edge of the nearest block-level, table cell, or inline-block ancestor box.
+- For non-root elements that have a `position` value of `absolute`, the containing block is set to the nearest ancestor (of any kind) that has a `position` value other that `static`.
+	
+	- If the ancestor is block-level, the containing block is set to that element's padding edge; in other words, the area that would be bounded by a border.
+	- If the ancestor is inline-level, the containing block is set to the content edge of the ancestor. In left-to-right languages, the top and left of the containing block are the top and left content edges of the first box in the ancestor, and the bottom and right edges are the bottom and right content edges of the last box.
+	- If there are no ancestors, the element's containing block is defined as the initial containing block.
+
+- Elements can be positioned outside of their containing block.
+
+####Offset properties
+- It is possible to set margins, borders, and padding for a positioned element.
+- Offset properties difine offset from the analogous side of the containing block, not form the upper-left corner of the contaning block.
+
+###Width and Height
+
+####Setting width and height
+- Positioned element's padding is added to the content area, and the content area's size is determined by the values of `height` and `width`.
+
+####Limiting width and height 
+- An element's content area can be defined to have a minimum dimension using `min-width` and `min-height` ( applied to all elements except nonreplaced inline elements and table elements
+
