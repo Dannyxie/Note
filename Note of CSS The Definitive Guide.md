@@ -640,3 +640,21 @@ A series of specific rules govern the placement of floated element:
 ####Limiting width and height 
 - An element's content area can be defined to have a minimum dimension using `min-width` and `min-height` ( applied to all elements except nonreplaced inline elements and table elements
 
+###Content Overflow and Clipping
+
+
+
+###Absolute Positioning
+
+####Containing blocks and absolutely positioned elements
+- When an element is positioned absolutely, it is completely removed from the document flow. 
+- The containing block for an absolutely positioned element is the nearest ancestor element that has a `position` value other than `static`.
+- When an element is absolutely positioned, it also establishes a containing block for its descendant elements.
+
+####Placement and sizing of absolutely positioned elements
+
+####Auto-edges
+- When an element is absolutely positioned, any of the offset properties other than `bottom` are set to auto.
+
+####Placing and sizing nonreplaced elements
+
