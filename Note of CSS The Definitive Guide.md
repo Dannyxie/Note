@@ -657,6 +657,44 @@ A series of specific rules govern the placement of floated element:
 - When an element is absolutely positioned, any of the offset properties other than `bottom` are set to auto.
 
 ####Placing and sizing nonreplaced elements
+- The width and horizontal placement of a positioned element: **left + margin-left + border-left-width + padding-left + width + padding-right + border-right-width + margin-right + right = the width of the containing block
+
 
 ####Placing and sizing replaced elements
+1. If `width` is set to `auto`, the used value of `width` is determined by the intrinsic width of the element's content.  
+2. If `left` has the value `auto` in a left-to-right language, replace `auto` with the static position. In right-to-left languages, replace an `auto` value for `right` with the static position.
+3. If either `left` or `right` is still `auto` (in other words, it hasn't been replaced in a previous step), replace any `auto` on `margin-left` or `margin-right` with 0.
+4. If, at this point, both `margin-left` and `margin-right` are still defined to be `auto`, set them to be equal, thus centering the element in its containing block.
+5. After all that, if there is only one `auto` value left, change it to equal the remainder of the equation.
+
+
+Similarly, layout along the vertical axis is governed by a series of rules that state:
+
+1. If `height` is set to `auto`, the computed value of `height` is determined by the intrinsic height of the element's content.
+2. If `top` has the value `auto`, replace it with the replaced element's static position.
+3. If `bottom` has a value of `auto`, replace any `auto` value on `margin-top` or `margin-bottom` with 0.
+4. If, at this point, both `margin-top` and `margin-bottom` are still defined to be `auto`, set them to be equal, thus centering the element in its containing block.
+5. After all that, if there is only one `auto` value left, change it to equal the remainder of the equation.
+
+###Fixed Positioning
+- Containing block of a fixed element is the viewport. In the case, the element is totally removed from the document's flow and does not have a position relative to any part of the document.
+- Fixed positioning is not supported in Internet Explorer for windows prior to IE7.
+
+###Relative Positioning
+- When we relatively position an element it immediately establishes a new containing block for any of its children. This containing block corresponds to the place where the element has positioned.
+- When is comes to overconstrained relative positioning, one value is reset to be the negative of the other.
+
+
+##CHAPTER 11 Table Layout
+
+###Visually Arranging a Table
+- In CSS, internal table elements generate recangular boxes that have content, padding, andborders, but do not have margins. Therefore, it is not possible to define the separation between cells by giving them margins. A CSS-conformant browser will ignore any attempts to apply margins to cells, rows, or any other internal table element (with the exception of captions)
+
+####Table arrangement rules
+- Each row box encompasses a single row of grid cells. All of the row boxes in a table fill the table from top to bottom in the order they occur in the source document (with the exception of any table header or table footer row boxes, which come at the beginning and end of the table, respectively). Thus, the table contains as many grid rows as there are row elements.
+- A row group's box encompasses the same grid cells as the row boxes it contains.
+- A column box encompasses one or more columns of grid cells. All of the column boxes are placed next to one another in the order they occur.
+- A column group's box encompasses the same grid cells as the column boxes that it contains
+- Although cells may span several rows or columns, CSS does not define how this happens. Instead, the document language defines spanning. Each spanned cell is a rectangular box on or more grid cells wide and high. The top row of this rectangle is in the row that is parent to the cell. 
+- A cell's box cannot extend beyond the last row box of a table or row group. If the table structure would create this condition, the cell must be shortened until it fits within the table or row group that encloses it
 
