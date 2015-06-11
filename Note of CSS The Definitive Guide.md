@@ -737,4 +737,26 @@ Similarly, layout along the vertical axis is governed by a series of rules that 
 - `border-collpase` applies to elements with the `display` value `table` or `inline-table`
 
 ###Separated Cell Borders
-- 
+####Handling empty cells
+
+###Collapsing Cell Borders
+- Elements with a `display` of `table` or `inline-table` cannot have any padding, although they can have margins. 
+- Borders can be applied to cells, rows, row groups, columns, and column groups. The table element itself can, as always, have a border.
+- There is never any seperation between cell borders. In fact, borders collapse into each other where they adjoin, so that only one of the collapsing borders is actually drawn. This is somewhat akin to margin collapsing, where the largest margin wins. When cell borders collapse, the "most interesting" border wins.
+- Once they are collapsed, the borders between cells are centered on the hypothetical grid lines between the cells.
+
+####Border collapsing
+- When two or more borders are adjacent, they collapse into each other.
+
+- If one of the collapsing borders has a `border-style` of `hidden`, it takes precedence over all other collapsing borders. All borders at this location are hidden.
+- If one of the collapsing borders has a `border-style` of `none`, it takes the lowest priority. There will be no border drawn at this location unless all of the colliding borders have a value of `none`. Note that `none` is the default value for `border-style`
+- If at least one of the collapsing borders has a value other than `none` and none of the collapsing borders has a value of `hidden`, then narrow borders lose out to wider ones. If more than one of the collapsing borders have the same width, then the border style is taken in the following order, from most to least preferred: `double`, `solid`, `dashed`, `dotted`, `ridge`, `outset`, `groove`, `inset`. Thus, if two borders with the same width are collapsing, and one is `dashed` while the other is `outset`, the border at that location will be dashed.
+- If collapsing borders have the same style and width, but differ in color, then the color used is taken from an element in the following list, from most to least preferred: cell, row, row group, column, column group, tabel. Thus, if the borders of a cell and a column (identical in every way except color) collapse, then the cell's border color ( and style and width ) will be used. If the collapsing border come from the same type of element, such as two row borders with the same style and width but different colors, then the color is taken from borders that are the topmost and leftmost (in left-to-right languages; otherwise, topmost and rightmost)
+
+####Fixed layout
+- The fixed-layout model is so fast is that its layout does not depend on the contents of table celss. Instead, it's driven by the `width` values of the table, columns, and cells within that table.
+
+The fixed-layout model works in the following simple steps:
+1. Any column element whose `width` property has a value other than `auto` sets the width for that column
+2. If a column has an `auto` width, but the cell in the first row of the table within that column has a `width` other than `auto`, then the cell sets the width for that column. If the cell spans multiple columns, the width is divided between the columns.
+3. Any columns that are still auto-sized are sized so that their widths are as equal as possible
