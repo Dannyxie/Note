@@ -657,7 +657,7 @@ A series of specific rules govern the placement of floated element:
 - When an element is absolutely positioned, any of the offset properties other than `bottom` are set to auto.
 
 ####Placing and sizing nonreplaced elements
-- The width and horizontal placement of a positioned element: **left + margin-left + border-left-width + padding-left + width + padding-right + border-right-width + margin-right + right = the width of the containing block
+- The width and horizontal placement of a positioned element: **left + margin-left + border-left-width + padding-left + width + padding-right + border-right-width + margin-right + right = the width of the containing block**
 
 
 ####Placing and sizing replaced elements
@@ -698,3 +698,43 @@ Similarly, layout along the vertical axis is governed by a series of rules that 
 - Although cells may span several rows or columns, CSS does not define how this happens. Instead, the document language defines spanning. Each spanned cell is a rectangular box on or more grid cells wide and high. The top row of this rectangle is in the row that is parent to the cell. 
 - A cell's box cannot extend beyond the last row box of a table or row group. If the table structure would create this condition, the cell must be shortened until it fits within the table or row group that encloses it
 
+
+###Table Display Values
+
+####Display:
+
+- `table`: This value specifies that an element defiens a block-level table. Thus, it defines a rectangular block that generates a block box.
+- `inline-table`: This value specifies that an element defines an inline-level table. This means the element defines a rectangular block that generates an inline box. The closest non-table analog is the value `inline-block`. 
+- `table-row`: specifies that an element is a row of cells. The corresponding HTML element is the `tr` element.
+- `table-row-group`: specifies that an element groups one or more rows. The corresponding HTML value is `tbody`
+- `table-header-group`: This value is very much like `table-row-group`, except that for visual formatting, the header row group is always displayed before all other  rows and row groups and after any top captions. In print, if a table requires multiple pages to print, a user agent may repeat header rows at the top of each page. The specification does not define what happens if you assign `table-header-group` to multiple elements. A header group can contain multiple rows. The HTML equivalent is `thead`
+- `table-footer-group`: This value is very much like `table-header-group` , except that the footer row group is always displayed after all other rows and row groups and before any bottom captions. In print, if a table requires multiple pages to print, a user agent may repeat footer rows at the bottom of each page. The specification does not define what happens if you assign `table-footer-group` to multiple elements. This is equivalent to the HTML element `tfoot` 
+- `table-column`:
+- `table-column-group`
+- `table-cell`: This value specifies that an element represents a single cell in a table. The HTML elements `th` and `td` are both examples of `table-cell`  elements.
+- `table-caption`
+
+####Row primacy
+- columns and column groups can accept only for styles: `border`, `background`, `width`, and `visibility`
+
+###Anonymous Table Objects
+####Object insertion rules
+1. If a table-cell element¡¯s parent is not a table-row element, then an anonymous table-row object is inserted between the table-cell element and its parent. The inserted object will include all consecutive siblings of the table-cell element.
+2. If a table-row element¡¯s parent is not a table , inline-table , or table-row-group element, then an anonymous table element is inserted between the table-row element and its parent. The inserted object will include all consecutive siblings of the table-row element.
+3. If a table-column element¡¯s parent is not a table , inline-table , or table-column- group element, then an anonymous table element is inserted between the table- column element and its parent. This is much the same as the table-row rule just discussed, except for its column-oriented nature.
+4. If the parent element of a table-row-group , table-header-group , table-footer- group , table-column-group , or table-caption element is not a table element, then an anonymous table object is inserted between the element and its parent.
+5. If a child element of a table or inline-table element is not a table-row-group , table-header-group , table-footer-group , table-row , or table-caption element, then an anonymous table-row object is inserted between the table element and its child element. This anonymous object spans all of the consecutive siblings of the child element that are not table-row-group , table-header-group , table- footer-group , table-row , or table-caption elements
+6. If a child element of a table-row-group , table-header-group , or table-footer- group element is not a table-row element, then an anonymous table-row object is inserted between the element and its child element. This anonymous object spans all consecutive siblings of the child element that are not table-row objects themselves. 
+7. If a child element of a table-row element is not a table-cell element, then an anonymous table-cell object is inserted between the element and its child ele- ment. This anonymous object encloses all consecutive siblings of the child element that are not table-cell elements themselves
+
+
+###Captions
+- For the most part, captions are styled just like any block-level element; they can have padding, borders, backgrounds, and so on.
+
+###Table Cell Borders
+-  two quite distinct border models: separated border model &  collapsed border model
+- border-collapse:  `collapse`(default) | seperate | inherit ;
+- `border-collpase` applies to elements with the `display` value `table` or `inline-table`
+
+###Separated Cell Borders
+- 
