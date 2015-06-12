@@ -760,3 +760,25 @@ The fixed-layout model works in the following simple steps:
 1. Any column element whose `width` property has a value other than `auto` sets the width for that column
 2. If a column has an `auto` width, but the cell in the first row of the table within that column has a `width` other than `auto`, then the cell sets the width for that column. If the cell spans multiple columns, the width is divided between the columns.
 3. Any columns that are still auto-sized are sized so that their widths are as equal as possible
+
+
+##CHAPTER 12 Lists and Generated Content
+
+###Types of Lists
+- The `list-style-type` property can be applied only to an element that has a `display` of `list-item`, but CSS doesn't distinguish between ordered and unordered list items.
+
+###List Item Images
+- `list-style-image` applies to element whose `display` value is `list-item`
+
+###List-Marker Positions
+- `list-style-position` : `inside` | `outside`(initial value) | `inherit`
+
+
+###List Layout
+
+###Inserting Generated Content
+- Link border extends around the generated content. This happens because generated content is placed inside the element box of the element.
+
+- If the subject of a `:before` or `:after` selector is a block-level element, then the property `display` can accept only the values `none`, `inline`, `block`, and `marker`. Any other value is treated as `block`
+- If the subject of a `:before` or `:after` selector is an inline-level element, then the property `display` can accept only the values `none` and `inline`. Any other value is treated as `inline`
+
