@@ -719,9 +719,9 @@ Similarly, layout along the vertical axis is governed by a series of rules that 
 
 ###Anonymous Table Objects
 ####Object insertion rules
-1. If a table-cell element¡¯s parent is not a table-row element, then an anonymous table-row object is inserted between the table-cell element and its parent. The inserted object will include all consecutive siblings of the table-cell element.
-2. If a table-row element¡¯s parent is not a table , inline-table , or table-row-group element, then an anonymous table element is inserted between the table-row element and its parent. The inserted object will include all consecutive siblings of the table-row element.
-3. If a table-column element¡¯s parent is not a table , inline-table , or table-column- group element, then an anonymous table element is inserted between the table- column element and its parent. This is much the same as the table-row rule just discussed, except for its column-oriented nature.
+1. If a table-cell elementÂ¡Â¯s parent is not a table-row element, then an anonymous table-row object is inserted between the table-cell element and its parent. The inserted object will include all consecutive siblings of the table-cell element.
+2. If a table-row elementÂ¡Â¯s parent is not a table , inline-table , or table-row-group element, then an anonymous table element is inserted between the table-row element and its parent. The inserted object will include all consecutive siblings of the table-row element.
+3. If a table-column elementÂ¡Â¯s parent is not a table , inline-table , or table-column- group element, then an anonymous table element is inserted between the table- column element and its parent. This is much the same as the table-row rule just discussed, except for its column-oriented nature.
 4. If the parent element of a table-row-group , table-header-group , table-footer- group , table-column-group , or table-caption element is not a table element, then an anonymous table object is inserted between the element and its parent.
 5. If a child element of a table or inline-table element is not a table-row-group , table-header-group , table-footer-group , table-row , or table-caption element, then an anonymous table-row object is inserted between the table element and its child element. This anonymous object spans all of the consecutive siblings of the child element that are not table-row-group , table-header-group , table- footer-group , table-row , or table-caption elements
 6. If a child element of a table-row-group , table-header-group , or table-footer- group element is not a table-row element, then an anonymous table-row object is inserted between the element and its child element. This anonymous object spans all consecutive siblings of the child element that are not table-row objects themselves. 
@@ -757,6 +757,7 @@ Similarly, layout along the vertical axis is governed by a series of rules that 
 - The fixed-layout model is so fast is that its layout does not depend on the contents of table celss. Instead, it's driven by the `width` values of the table, columns, and cells within that table.
 
 The fixed-layout model works in the following simple steps:
+
 1. Any column element whose `width` property has a value other than `auto` sets the width for that column
 2. If a column has an `auto` width, but the cell in the first row of the table within that column has a `width` other than `auto`, then the cell sets the width for that column. If the cell spans multiple columns, the width is divided between the columns.
 3. Any columns that are still auto-sized are sized so that their widths are as equal as possible
