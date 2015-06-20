@@ -8,16 +8,16 @@
 providing a single argument that is a number always creates an array with the given number of items, whereas an argument of any other type creates a one-item array that contains specific value:
 
 	var colors = new Array(3); //create an array with three items
-	var names = new Array(“Greg”); //create an array with one item, the string “Greg”
+	var names = new Array(â€œGregâ€); //create an array with one item, the string â€œGregâ€
 
 we can also do this:
 	
-	var colors = new Array(“red”, “blue”, “green”);
+	var colors = new Array(â€œredâ€, â€œblueâ€, â€œgreenâ€);
 
 the **new** operator can be omitted when using the  Array constructor:
 
 	var colors = Array(3); //create an array with three items
-	var names = Array(“Greg”); //create an array with one item, the string “Greg”
+	var names = Array(â€œGregâ€); //create an array with one item, the string â€œGregâ€
 
 - **length** is not read-only. Buy setting the **length** property, you can easily remove items from or add items to the end of the array.
 
@@ -50,14 +50,14 @@ A comparision function accepts two arguments and returns a negative number if th
 ####Manipulation Methods####
 concat() When no arguments are passed in, concat() simply clones the array and returns it. If one or more arrays are passed in, contat() appends each item in the arrays to the end of the result. If the values are not arrays, they are simply appended to the end of the resulting array. 
 
-	var colors = [“red”, “green”, “blue”];
-	var colors2 = colors.concat(“yellow”, [“black”, “brown”]);
+	var colors = [â€œredâ€, â€œgreenâ€, â€œblueâ€];
+	var colors2 = colors.concat(â€œyellowâ€, [â€œblackâ€, â€œbrownâ€]);
 	alert(colors); //red,green,blue
 	alert(colors2); //red,green,blue,yellow,black,brown
 
 slice(): creates an array that contains one or more items already contained in an array. It accepts two arguments: the starting and stopping positions of items to return. if only one arguments, the method returns all items between that position and the end of the array.(**This operation does not affect the original array in any way**)
 
-	var colors = [“red”, “green”, “blue”, “yellow”, “purple”];
+	var colors = [â€œredâ€, â€œgreenâ€, â€œblueâ€, â€œyellowâ€, â€œpurpleâ€];
 	var colors2 = colors.slice(1);
 	var colors3 = colors.slice(1,4);
 	alert(colors2); //green,blue,yellow,purple
@@ -67,14 +67,14 @@ If either the start or end position of  slice() is a negative number, then the n
 
 splice() 
 
-- Deletion — Any number of items can be deleted from the array by specifying just two arguments: the position of the fi rst item to delete and the number of items to delete. For example,  splice(0, 2) deletes the fi rst two items.
-- Insertion — Items can be inserted into a specifi c position by providing three or more arguments: the starting position, 0 (the number of items to delete), and the item to insert. Optionally, you can specify a fourth parameter, fifth parameter, or any number of other parameters to insert. For example,  splice(2, 0, “red”, “green”) inserts the strings
-“red” and  “green” into the array at position 2.
-- Replacement — Items can be inserted into a specifi c position while simultaneously
+- Deletion â€” Any number of items can be deleted from the array by specifying just two arguments: the position of the fi rst item to delete and the number of items to delete. For example,  splice(0, 2) deletes the fi rst two items.
+- Insertion â€” Items can be inserted into a specifi c position by providing three or more arguments: the starting position, 0 (the number of items to delete), and the item to insert. Optionally, you can specify a fourth parameter, fifth parameter, or any number of other parameters to insert. For example,  splice(2, 0, â€œredâ€, â€œgreenâ€) inserts the strings
+â€œredâ€ and  â€œgreenâ€ into the array at position 2.
+- Replacement â€” Items can be inserted into a specifi c position while simultaneously
 deleting items, if you specify three arguments: the starting position, the number of items
-to delete, and any number of items to insert. The number of items to insert doesn’t have to
-match the number of items to delete. For example,  splice(2, 1, “red”, “green”)
-deletes one item at position 2 and then inserts the strings  “red” and  “green” into the array
+to delete, and any number of items to insert. The number of items to insert doesnâ€™t have to
+match the number of items to delete. For example,  splice(2, 1, â€œredâ€, â€œgreenâ€)
+deletes one item at position 2 and then inserts the strings  â€œredâ€ and  â€œgreenâ€ into the array
 at position 2
 
 
@@ -113,7 +113,7 @@ at position 2
  ECMAScript 5 adds a method called **Object.getPrototypeOf()**, which returns the value of [[Prototype]].*This method is supported in Internet Explorer 9+,Firefox 3.5+, Safari 5+, Opera 12+, and Chrome.*
 
 	alert(Object.getPrototypeOf(person1) == Person.prototype); //true
-	alert(Object.getPrototypeOf(person1).name); //”Nicholas”
+	alert(Object.getPrototypeOf(person1).name); //â€Nicholasâ€
 
 ---------------
 
@@ -135,9 +135,9 @@ at position 2
 
 	function Person() {}
 	Person.prototype = {
-	    name: “Nicholas”,
+	    name: "Nicholas",
 	    age: 29,
-	    job: “Software Engineer”,
+	    job: "Software Engineer",
 	    sayName: function() {
 	        alert(this.name);
 	    }
@@ -192,7 +192,7 @@ at position 2
 - Javascript has no concept of block-level scoping, meaning variables defined inside of statement are actually created in the containing  function, not within the statement.
 
 
-JavaScript will never tell you if you’ve declared the same variable more than once; it simply ignores all subsequent declarations (though it will honor initializations).  
+JavaScript will never tell you if you've declared the same variable more than once; it simply ignores all subsequent declarations (though it will honor initializations).  
 
 	function outputNumbers(count) {
         for (var i = 0; i < count; i++) {
@@ -266,7 +266,7 @@ mimic block scoping in JavaScript:
 
 create private variables in objects:
 
-- Even though JavaScript doesn’t have a formal concept of private object properties, closures can be used to implement public methods that have access to variables defi ned within the containing scope.
+- Even though JavaScript doesnâ€™t have a formal concept of private object properties, closures can be used to implement public methods that have access to variables defi ned within the containing scope.
 - Public methods that have access to private variables are called privileged methods.
 - Privileged methods can be implemented on custom types using the  constructor or prototype patterns and on singletons by using the module or module-augmentation patterns.
 
@@ -290,18 +290,18 @@ attempting to access an undeclared variable throws an error, but it is possible 
 
 	//this throws an error because oldValue is undeclared
 	var newValue = oldValue;
-	//this doesn’t throw an error, because it’s a property lookup
+	//this doesnâ€™t throw an error, because itâ€™s a property lookup
 	//newValue is set to undefined
 	var newValue = window.oldValue;
 
-- Internet Explorer for Windows Mobile doesn’t allow direct creation of new properties or methods on the  window object via  ***window.property = value*** . All variables and functions declared globally, however, will still become members of **window**.
+- Internet Explorer for Windows Mobile doesnâ€™t allow direct creation of new properties or methods on the  window object via  ***window.property = value*** . All variables and functions declared globally, however, will still become members of **window**.
 
 
 ####Window Relationships and Frames####
 - If a page contains frames, each frame has its own **window** object and is stored in the frames collection.Each **window** object has a name property containing the **name** of the frame.
 - The **top** object always points to the very top(outermost) frame, which is the browser window itself.
 - The **parent** object always points to the current frame's immediate parent frame. In some cases, **parent** may be equal to **top**, and when there are no frames, **parent** is equal to **top**(and both are equal to **window**)
-- Any code written within a frame that references the  **window** object is pointing to that frame’s unique instance rather than the topmost one.
+- Any code written within a frame that references the  **window** object is pointing to that frameâ€™s unique instance rather than the topmost one.
 - the topmost  window will never have a value set for  **name** unless the window was opened using  **window.open()**
 - There is one final **window** object, call **self**, which always points to **window**.
 - since each **window** object contains the native type constructors, each frame has its own version of constructor, which are not equal.
@@ -358,7 +358,7 @@ attempting to access an undeclared variable throws an error, but it is possible 
 |currentTarget|Element|Read only|The element whose event handler is currently handling the event.|
 |defaultPrevented|Boolean|Read only|When  true , indicates that preventDefault() has been called (added in DOM Level 3 Events).|
 |detail|Integer|Read only|Extra information related to the event.|
-|eventPhase|Integer|Read only|The phase during which the event handler is being called: 1 for the capturing phase,  2 for ��at target,�� and  3 for bubbling.|
+|eventPhase|Integer|Read only|The phase during which the event handler is being called: 1 for the capturing phase,  2 for ¡°at target,¡± and  3 for bubbling.|
 |preventDefault()|Function|Read only|Cancels the default behavior for the event. If  cancelable is true , this method can be used.|
 |stopImmediatePropagation()|Function|Read only|Cancels any further event capturing or event bubbling and prevents any other event handlers from being called.  (Added in DOM Level 3 Events.)|
 |stopPropagation()|Function|Read only|Cancels any further event capturing or event bubbling. If bubbles is  true , this method can be used.|
@@ -412,12 +412,12 @@ attempting to access an undeclared variable throws an error, but it is possible 
 ##Chapter 21 Ajax and Comet##
 
 	function createXHR(){
-		if (typeof XMLHttpRequest != “undefi ned”){
+		if (typeof XMLHttpRequest != â€œundefi nedâ€){
 			return new XMLHttpRequest();
-		} else if (typeof ActiveXObject != “undefi ned”){
-			if (typeof arguments.callee.activeXString != “string”){
-				var versions = [“MSXML2.XMLHttp.6.0”, “MSXML2.XMLHttp.3.0”,
-				    “MSXML2.XMLHttp”],
+		} else if (typeof ActiveXObject != â€œundefi nedâ€){
+			if (typeof arguments.callee.activeXString != â€œstringâ€){
+				var versions = [â€œMSXML2.XMLHttp.6.0â€, â€œMSXML2.XMLHttp.3.0â€,
+				    â€œMSXML2.XMLHttpâ€],
 				    i, len;
 				for (i=0,len=versions.length; i < len; i++){
 					try {
@@ -431,7 +431,7 @@ attempting to access an undeclared variable throws an error, but it is possible 
 			}
 			return new ActiveXObject(arguments.callee.activeXString);
 		} else {
-			throw new Error(“No XHR object available.”);
+			throw new Error(â€œNo XHR object available.â€);
 		}
 	}
 
