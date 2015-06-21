@@ -8,16 +8,16 @@
 providing a single argument that is a number always creates an array with the given number of items, whereas an argument of any other type creates a one-item array that contains specific value:
 
 	var colors = new Array(3); //create an array with three items
-	var names = new Array(â€œGregâ€); //create an array with one item, the string â€œGregâ€
+	var names = new Array("Greg"); //create an array with one item, the string "Greg"
 
 we can also do this:
 	
-	var colors = new Array(â€œredâ€, â€œblueâ€, â€œgreenâ€);
+	var colors = new Array("red", "blue", "green");
 
 the **new** operator can be omitted when using the  Array constructor:
 
 	var colors = Array(3); //create an array with three items
-	var names = Array(â€œGregâ€); //create an array with one item, the string â€œGregâ€
+	var names = Array("Greg"); //create an array with one item, the string "Greg"
 
 - **length** is not read-only. Buy setting the **length** property, you can easily remove items from or add items to the end of the array.
 
@@ -50,14 +50,14 @@ A comparision function accepts two arguments and returns a negative number if th
 ####Manipulation Methods####
 concat() When no arguments are passed in, concat() simply clones the array and returns it. If one or more arrays are passed in, contat() appends each item in the arrays to the end of the result. If the values are not arrays, they are simply appended to the end of the resulting array. 
 
-	var colors = [â€œredâ€, â€œgreenâ€, â€œblueâ€];
-	var colors2 = colors.concat(â€œyellowâ€, [â€œblackâ€, â€œbrownâ€]);
+	var colors = ["red", "green", "blue"];
+	var colors2 = colors.concat("yellow", ["black", "brown"]);
 	alert(colors); //red,green,blue
 	alert(colors2); //red,green,blue,yellow,black,brown
 
 slice(): creates an array that contains one or more items already contained in an array. It accepts two arguments: the starting and stopping positions of items to return. if only one arguments, the method returns all items between that position and the end of the array.(**This operation does not affect the original array in any way**)
 
-	var colors = [â€œredâ€, â€œgreenâ€, â€œblueâ€, â€œyellowâ€, â€œpurpleâ€];
+	var colors = ["red", "green", "blue", "yellow", "purple"];
 	var colors2 = colors.slice(1);
 	var colors3 = colors.slice(1,4);
 	alert(colors2); //green,blue,yellow,purple
@@ -68,8 +68,8 @@ If either the start or end position of  slice() is a negative number, then the n
 splice() 
 
 - Deletion â€” Any number of items can be deleted from the array by specifying just two arguments: the position of the fi rst item to delete and the number of items to delete. For example,  splice(0, 2) deletes the fi rst two items.
-- Insertion â€” Items can be inserted into a specifi c position by providing three or more arguments: the starting position, 0 (the number of items to delete), and the item to insert. Optionally, you can specify a fourth parameter, fifth parameter, or any number of other parameters to insert. For example,  splice(2, 0, â€œredâ€, â€œgreenâ€) inserts the strings
-â€œredâ€ and  â€œgreenâ€ into the array at position 2.
+- Insertion â€” Items can be inserted into a specifi c position by providing three or more arguments: the starting position, 0 (the number of items to delete), and the item to insert. Optionally, you can specify a fourth parameter, fifth parameter, or any number of other parameters to insert. For example,  splice(2, 0, "red", "green") inserts the strings
+"red" and  "green" into the array at position 2.
 - Replacement â€” Items can be inserted into a specifi c position while simultaneously
 deleting items, if you specify three arguments: the starting position, the number of items
 to delete, and any number of items to insert. The number of items to insert doesnâ€™t have to
