@@ -33,6 +33,7 @@ while with`
 
 ###Statements
 falsy value:
+
 `false
 null
 undefined
@@ -67,7 +68,7 @@ if (typeof Object.create !== 'function') {
 - The prototype link is used only in retrieval. If we try to retrieve a property value from an object, and if the object lacks the property name, then JavaScript attempts to retrieve the property value from the prototype object. And if that object is lacking the property, then it goes to its prototype, and so on until the process finally bottoms out with Object.prototype . If the desired property exists nowhere in the prototype chain, then the result is the undefined value. This is called delegation.
 
 ###Enumeration
-- The `for in` statement can loop over all of the property names in an object(enumerable properties). The enumeration will include all of the properties閳ユ攰ncluding functions and prototype properties(There is no guarantee on the order of the names).
+- The `for in` statement can loop over all of the property names in an object(enumerable properties). The enumeration will include all of the properties' including functions and prototype properties(There is no guarantee on the order of the names).
 
 ###Delete
 - The `delete` operator can be used to remove a property from an object. It will remove a property from the object if it has one. It will no touch any of the objects in the prototype linkage.
