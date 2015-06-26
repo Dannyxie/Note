@@ -72,9 +72,9 @@ splice()
 "red" and  "green" into the array at position 2.
 - Replacement â€” Items can be inserted into a specifi c position while simultaneously
 deleting items, if you specify three arguments: the starting position, the number of items
-to delete, and any number of items to insert. The number of items to insert doesnâ€™t have to
-match the number of items to delete. For example,  splice(2, 1, â€œredâ€, â€œgreenâ€)
-deletes one item at position 2 and then inserts the strings  â€œredâ€ and  â€œgreenâ€ into the array
+to delete, and any number of items to insert. The number of items to insert doesn't have to
+match the number of items to delete. For example,  splice(2, 1, 'red', 'green')
+deletes one item at position 2 and then inserts the strings  'red' and  'green' into the array
 at position 2
 
 
