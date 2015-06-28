@@ -113,7 +113,7 @@ at position 2
  ECMAScript 5 adds a method called **Object.getPrototypeOf()**, which returns the value of [[Prototype]].*This method is supported in Internet Explorer 9+,Firefox 3.5+, Safari 5+, Opera 12+, and Chrome.*
 
 	alert(Object.getPrototypeOf(person1) == Person.prototype); //true
-	alert(Object.getPrototypeOf(person1).name); //â€Nicholasâ€
+	alert(Object.getPrototypeOf(person1).name); //Nicholas
 
 ---------------
 
