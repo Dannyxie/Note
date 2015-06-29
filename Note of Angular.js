@@ -9,11 +9,4 @@
 3. Controllers manage the relationship between the model and the views.
 
 
-###Diplay Text
-- `ng-bind`
-
-###Form Input
-- `ng-model`
-- `ng-change`
-
 
