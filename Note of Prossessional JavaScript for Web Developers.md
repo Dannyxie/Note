@@ -67,14 +67,14 @@ If either the start or end position of  slice() is a negative number, then the n
 
 splice() 
 
-- Deletion â€” Any number of items can be deleted from the array by specifying just two arguments: the position of the fi rst item to delete and the number of items to delete. For example,  splice(0, 2) deletes the fi rst two items.
-- Insertion â€” Items can be inserted into a specifi c position by providing three or more arguments: the starting position, 0 (the number of items to delete), and the item to insert. Optionally, you can specify a fourth parameter, fifth parameter, or any number of other parameters to insert. For example,  splice(2, 0, "red", "green") inserts the strings
+- Deletion  Any number of items can be deleted from the array by specifying just two arguments: the position of the fi rst item to delete and the number of items to delete. For example,  splice(0, 2) deletes the fi rst two items.
+- Insertion  Items can be inserted into a specifi c position by providing three or more arguments: the starting position, 0 (the number of items to delete), and the item to insert. Optionally, you can specify a fourth parameter, fifth parameter, or any number of other parameters to insert. For example,  splice(2, 0, "red", "green") inserts the strings
 "red" and  "green" into the array at position 2.
-- Replacement â€” Items can be inserted into a specifi c position while simultaneously
+- Replacement  Items can be inserted into a specifi c position while simultaneously
 deleting items, if you specify three arguments: the starting position, the number of items
 to delete, and any number of items to insert. The number of items to insert doesn't have to
-match the number of items to delete. For example,  splice(2, 1, 'red', 'green')
-deletes one item at position 2 and then inserts the strings  'red' and  'green' into the array
+match the number of items to delete. For example,  splice(2, 1, 'red', 'green')
+deletes one item at position 2 and then inserts the strings  'red' and  'green' into the array
 at position 2
 
 
@@ -88,7 +88,7 @@ at position 2
 ------------
 ####How prototype work####
 - Whenever a function is created,its **prototype** property is also created. The **prototype** has a **constructor** property that points back to the function
-- *Each time the constructor is called to create a new instance, that instance has a internal pointer to the constructor's prototype.In ECMA-262 fifth edition, this is called [[Prototype]]. There is no standard way to access [[Prototype]] from script, but Firefox, Safari and Chrome all support a property on every object called **__proto__**.; in other implementations, this property is completely hidden from script. **The important thing to understand is that a direct link exists between the instance and the constructor's prototype but not between the instance and the constructor.***
+- Each time the constructor is called to create a new instance, that instance has a internal pointer to the constructor's prototype.In ECMA-262 fifth edition, this is called [[Prototype]]. There is no standard way to access [[Prototype]] from script, but Firefox, Safari and Chrome all support a property on every object called \_\_proto\_\_. in other implementations, this property is completely hidden from script. ***The important thing to understand is that a direct link exists between the instance and the constructor's prototype but not between the instance and the constructor.***
 ![relationship between prototype, constructor function and instance](http://i.imgur.com/O2U1RAr.png)
 
 -----------------
