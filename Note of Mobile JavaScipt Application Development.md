@@ -7,7 +7,6 @@
 - `<!DOCTYPE html>`
 - `<meta charset="utf-8">`
 - `<link rel="stylesheet" href="style.css">`
-- `<script src="app.js">` 
 - The new HTML5 spec clearly expects style sheets to be CSS files, and scripts to be JavaScript; We don't need to add closing `/` to standalone tags anymore.( if you want, you can, but pay attention to the fact that HTML5 is not based in XHTML, but in HTML 4.01).
 
 Obsolete:
