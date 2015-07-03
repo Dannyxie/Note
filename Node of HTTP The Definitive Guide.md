@@ -12,8 +12,7 @@ Most URLs follow a standardized format of three main parts:
 	2. The second part gives the server Internet address
 	3. The rest names a resource on the web server.
 
-###Methods
-- Every HTTP request message has a method. THe method tells the server what action to perform
+###Method
 
 |HTTP method | Description |
 |----------|------------|
