@@ -228,9 +228,6 @@ methods:
 ###Object
 - object.hasOwnProperty(name)
 
-###RegExp
-- regexp.exec(string)
-- regexp.test(string)
 
 ###String
 - string.charAt(pos)
