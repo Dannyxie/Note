@@ -79,6 +79,22 @@ at position 2
 
 
 ##Chapter 6 OBJECT-ORIENTED PROGRAMMING##
+
+###Types of Properties
+####Data Properties
+
+- [[Configurable]] -- Indicates if the property may be redefined by removing the property via **delete**, changing the property's attributes, or changing the property into an accessor property. Dy default, this is true for all properties defined directly on an object.
+- [[Enumerable]] -- Indicates if the property will be returned in a `for-in` loop. Dy default, this is true for all properties defined directly on an object. 
+- [[Writable]] --  Indicates if the property's value can be changed. Dy default, this is true for all properties defined directly on an object.
+- [[Value]] -- Contains the actual data value for the property. This is the location from which the property's value is read and the location to which new values are saved. The defaut value for the attribute is `undefined` 
+
+####Accessor Properties
+- [[Configurable]] -- Indicates if the property may be redefined by removing the property via `delete`, changing the property's attributes, or changing the property into a data property. By default, this is true for all properties defined directly on an object.
+- [[Enumerable]] -- Indicates fi the property will be returned in a `for-in` loop. By default, this is true for all properties defined directly on an object.
+- [[Get]] --  The function to call when the property is read from. The default value is `undefined`.
+- [[Set]] -- The function to call when the property is written to, The default value is `undefined`.
+
+
 ###Object Creation###
 ####the constructor pattern####
 
