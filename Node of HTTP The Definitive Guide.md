@@ -23,6 +23,7 @@ Most URLs follow a standardized format of three main parts:
 |HEAD  |  Send just the HTTP headers from the response for the named resource. |
 
 ###Status Codes
+
 |	HTTP status code|	Description|
 |-----------|----------|
 |	200|	OK. Document returned correctly	|
@@ -41,13 +42,15 @@ HTTP messages consist of three parts:
 - HTTP is an application layer protocol. HTTP doesn't worry about the nitty-gritty details of network communication; instead, it leaves the details of the networking to TCP/IP, the popular reliable Internet transport protocol.
 
 TCP provides:
+
 	- Error-free data transportation
 	- In-order delivery(data will always arrive in the order in which it was sent)
 	- Unsegmented data stream (can dribble out data in any size at any time)
 
+
 |	HTTP|	 application layer|
-|	TCP|	transport layer|
-|	IP|	network layer|
+|	TCP	|	transport layer|
+|	IP	|	network layer|
 |	Networt-specifiv link interface| Data link layer|
 |	Physical network hardware| Physical layer|
 
@@ -88,6 +91,7 @@ HTTP uses the terms `inbound` and `outbound` to describe transactional direction
 Each message contains either a request from a client or a response from a server. They consist of three parts: a start line describing the message, a block of headers containing attributes, and an optional body containing data.
 
 #####Methods
+
 |Method| Description| Message body|
 |-----|-----|------|
 |GET| Get a document from the server| No|
@@ -107,3 +111,19 @@ Each message contains either a request from a client or a response from a server
 |300-399|300-305|Redirection|
 |400-499|400-415|Client error|
 |500-599|500-505|Server error|
+
+
+
+###headers
+- General headers: These are generic headers used by both clients and servers. They serve general purposes that are useful for clients, servers and other applications to supply to one another.
+- Request headers: As the name implies, request headers are specific to request messages. They provide extra information to servers, such as what type of data the client is willing to receive.
+- Response headers: Response messages have their own set of headers that provide informations to the client.
+- Entity headers: Entity headers refer to headers that deal with the entity body
+- Extension headers: Extension headers are nonstandard headers that have been created by application developers but not yet added to the sanctioned HTTP specification. HTTP programs need to tolerate and forward extension headers, even if they don't know what the headers mean.
+
+
+##Chapter 7 Caching
+
+- Revalidate hit : If the server object isn't modified, the server sends the client a small HTTP 304 Not modified response.
+- Revalidate miss : If the server object is different from the cached copy, the server sends the client a normal HTTP 200 OK response, with the full content.
+- Object delete: If the server object has been deleted, the server sends back a 404 Not Found response, and the cache deletes its copy.
