@@ -47,8 +47,8 @@ TCP provides:
 - In-order delivery(data will always arrive in the order in which it was sent)
 - Unsegmented data stream (can dribble out data in any size at any time)
 
-||
-|-|
+|	|	|
+|---|---|
 |	HTTP|	 application layer|
 |	TCP	|	transport layer|
 |	IP	|	network layer|
@@ -147,9 +147,9 @@ Each message contains either a request from a client or a response from a server
 
 ###Distinguishing Hits and Misses
 
-	HTTP provides no way for a client to tell if a response was a cache hit or an origin server access. In both cases, the response code will be 200 OK, indicating that the response has a body. Some commercial proxy caches attach additional information to Via headers to describe what happened in the cache.
+- HTTP provides no way for a client to tell if a response was a cache hit or an origin server access. In both cases, the response code will be 200 OK, indicating that the response has a body. Some commercial proxy caches attach additional information to Via headers to describe what happened in the cache.
 
-	One way that a client can usually detect if the response came form a cache is to use the Date header. By comparing the value of the Date header in the response to the current time, a client can often detect a cached response by its older date value. Another way a client can detect a cached response it the Age header, which tells how old the response is.
+- One way that a client can usually detect if the response came form a cache is to use the Date header. By comparing the value of the Date header in the response to the current time, a client can often detect a cached response by its older date value. Another way a client can detect a cached response it the Age header, which tells how old the response is.
 
 ###Cache Topologies
 - Caches can be dedicated to a single user or shared between thousands of users. Dedicated caches are called *private caches*. Private caches are personal caches, containing popular pages for a single user. Shared caches are called *public caches*. Public caches contain the pages popular in the user community.
