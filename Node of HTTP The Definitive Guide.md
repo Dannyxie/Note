@@ -127,3 +127,24 @@ Each message contains either a request from a client or a response from a server
 - Revalidate hit : If the server object isn't modified, the server sends the client a small HTTP 304 Not modified response.
 - Revalidate miss : If the server object is different from the cached copy, the server sends the client a normal HTTP 200 OK response, with the full content.
 - Object delete: If the server object has been deleted, the server sends back a 404 Not Found response, and the cache deletes its copy.
+
+
+###Expiration Dates and Ages
+- Servers specify expiration dates using the HTTP/1.0+ Expires or the HTTP/1.1 Cache-Control: max-age response headers, which accompany a response body. The Expires and Cache-Control: max-age headers do basically the same thing, but the newer Cache-Control header is preferred, because it uses a relative time instead of an absolute date.
+
+|	Header|	Description|
+|	-----|	---------|
+|	Cache-Control:max-age| The max-age value defines the maximum age of the document--maximum legal elapsed time (in seconds) from when a document is first generated to when it can no longer be considered fresh enough to serve |
+|	Expires|	Specifies an absolute expiration date. IF the expiration date is in the past, the document is no longer fresh.|
+
+###Server Revalidation
+Just because a cached document has expired doesn't mean it is actually different from what's living on the origin server; it just means that it's time to check. This is called "server revalidation", meaning the cache needs to ask to origin server whether the document has changed:
+
+	- If revalidation shows the content has changed, the cache gets a new copy of the document, stores it in place of the old data, and sends the document to the client.
+	- If revalidation shows the contents has not changed, the cache only gets new headers, including a new expiration date, and updates the headers in the cache.
+
+###Revalidation with Conditional Methods
+| Header|	Description|
+|-------|---------|
+|If-Modified-Since:<date>| Perform the requested method if the document has been modified since the specified date. This is used in conjunction with the Last-Modified server response header, to fetch content only if the content has been modified from the cached version.|
+|If-None-Match:<tags>|Instead of matching on last-modified date, the server may provide special tags on the document that act like serial numbers. The If-None-Match header Performs the requested method if the cached tags differ from the tags in the server's document|
