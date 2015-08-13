@@ -198,3 +198,9 @@ Just because a cached document has expired doesn't mean it is actually different
 |-------|---------|
 |If-Modified-Since:\<date\>| Perform the requested method if the document has been modified since the specified date. This is used in conjunction with the Last-Modified server response header, to fetch content only if the content has been modified from the cached version.|
 |If-None-Match:\<tags\>|Instead of matching on last-modified date, the server may provide special tags on the document that act like serial numbers. The If-None-Match header Performs the requested method if the cached tags differ from the tags in the server's document|
+
+###If-Modified-Since: Date Revalidation
+IMS requests instruct a server to perform the request only if the resource has changed since a certain date:
+
+	- If the document was modified since the specified date, the If-Modified-Since condition is true, and the GET succeeds normally. The new document is returned to the cache, along with new headers containing, among other information, a new expiration date.
+	- If the document was not modified since the specified date, the condition is false, and a small 304 Not Modified response message is return to the client, without a document body, for efficiency. Headers are returned in the response. however, only the headers that need updating from the original need to be returned.
