@@ -41,6 +41,7 @@ HTTP messages consist of three parts:
 ###TCP/IP
 - HTTP is an application layer protocol. HTTP doesn't worry about the nitty-gritty details of network communication; instead, it leaves the details of the networking to TCP/IP, the popular reliable Internet transport protocol.
 
+
 TCP provides:
 
 	- Error-free data transportation
@@ -48,6 +49,7 @@ TCP provides:
 	- Unsegmented data stream (can dribble out data in any size at any time)
 
 
+|------|-------|
 |	HTTP|	 application layer|
 |	TCP	|	transport layer|
 |	IP	|	network layer|
@@ -58,7 +60,9 @@ TCP provides:
 ###Connections, IP Addresses, and Port Numbers
 Before an HTTP client can send a message to a server, it needs to establish a TCP/IP connection between the client and server using Internet protocol (IP) addresses and port numbers.
 
+
 steps:
+
 	1. The browser extracts the server's hostname from the URL.
 	2. The browser converts the server's hostname into the server's IP address.
 	3. The browser extracts the port number (if any) from the URL.
@@ -139,6 +143,7 @@ Each message contains either a request from a client or a response from a server
 
 ###Server Revalidation
 Just because a cached document has expired doesn't mean it is actually different from what's living on the origin server; it just means that it's time to check. This is called "server revalidation", meaning the cache needs to ask to origin server whether the document has changed:
+
 
 	- If revalidation shows the content has changed, the cache gets a new copy of the document, stores it in place of the old data, and sends the document to the client.
 	- If revalidation shows the contents has not changed, the cache only gets new headers, including a new expiration date, and updates the headers in the cache.
