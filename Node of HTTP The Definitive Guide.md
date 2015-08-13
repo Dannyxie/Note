@@ -43,13 +43,12 @@ HTTP messages consist of three parts:
 
 
 TCP provides:
+- Error-free data transportation
+- In-order delivery(data will always arrive in the order in which it was sent)
+- Unsegmented data stream (can dribble out data in any size at any time)
 
-	- Error-free data transportation
-	- In-order delivery(data will always arrive in the order in which it was sent)
-	- Unsegmented data stream (can dribble out data in any size at any time)
-
-
-|------|-------|
+||
+|-|
 |	HTTP|	 application layer|
 |	TCP	|	transport layer|
 |	IP	|	network layer|
@@ -108,6 +107,7 @@ Each message contains either a request from a client or a response from a server
 
 
 #####Status code classes
+
 |Overall range| Defined range| Category|
 |---|----|----|
 |100-199|100-101|Informatinal|
@@ -132,9 +132,52 @@ Each message contains either a request from a client or a response from a server
 - Revalidate miss : If the server object is different from the cached copy, the server sends the client a normal HTTP 200 OK response, with the full content.
 - Object delete: If the server object has been deleted, the server sends back a 404 Not Found response, and the cache deletes its copy.
 
+###Hits and Misses
+
+![](https://cloud.githubusercontent.com/assets/3389862/9252844/1dfab8bc-420d-11e5-854f-2aab03b2bca9.png)
+
+###Revalidation
+- Because the origin server content can change, caches have to check every now and then their copies are still up-to-date with the server. These "freshness checks" are called HTTP revalidations.
+- When a cache needs to revalidate a cached copy, it sends a small revalidation request to the origin server. If the content hasn't changed, the server responds with a tiny 304 Not Modified response. As soon as the cache learns the copy is still valid, it marks the copy temporarily fresh again and serves the copy to the client. This is called a revalidate hit or a slow hit. It's slower than a pure cache hit, because it does need to check with the origin server, but it's faster than a cache miss, because no object data is retrieved from the server.
+![](https://cloud.githubusercontent.com/assets/3389862/9253055/73d2d67e-420e-11e5-9416-5b55a777bfd7.png)
+
+
+- Revalidate miss: If the server object is different from the cached copy, the server send the client a normal HTTP 200 OK response, with the full content
+- Object deleted: If the server object has been deleted, the sever sends back a 404 Not Found response, and the cached deletes its copy
+
+###Distinguishing Hits and Misses
+
+	HTTP provides no way for a client to tell if a response was a cache hit or an origin server access. In both cases, the response code will be 200 OK, indicating that the response has a body. Some commercial proxy caches attach additional information to Via headers to describe what happened in the cache.
+
+	One way that a client can usually detect if the response came form a cache is to use the Date header. By comparing the value of the Date header in the response to the current time, a client can often detect a cached response by its older date value. Another way a client can detect a cached response it the Age header, which tells how old the response is.
+
+###Cache Topologies
+- Caches can be dedicated to a single user or shared between thousands of users. Dedicated caches are called *private caches*. Private caches are personal caches, containing popular pages for a single user. Shared caches are called *public caches*. Public caches contain the pages popular in the user community.
+
+###Cache Processing Steps
+
+A basic cache-processing sequence for an HTTP GET message consists of seven steps:
+
+	1. Receiving--Cache reads the arriving request message from the network
+	2. Parsing--Cache parses the message, extracting the URL and headers.
+	3. Lookup--Cache checks if a local copy is available and, if not, fetches a copy(and stores it locally)
+	4. Freshness check--Cache checks if cached copy is fresh enough and, if not, asks server for any updates.
+	5. Response creation--Cache makes a response message with the new headers and caches body.
+	6. Sending--Cache sends the response back to the client over the network
+	7. Logging--Optionally, cache creates a log file entry describing the transaction.
+
+![](https://cloud.githubusercontent.com/assets/3389862/9254553/b7c63170-4216-11e5-931d-46a51fab5f30.png)
+
+###Cache Processing Flowchart
+![](https://cloud.githubusercontent.com/assets/3389862/9254602/ffa95d96-4216-11e5-8359-486d7f22c87f.png)
+
+###Document Expiration
+HTTP lets an origin server attach an "expiration date" to each document, using special HTTP Cache-Control and Expires headers. These headers dictate how long content should be viewed as fresh.
+Until a cache document expires, the cache can serve the copy as often as it wants, without ever contacting the server--unless, of course, a client request includes headers that prevent serving a cached or unvalidated resource. But, once the cached document expires, the cache must check with the server to ask if the document has changed and, if so, get a fresh copy (with a new expiration date).
+
 
 ###Expiration Dates and Ages
-- Servers specify expiration dates using the HTTP/1.0+ Expires or the HTTP/1.1 Cache-Control: max-age response headers, which accompany a response body. The Expires and Cache-Control: max-age headers do basically the same thing, but the newer Cache-Control header is preferred, because it uses a relative time instead of an absolute date.
+- Servers specify expiration dates using the HTTP/1.0+ Expires or the HTTP/1.1 Cache-Control: max-age response headers, which accompany a response body. The Expires and Cache-Control: max-age headers do basically the same thing, but the newer Cache-Control header is preferred, because it uses a relative time instead of an absolute date. Absolute dates depend on computer clocks being set correctly.
 
 |	Header|	Description|
 |	-----|	---------|
@@ -142,14 +185,16 @@ Each message contains either a request from a client or a response from a server
 |	Expires|	Specifies an absolute expiration date. IF the expiration date is in the past, the document is no longer fresh.|
 
 ###Server Revalidation
+
 Just because a cached document has expired doesn't mean it is actually different from what's living on the origin server; it just means that it's time to check. This is called "server revalidation", meaning the cache needs to ask to origin server whether the document has changed:
 
 
-	- If revalidation shows the content has changed, the cache gets a new copy of the document, stores it in place of the old data, and sends the document to the client.
-	- If revalidation shows the contents has not changed, the cache only gets new headers, including a new expiration date, and updates the headers in the cache.
+- If revalidation shows the content has changed, the cache gets a new copy of the document, stores it in place of the old data, and sends the document to the client.
+- If revalidation shows the contents has not changed, the cache only gets new headers, including a new expiration date, and updates the headers in the cache.
 
 ###Revalidation with Conditional Methods
+
 | Header|	Description|
 |-------|---------|
-|If-Modified-Since:<date>| Perform the requested method if the document has been modified since the specified date. This is used in conjunction with the Last-Modified server response header, to fetch content only if the content has been modified from the cached version.|
-|If-None-Match:<tags>|Instead of matching on last-modified date, the server may provide special tags on the document that act like serial numbers. The If-None-Match header Performs the requested method if the cached tags differ from the tags in the server's document|
+|If-Modified-Since:\<date\>| Perform the requested method if the document has been modified since the specified date. This is used in conjunction with the Last-Modified server response header, to fetch content only if the content has been modified from the cached version.|
+|If-None-Match:\<tags\>|Instead of matching on last-modified date, the server may provide special tags on the document that act like serial numbers. The If-None-Match header Performs the requested method if the cached tags differ from the tags in the server's document|
