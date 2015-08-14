@@ -168,10 +168,18 @@ function hasPrototypeProperty(object, name){
 - Instance properties that that shadow a non-enumerable `prototype` property (a property that has [[Enumerable]] set to false ) will be returned in the `for-in` loop
 --------------
 - ECMAScript 5 **Object.keys()** method:accepts as its argument and returns an array of strings containing the names of all and enumerable properties.
-- **Object.getOwnPropertyNames()**returns all instance properties, no matter it is enumerable or not
+- **Object.getOwnPropertyNames()** returns all instance properties, no matter it is enumerable or not
 - (*methods are supported in Internet Explorer 9+, Firefox 4+, Safari 5+, Opera 12+, and Chrome.*)
 
------------
+-----------------------
+###Inheritance
+####Prototype Chain
+-
+####Constructor Stealing
+- Downside: methods must be defined inside the constructor. Furthermore, methods defined on the supertype's prototype are not accessible on the subtype, so all types can use only the constructor pattern.
+
+####Combination Inheritance
+----------------------
 ####Alternate Prototype Syntax####
 
 	function Person() {}
