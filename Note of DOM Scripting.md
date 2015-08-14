@@ -1,4 +1,4 @@
-# Node of DOM Scripting 
+# Node of DOM Scripting
 
 
 ---
@@ -20,8 +20,8 @@
 -  Five very handy DOM methods: getElementById, getElementsByTagName,getElementsByClassName, getAttribute, and setAttribute
 
 ##Chapter 4:A JAVASCRIPT IMAGE GALLERY
-     
--  The childNodes property returns an array containing all types of nodes, not just element nodes. It will bring back all the attribute nodes and text nodes as well. 
+
+-  The childNodes property returns an array containing all types of nodes, not just element nodes. It will bring back all the attribute nodes and text nodes as well.
 -  The text within the paragraph is a different node. This text is the first child node of the paragraph.
 Therefore, you want to retrieve the nodeValue of this child node.
 This alert statement will give you the value you’re looking for:
@@ -37,7 +37,7 @@ nodeType value:
 
 
 
-Chapter 6:
+##Chapter 6:
 
 ```javascript
  function addLoadEvent(func) {
@@ -74,27 +74,28 @@ function insertAfter(newElement,targetElement) {
 -  appendChild:insert into the last place, included as a child
 - insertBefore  syntax:`parentElement.insertBefore(newElement,targetElement)`  and cooperate with parentNode,instance: `a.parentNode.insertBefore(newNode,a)`
 
-```javascript 
+```javascript
 function getHTTPObject(){
     if(typeof XMLHttpRequest == undefined){
         XMLHttpRequest = function(){
-            try{    return new ActiveXObject("Msxml2.XMLHttp.6.0");} catch(e){} 
+            try{    return new ActiveXObject("Msxml2.XMLHttp.6.0");} catch(e){}
             try{    return new ActiceXObject("Msxml2.XMLHttp.3.0");} catch(e){}
             try{    return new ActiveXObject("Msxml2.XMLHttp");} catch(e){}
-        } 
+        }
     }
     return new XMLHttpRequest();
 }
 ```
 
+
 readyState:
 
-         0:uninitialized
-         1:loading
-         2:loaded
-         3:interative
-         4:complete
-     
+    0:uninitialized
+    1:loading
+    2:loaded
+    3:interative
+    4:complete
+
 
 ##Chapter 9:CSS-DOM
 
@@ -125,7 +126,7 @@ addClass(element, value){
 - The JavaScript function parseInt can extract numeric information from a string. If you pass it a
 string that begins with a number, it will return the number  
 
-###CSS overflow 
+###CSS overflow
 - The CSS `overflow` property dictates how content within an element should be displayed when the content is larger that its container element. When an element contains content that is larger that itself, there is an overflow. In that situation, you can clip the content so that only a portion of it is visible. You can also specify whether or not the web browser should display a scrollbars, allowing the user to see the rest of the content.
 
 1. "visible": no clipping occurs. The content overflows and is rendered outside the element.
@@ -145,7 +146,7 @@ This is different from  childNodes.length , which returns the total number of no
 
 ##DOM Scripting Libraries
 
-JQuery CSS Selector 
+JQuery CSS Selector
 - $('*') selects all elements.
 - $('tag') selects all tag elements for each of the available HTML tags.
 - $('tagA tagB') selects all tagB elements that are descendants of tagA elements.
@@ -225,10 +226,3 @@ elements:
 -  :image selects all form images (type="image").
 -  :reset selects all reset buttons (type="reset").
 -  :button selects all other buttons (type="button").
-
-
-
-
-
-
-
