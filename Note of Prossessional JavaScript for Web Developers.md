@@ -5,13 +5,16 @@
 - Numeric property name are automatically converted      to string.
 
 ####The Array Type####
+
 providing a single argument that is a number always creates an array with the given number of items, whereas an argument of any other type creates a one-item array that contains specific value:
 
+```javascript
 	var colors = new Array(3); //create an array with three items
 	var names = new Array("Greg"); //create an array with one item, the string "Greg"
+```
 
 we can also do this:
-	
+
 	var colors = new Array("red", "blue", "green");
 
 the **new** operator can be omitted when using the  Array constructor:
@@ -48,7 +51,7 @@ A comparision function accepts two arguments and returns a negative number if th
 	}
 
 ####Manipulation Methods####
-concat() When no arguments are passed in, concat() simply clones the array and returns it. If one or more arrays are passed in, contat() appends each item in the arrays to the end of the result. If the values are not arrays, they are simply appended to the end of the resulting array. 
+concat() When no arguments are passed in, concat() simply clones the array and returns it. If one or more arrays are passed in, contat() appends each item in the arrays to the end of the result. If the values are not arrays, they are simply appended to the end of the resulting array.
 
 	var colors = ["red", "green", "blue"];
 	var colors2 = colors.concat("yellow", ["black", "brown"]);
@@ -65,7 +68,7 @@ slice(): creates an array that contains one or more items already contained in a
 
 If either the start or end position of  slice() is a negative number, then the number is subtracted from the length of the array to determine the appropriate locations. For example, calling  slice(-2, -1) on an array with fi ve items is the same as calling  slice(3, 4) . If the end position is smaller than the start, then an empty array is returned.
 
-splice() 
+splice()
 
 - Deletion  Any number of items can be deleted from the array by specifying just two arguments: the position of the fi rst item to delete and the number of items to delete. For example,  splice(0, 2) deletes the fi rst two items.
 - Insertion  Items can be inserted into a specifi c position by providing three or more arguments: the starting position, 0 (the number of items to delete), and the item to insert. Optionally, you can specify a fourth parameter, fifth parameter, or any number of other parameters to insert. For example,  splice(2, 0, "red", "green") inserts the strings
@@ -84,9 +87,9 @@ at position 2
 ####Data Properties
 
 - [[Configurable]] -- Indicates if the property may be redefined by removing the property via **delete**, changing the property's attributes, or changing the property into an accessor property. Dy default, this is true for all properties defined directly on an object.
-- [[Enumerable]] -- Indicates if the property will be returned in a `for-in` loop. Dy default, this is true for all properties defined directly on an object. 
+- [[Enumerable]] -- Indicates if the property will be returned in a `for-in` loop. Dy default, this is true for all properties defined directly on an object.
 - [[Writable]] --  Indicates if the property's value can be changed. Dy default, this is true for all properties defined directly on an object.
-- [[Value]] -- Contains the actual data value for the property. This is the location from which the property's value is read and the location to which new values are saved. The defaut value for the attribute is `undefined` 
+- [[Value]] -- Contains the actual data value for the property. This is the location from which the property's value is read and the location to which new values are saved. The defaut value for the attribute is `undefined`
 
 ####Accessor Properties
 - [[Configurable]] -- Indicates if the property may be redefined by removing the property via `delete`, changing the property's attributes, or changing the property into a data property. By default, this is true for all properties defined directly on an object.
@@ -94,8 +97,32 @@ at position 2
 - [[Get]] --  The function to call when the property is read from. The default value is `undefined`.
 - [[Set]] -- The function to call when the property is written to, The default value is `undefined`.
 
+```javascript
+Object.defineProperty(book,"year",{
+	get:function(){
+		return this._year;
+	},
+	set:function(newValue){
+		this._year =newValue;
+	}
+})
+```
+-----------------
+**Object.defineProperties()**:
+```javascript
+	Object.defineProperties(obj, {
+		"property1": {
+    					value: true,
+     					writable: true},
+		"property2": {
+    					value: "Hello",
+    					writable: false  
+						}
+    // etc. etc.
+    });
+```
 
-###Object Creation###
+
 ####the constructor pattern####
 
 
@@ -107,30 +134,18 @@ at position 2
 - Each time the constructor is called to create a new instance, that instance has a internal pointer to the constructor's prototype.In ECMA-262 fifth edition, this is called [[Prototype]]. There is no standard way to access [[Prototype]] from script, but Firefox, Safari and Chrome all support a property on every object called \_\_proto\_\_. in other implementations, this property is completely hidden from script. ***The important thing to understand is that a direct link exists between the instance and the constructor's prototype but not between the instance and the constructor.***
 ![relationship between prototype, constructor function and instance](http://i.imgur.com/O2U1RAr.png)
 
------------------
-**Object.defineProperties()**:
 
-	Object.defineProperties(obj, {
-		"property1": {
-    					value: true,
-     					writable: true},
-		"property2": {
-    					value: "Hello",
-    					writable: false  
-						}
-    // etc. etc.
-    });
 **isPrototypeOf()** method used to determine if [[Prototype]] points to the constructor's prototype
-
-    alert(Person.prototype.isPrototypeOf(person1)); //true
-	alert(Person.prototype.isPrototypeOf(person2)); //true
-
+```javascript
+alert(Person.prototype.isPrototypeOf(person1)); //true
+alert(Person.prototype.isPrototypeOf(person2)); //true
+```
 ------------
  ECMAScript 5 adds a method called **Object.getPrototypeOf()**, which returns the value of [[Prototype]].*This method is supported in Internet Explorer 9+,Firefox 3.5+, Safari 5+, Opera 12+, and Chrome.*
-
-	alert(Object.getPrototypeOf(person1) == Person.prototype); //true
-	alert(Object.getPrototypeOf(person1).name); //Nicholas
-
+```javascript
+alert(Object.getPrototypeOf(person1) == Person.prototype); //true
+alert(Object.getPrototypeOf(person1).name); //Nicholas
+```
 ---------------
 
 - It's possible to read values on the prototype from object instance but it is not possible to overwrite them. If you add a property that has the same name  as a property on the prototype, the new property just masks the property on the prototype. We can use **delete** operator to remove the property on the instance so that the property on the prototype that with the same name can be access again.
@@ -139,11 +154,21 @@ at position 2
 
 ####Prototypes and the *in* operator####
 - the **in** operator return true when the property of given name can be access from the object(*no matter it is on the object itself or on the prototype*).
-- The **for-in** returns all properties that are accessible and enumerable by the object (include properties on the prototype)
 
+```javascript
+/*determine prototype property
+A prototype prototype can be determined if the in operator returns true but the hasOwnProperty function returns false
+*/
+function hasPrototypeProperty(object, name){
+	return !object.hasOwnProperty(name) && (name in object);
+}
+
+```
+- The **for-in** returns all properties that are accessible and enumerable by the object (include properties on the prototype)
+- Instance properties that that shadow a non-enumerable `prototype` property (a property that has [[Enumerable]] set to false ) will be returned in the `for-in` loop
 --------------
 - ECMAScript 5 **Object.keys()** method:accepts as its argument and returns an array of strings containing the names of all and enumerable properties.
-- **Object.getOwnPropertyNames()**returns all instance properties, whether enumerable or not
+- **Object.getOwnPropertyNames()**returns all instance properties, no matter it is enumerable or not
 - (*methods are supported in Internet Explorer 9+, Firefox 4+, Safari 5+, Opera 12+, and Chrome.*)
 
 -----------
@@ -158,7 +183,7 @@ at position 2
 	        alert(this.name);
 	    }
 	};
-	
+
 	var friend = new Person();
 	alert(friend instanceof Object); //true
 	alert(friend instanceof Person); //true   **confusing here! **
@@ -189,13 +214,13 @@ at position 2
 - **arguments.callee** is a pointer to the function being executed and, as such, can be used to call the function recursively.
 
 ###Closures###
-- **closures** are functions that have access to variables from other function's scope. 
-- When a function is called, an execution context is created, and its scope chain is created. The activation object for the function is initialized with the values for **arguments** and any named arguments. **The outer function's activation object is the second object in the scope chain.** This process continues for all containing functions until the scope chain terminates with the global execution context. 
+- **closures** are functions that have access to variables from other function's scope.
+- When a function is called, an execution context is created, and its scope chain is created. The activation object for the function is initialized with the values for **arguments** and any named arguments. **The outer function's activation object is the second object in the scope chain.** This process continues for all containing functions until the scope chain terminates with the global execution context.
 
 
 
 ####Closures and Variables####
-- The closure always get the last value of any varable from the containing function.
+- The closure always get the last value of any variable from the containing function.
 
 ####The **this** object####
 - when used inside global functions, ***this*** is equal to **window** in nonstrict mode and **undefined** in strict mode, whereas **this** is equal to the object when called as an object method.
@@ -225,7 +250,7 @@ The basic syntax of an anonymous function used as a block scope (often called a 
 	})();
 
 
-	
+
 ####Private variables####
 - Any variable defined inside a function is considered private since it is inaccessable outside that funciton. This includes function arguments, local variables, and functions defined inside other functions.
 
@@ -237,7 +262,7 @@ Initilizing an undeclare variable always creates a global variable.(assigning a 
 	(function() {
 	        //private variables and functions
 	        var privateVariable = 10;
-	
+
 	        function privateFunction() {
 	                        return false;
 	                }
@@ -302,7 +327,7 @@ create private variables in objects:
 - global variables cannot be removed using the **delete** operator, while properties defined directly on **window** can.(despite global variables become properties of the **window** object)
 - Properties of **window** that were added via **var** statements have their [[configurable]] attribute set to *false* and so may not be removed by the **delete** operator.Internet Explorer 8 and earlier enforced this by throwing an error when the  **delete** operator is used on  **window** properties regardless of how they were originally created. Internet Explorer 9 and later do not throw an error.
 
-attempting to access an undeclared variable throws an error, but it is possible to check for the existence of a potentially undeclared variable by looking on the  window object. 
+attempting to access an undeclared variable throws an error, but it is possible to check for the existence of a potentially undeclared variable by looking on the  window object.
 
 	//this throws an error because oldValue is undeclared
 	var newValue = oldValue;
@@ -407,7 +432,7 @@ attempting to access an undeclared variable throws an error, but it is possible 
 
 
 ###The load Event
-- The `load` event : for the `window` object, the `load` event fires when the entire page has been loaded, including all external resources such as images, JavasScript files, and CSS files. 
+- The `load` event : for the `window` object, the `load` event fires when the entire page has been loaded, including all external resources such as images, JavasScript files, and CSS files.
 - Generally speaking, any events that occur on the `window` can be assigned via attributes on the `<body>` element, because there is no access to the `window` element in HTML.  
 - According to DOM Level 2 Events, the `load` event is supposed to fire on `document`, not on `window`. However, `load` is implemented on `window` in all browsers for backwards compatibility.
 - The `load` event also fires on images.
@@ -421,7 +446,7 @@ attempting to access an undeclared variable throws an error, but it is possible 
 - The `event` object contains nothing more than the `target` (set to document) in DOM-compliant browsers. IE8 and earlier versions don't provide the `srcElement` property.
 
 ###THe resize Event
-- When the browser window is resized to a new height or width, the `resize` event fires.  This event fires on window, so an event handler can be assigned either via JavaScript or by using the `onresize` attribute on the `<body>` element. 
+- When the browser window is resized to a new height or width, the `resize` event fires.  This event fires on window, so an event handler can be assigned either via JavaScript or by using the `onresize` attribute on the `<body>` element.
 
 
 
@@ -454,7 +479,7 @@ attempting to access an undeclared variable throws an error, but it is possible 
 
 ####XHR Usage####
 - the call to  **open()** does not actually send the request; it simply prepares a request to be sent.
-- The  **send()** method accepts a single argument, which is data to be sent as the body of the request. If no body data needs to be sent, you must pass in  null , because this argument is required for some browsers. 
+- The  **send()** method accepts a single argument, which is data to be sent as the body of the request. If no body data needs to be sent, you must pass in  null , because this argument is required for some browsers.
 
 
 - *responseText*: The text that was returned as the body of the response.
@@ -484,7 +509,7 @@ attempting to access an undeclared variable throws an error, but it is possible 
 - Connenction: The type of connection the browser is making with the server.
 - Cookie: Any cookies set on the page.
 - Host: The domain of the page making the request.
-- Referer: the URI of the page making the request 
+- Referer: the URI of the page making the request
 - User-Agent: The browser's user-agent string
 
 
@@ -497,4 +522,3 @@ attempting to access an undeclared variable throws an error, but it is possible 
 - query-string arguments can be appended to the end of the URL to pass information to the server.
 - query string must be present and encoded correctly on the URL that is passed into the  open() method.
 - Each query-string name and value must be encoded using  **encodeURIComponent()** before being attached to the URL, and all of the name-value pairs must be separated by an ampersand
-
