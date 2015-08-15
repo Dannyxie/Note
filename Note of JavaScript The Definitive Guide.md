@@ -214,6 +214,93 @@ XMLHttpRuquest:
 			}
 ```
 
+
+
+#Chapter 5 Statements
+
+Expressions with side effects, such as assignments and function invocations, can stand alone as statements, and when used this way they are known as expression statements.
+
+By default, the JavaScript interpreter executes statements one after another in the order they are written.
+
+###5.3.1 var
+
+ Global variables are properties of the global object. Unlike other global properties, however, properties created with  var cannot be deleted.
+
+If no initializer is specified for a variable with the  var statement, the variable’s initial value is  undefined.
+
+###5.3.2 function
+
+Function definitions may not appear within  if statements,  while loops, or any other statements(top-level).
+
+With function declaration statements, however, both the function name and the function body are hoisted: all functions in a script or all nested functions in a function are declared before any other code is run. This means that you can invoke a JavaScript function before you declare it.
+
+Like the  var statement, function declaration statements create variables that cannot be deleted.
+
+###5.4.3 switch
+
+The matching case is determined using the  === identity operator,not the  == equality operator, so the expressions must match without any type conversion.
+
+###5.5.1 while
+
+To execute a  while statement, the interpreter first evaluates  expression . If the value of the expression is falsy, then the interpreter skips over the  statement that serves as the loop body and moves on to the next statement in the program.
+
+###5.5.2 do/while
+
+The  do/while loop is like a  while loop, except that the loop expression is tested at the bottom of the loop rather than at the top. This means that the body of the loop is always executed at least once
+
+###5.5.4 for/in
+
+JavaScript arrays are simply a specialized kind of object and array indexes are object properties that can be enumerated with a  for/in loop.
+
+The  for/in loop does not actually enumerate all properties of an object, only the enumerable properties.The various built-in methods defined by core JavaScript are not enumerable. User-defined inherited properties (see §6.2.2) are also enumerated by the  for/in loop.
+
+If the body of a  for/in loop deletes a property that has not yet been enumerated, that property will not be enumerated. If the body of the loop defines new properties on the object, those properties will generally not be enumerated. (Some implementations may enumerate inherited properties that are added after the loop begins, however.)
+
+###5.5.4.1 Property enumeration order
+
+JavaScript implementations from all major browser vendors enumerate the properties of simple objects in the order in which they were defined, with older properties enumerated first.
+
+(incomprehension)Typically (but not in all implementations), inherited properties (see §6.2.2) are enumerated after all the noninherited “own” properties of an object, but are also enumerated in the order in which they were defined. If an object inherits properties from more than one “prototype” (see §6.1.3)—i.e., if it has more than one object in its “prototype chain”—then the properties of each prototype object in the chain are enumerated in creation order before enumerating the properties of the next object. Some (but not all) implementations enumerate array properties in numeric order rather than creation order, but they revert to creation order if the array is given other non-numeric properties as well or if the array is sparse (i.e., if some array indexes are missing).
+
+###5.6.4 return
+
+A  return statement may appear only within the body of a function. It is a syntax error for it to appear anywhere else.
+
+With no  return statement, a function invocation simply executes each of the statements in the function body in turn until it reaches the end of the function, and then returns to its caller. In this case, the invocation expression evaluates to  undefined .
+
+###5.6.6 try/catch/finally
+
+If an exception occurs in the  try block and there is an associated  catch block to handle the exception, the interpreter first executes the  catch block and then the  finally block. If there is no local  catch block to handle the exception, the interpreter first executes the  finally block and then jumps to the nearest containing  catch clause.
+
+If a  finally block itself causes a jump with a  return ,  continue ,  break , or  throw statement, or by calling a method that throws an exception, the interpreter abandons whatever jump was pending and performs the new jump
+
+###5.7.3 “use strict”
+
+It does not include any language keywords: the directive is just an expression statement that consists of a special string literal (in single or double quotes).
+
+It can appear only at the start of a script or at the start of a function body, before any real statements have appeared.
+The differences between strict mode and non-strict mode are the following (the first three are particularly important):
+
+ The  with statement is not allowed in strict mode.
+
+ In strict mode, all variables must be declared: a ReferenceError is thrown if youassign a value to an identifier that is not a declared variable, function, function parameter,  catch clause parameter, or property of the global object. (In non-strictmode, this implicitly declares a global variable by adding a new property to theglobal object.)
+
+- In strict mode, functions invoked as functions (rather than as methods) have athis value of  undefined . (In non-strict mode, functions invoked as functions arealways passed the global object as their  this value.) This difference can be used todetermine whether an implementation supports strict mode:var hasStrictMode = (function() { "use strict"; return this===undefined}());Also, in strict mode, when a function is invoked with  call() or  apply() , the  thisvalue is exactly the value passed as the first argument to  call() or  apply() . (Innonstrict mode,  null and  undefined values are replaced with the global object andnon-object values are converted to objects.)
+- In strict mode, assignments to nonwritable properties and attempts to create newproperties on nonextensible objects throw a TypeError. (In non-strict mode, theseattempts fail silently.)
+- In strict mode, code passed to  eval() cannot declare variables or define functionsin the caller’s scope as it can in non-strict mode. Instead, variable and functiondefinitions live in a new scope created for the  eval() . This scope is discarded whenthe  eval() returns.
+- In strict mode, the  arguments object (§8.3.2) in a function holds a static copy ofthe values passed to the function. In non-strict mode, the  arguments object has“magical” behavior in which elements of the array and named function parametersboth refer to the same value.
+- In strict mode, a SyntaxError is thrown if the  delete operator is followed by anunqualified identifier such as a variable, function, or function parameter. (In non-strict mode, such a  delete expression does nothing and evaluates to  false .)
+- In strict mode, an attempt to delete a nonconfigurable property throws aTypeError. (In non-strict mode, the attempt fails and the  delete expression eval-uates to  false .)
+- In strict mode, it is a syntax error for an object literal to define two or more prop-erties by the same name. (In non-strict mode, no error occurs.)
+- In strict mode, it is a syntax error for a function declaration to have two or moreparameters with the same name. (In non-strict mode, no error occurs.)
+- In strict mode, octal integer literals (beginning with a 0 that is not followed by an          x) are not allowed. (In non-strict mode, some implementations allow octal literals.)
+- In strict mode, the identifiers  eval and  arguments are treated like keywords, andyou are not allowed to change their value. You cannot assign a value to these iden-tifiers, declare them as variables, use them as function names, use them as function parameter names, or use them as the identifier of a  catch block.
+- In strict mode, the ability to examine the call stack is restricted.  arguments.caller and  arguments.callee both throw a TypeError within a strict mode function. Strict mode functions also have  caller and  arguments properties that throw TypeError when read. (Some implementations define these nonstandard properties on non-strict functions.)
+
+
+
+
+##Chapter 18
 An HTTP request consists of four parts:
 
 	1. the HTTP request method or "verb"
