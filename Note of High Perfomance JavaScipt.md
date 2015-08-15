@@ -3,21 +3,21 @@
 - In fact, most browsers use a single process for both user interface(UI) updates and JavaScript execution ,so any one can happen at any given moment in time.
 
 ###Script Positioning
-- Browsers don’t start rendering anything on the page until the opening  `<body>` tag is encountered. 
+- Browsers don’t start rendering anything on the page until the opening  `<body>` tag is encountered.
 - Putting scripts at the top of the page in this way typically leads to a noticeable delay, often in the form of a blank white page, before the user can even begin reading or otherwise interacting with the page.
-- Internet Explorer 8, Firefox 3.5, Safari 4, and Chrome 2 all allow parallel downloads of JavaScript files. 
-- Unfortunately, JavaScript downloads still block downloading of other resources, such as images. Downloading a script doesn't block other scripts from downloading. The page must still wait for the JavaScript code to be downloaded and executed before continuing. 
+- Internet Explorer 8, Firefox 3.5, Safari 4, and Chrome 2 all allow parallel downloads of JavaScript files.
+- Unfortunately, JavaScript downloads still block downloading of other resources, such as images. Downloading a script doesn't block other scripts from downloading. The page must still wait for the JavaScript code to be downloaded and executed before continuing.
 - Because scripts block downloading of all resource types on the page, it’s recommended to place all  `<script>` tags as close to the bottom of the  `<body>` tag as possible so as not to affect the download of the entire page : put scripts at the bottom.
 
 ###Grouping Scripts
 - Since each `<script>` tag blocks the page from rendering during intial download, it's helpful to limit the total number of `<script>` tags contained in the page. This applied to both inline script as well as those in external files. Everytime a `<script>` tag is encountered during the parsing of a HTML page, there is going to a delay while the code is executed.
 - an inline script placed after a  `<link>` tag referencing an external stylesheet caused the browser to block while waiting for the stylesheet to download. Souders recommends never putting an inline script after a `<link>` tag for this reason.
-- it’s helpful to limit the number of external script files that your page references.You can minimize the performance impact by concatenating several Javascript files together into a single file and then calling that single file with a single  `<script>` tag. 
+- it’s helpful to limit the number of external script files that your page references.You can minimize the performance impact by concatenating several Javascript files together into a single file and then calling that single file with a single  `<script>` tag.
 
 ###Deferred Scripts
-- The  defer attribute indicates that the script contained within the element is not going to modify the DOM and therefore execution can be safely deferred until a later point in time. (supported only in Internet Explorer 4+ and Firefox 3.5+). In other browsers, the  defer attribute is simply ignored and so the  `<script>` tag is treated in the default (blocking) manner. usage: `<script type="text/javascript" src="file1.js" defer> </script>` 
+- The  defer attribute indicates that the script contained within the element is not going to modify the DOM and therefore execution can be safely deferred until a later point in time. (supported only in Internet Explorer 4+ and Firefox 3.5+). In other browsers, the  defer attribute is simply ignored and so the  `<script>` tag is treated in the default (blocking) manner. usage: `<script type="text/javascript" src="file1.js" defer> </script>`
 - defer:The JavaScript file will begin downloading at the point that the  `<script>` tag is parsed, but the code will not be executed until the DOM has been completely loaded (before the  onload event handler is called). When a deferred JavaSript file is downloaded, it doesn't block the browser's other process, and so these files can be downloaded in parallel with others on the page.
-- Any  `<script>` element marked with  `defer` will not execute until after the DOM has been completely loaded; 
+- Any  `<script>` element marked with  `defer` will not execute until after the DOM has been completely loaded;
 
 ###Dynamic Script Elements
 - When a file is downloaded using a dynamic script node,it is downloaded and executed without blocking other page processes,
@@ -57,7 +57,7 @@ function loadScript(url, callback){
 	script.src = url;
 	document.getElementsByTagName("head")[0].appendChild(script);
 }
-```	
+```
 
 ###XMLHttpRequest Script Injection
 ```javascript
@@ -69,13 +69,13 @@ function loadScript(url, callback){
 				var script = document.createElement("script");
 				script.type = "text/javascript";
 				script.text = xhr.responseText;
-				document.body.appendChild(script);	
+				document.body.appendChild(script);
 			}
 		}
 	};
 	xhr.send(null);
 ```
-- The  onreadystatechange event handler checks for a  readyState of 4 and then verifies that the HTTP status code is valid (anything in the 200 range means a valid response, and 304 means a cached response). 
+- The  onreadystatechange event handler checks for a  readyState of 4 and then verifies that the HTTP status code is valid (anything in the 200 range means a valid response, and 304 means a cached response).
 - Primary advantage: the JavaScript code can be download without exectuing immmediately.
 - Limitation: the JavaScript file must be located on the same domain as the page requesting it.
 ```javascript
@@ -107,7 +107,7 @@ function loadScript(url, callback){
 
 ###Scope Chains and Identifier Resolution
 - Every function in JavaScript is represented as an object -- more specifically, as an instance of `Function`.
-- The internal `[[scope]]` property contains a collection of objects representing the scope in which the function was created. This collection is called the function's `scope chain` and it determines the data that a function can access. Each object in the function's scope chain is called a `variable object`, and each of these contains entires for variables in the form of key-value pairs. When a function is created, its scope chain is populated with objects representing the data that is accessible in the scope in which the function was created. 
+- The internal `[[scope]]` property contains a collection of objects representing the scope in which the function was created. This collection is called the function's `scope chain` and it determines the data that a function can access. Each object in the function's scope chain is called a `variable object`, and each of these contains entires for variables in the form of key-value pairs. When a function is created, its scope chain is populated with objects representing the data that is accessible in the scope in which the function was created.
 - An execution context defines the environment in which a function is being executed. Each execution context is unique to one particular execution of the function, and so multiple calls to the same function result in multiple execution contexts being created. The execution context is destroyed once the function has been completely executed.
 - An execution context has its own scope chain that is used for indetifier resolution. When the execution context is created, its scope chian is initialized with the objects contained in the execution function's ``[[scope]]`` property. These values are copied over into the execution context scope chain in the order in which they appear in the function. Once this is complete, a new object called the `activation object` is created for the execution context. The activation object acts as the variable object for this execution and contains entries for all local variables, named arguments, the `arguments` collection, and  `this`. This object is then pushed to the front of the scope chain. When the execution context is destroyed, so is the activation object.  
 
@@ -116,7 +116,7 @@ function loadScript(url, callback){
 - It's advisable to use local variables whenever possible to improve performance in browsers without optimizing JavaScript engines. A good rule of thumb is to always store out-of-scope values in local variables if they are used more than once within a function.
 
 ###Scope Chain Augmentation
-- The `with` statement is used to create variables for all of an object's properties. 
+- The `with` statement is used to create variables for all of an object's properties.
 - Problem: When code execution flows into a `with` statement, the execution context's scope chain is temporarily augmented. A new varable object is created containing al of the properties of the specified object. That object is then pushed to the front of the scope chain, meaning that all of the function's local variables are now in the second scope chain object and are therefore more expensive to access.
 - The `catch` clause of the `try-catch` statement has the same effect. When an error occurs in the `try` block, execution automatically flows to the `catch` and the exception object is pushed into a variable object that is then palced at the front of the scope chain. Inside of the `catch` block, all variables local to the function are now in the second scope chain object. Note that as soon as the `catch` clause is finished executing, the scope chian returns to its previous state.
 - We can minimize the performance impact of the `catch` clause by executing as little code as necessary within it. A good pattern is to have a method for handling errors that the `catch` clause can delegate to.
@@ -175,7 +175,7 @@ try{
 ##Chapter 3 DOM Scripting
 ###DOM in the Browser World
 -  The Document Object Model(DOM) is a language-independent application interface(API) for working with XML and HTML document.
-- DOM is a language-independent API, in the browser the interface is implemented in JavaScript. 
+- DOM is a language-independent API, in the browser the interface is implemented in JavaScript.
 
 ###DOM Access and Modification
 - Modifying elements is even more expensive because it often causes the browser to recalculate changes in the page geometry.
@@ -237,7 +237,7 @@ All of the properties listed above are supported as of Firefox 3.5, Safari 4, Ch
 - Whitespaces in the HTML source code are actually text nodes, and they are not included in the `children` collection.
 
 ####The Selectors API
-- `querySelectorAll`: takes a CSS selector string as an argument and returns a `NodeList`-- an array-like object containing matching nodes. The method doesn't return an HTML collection, so the returned nodes do not represent the live structure of the document. 
+- `querySelectorAll`: takes a CSS selector string as an argument and returns a `NodeList`-- an array-like object containing matching nodes. The method doesn't return an HTML collection, so the returned nodes do not represent the live structure of the document.
 - `querySelector`: returns only the first node matched by the query.
 
 ###Repaints and Reflows
@@ -246,7 +246,7 @@ All of the properties listed above are supported as of Firefox 3.5, Safari 4, Ch
 	2. A render tree: a representation of how the DOM nodes will be displayed
 
 - The render tree has at least one node for every node of the DOM tree that needs to be displayed( hidden DOM elements don't have a corresponding node in the render tree).
-- Nodes in the render tree are called `frames` or `boxes` in accordance with the CSS model that treats page elements as boxes with padding, margins, borders, and position. 
+- Nodes in the render tree are called `frames` or `boxes` in accordance with the CSS model that treats page elements as boxes with padding, margins, borders, and position.
 - When a DOM change affects the geometry of an element (width or and height) -- such as a change in the trickness of the border or adding more text to a paragraph, resulting in an additional line -- the browser needs to recalculate the geometry of the element as well as the geometry and position of other elements that could have been affected by the change. The browser invalidates the part of the render tree that was affected by the change and reconstructs the render tree. This process is known as a `reflow`. Once the reflow is complete, the browser redraws the affected parts of the screen in a process called `repaint`.
 
 Reflow happen when:
@@ -343,7 +343,7 @@ Avoid reflow of a big part of the page:
 
 
 ##Chapter 6 Responsive Interfaces
-- Most browsers have a single process that is shared beteewn JavaScript execution and user interface updates. Only one of these operations can bue performed at a time, meaning that the user interface cannot respond to input while JavaScript code is executd and vice versa. The user interface effectively becomes "locked" when JavaScript is executing; 
+- Most browsers have a single process that is shared beteewn JavaScript execution and user interface updates. Only one of these operations can bue performed at a time, meaning that the user interface cannot respond to input while JavaScript code is executd and vice versa. The user interface effectively becomes "locked" when JavaScript is executing;
 
 ###Browser Limits
 - Two limits: `call stack size limit`, `long-running script limit`
@@ -376,7 +376,7 @@ The worker environment is made up of the following:
 - Web workers are a feature in newer browsers that allow you to execute JavaScript code outside of the UI thread, thus preventing UI locking.
 
 
-- The more comlex the web application, the more critical it is to manage the UI thread in a proactive manner. No JavaScript code is so important that is should adversely affect the user's experience. 
+- The more comlex the web application, the more critical it is to manage the UI thread in a proactive manner. No JavaScript code is so important that is should adversely affect the user's experience.
 
 ##Chapter 7 Ajax
 
@@ -397,7 +397,7 @@ When using XHR to request data, you have a choice between using POST or GET. For
 POST should be used to fetch data only when the length of the URL and the parameters are close to or exceed 2048 characters. This is because Internet Explorer limits URLs to that length, and exceeding it will cause you request to be truncated.
 
 ###Dynamic script tag insertion
-- can request data from a server on a different domain. 
+- can request data from a server on a different domain.
 ```javascript
 var scriptElement = document.createElement('script');
 scriptElement.src = yourSrc;
@@ -407,4 +407,4 @@ document.getElementsByTagName('head')[0].appendChild(scriptElement);
 - Because the response is being used as the source for a script tag, it must be executable JavaScript. We cannot use bare XML, or even bare JSON; any data, regardless of the format, must be enclosed in a callback function.
 
 ###Multipart XHR
-- Multipart XHR(MXHR) allows you to pass multiple resources from the server side to the client side using only on HTTP request. 
+- Multipart XHR(MXHR) allows you to pass multiple resources from the server side to the client side using only on HTTP request.
