@@ -299,6 +299,326 @@ The differences between strict mode and non-strict mode are the following (the f
 
 
 
+#Chapter 6
+
+##6.1 Creating Objects
+
+Creating objects:with object literals, with the new keyword, and (in ECMAScript 5) with the Object.create() function.
+
+###6.1.2 Creating Objects with new
+
+The  new operator creates and initializes a new object. The  new keyword must be followed by a function invocation. A function used in this way is called a constructor and serves to initialize a newly created object.
+
+###6.2.2 Inheritance
+
+Property assignment examines the prototype chain to determine whether the assignment is allowed. If  o inherits a read-only property named  x , for example, then the assignment is not allowed. (Details about when a property may be set are in §6.2.3.) If the assignment is allowed, however, it always creates or sets a property in the original object and never modifies the prototype chain. The fact that inheritance occurs when querying properties but not when setting them is a key feature of JavaScript because it allows us to selectively override inherited properties:
+
+```javascript
+var unitcircle = { r:1 }; // An object to inherit from
+var c = inherit(unitcircle); // c inherits the property r
+c.x = 1; c.y = 1; // c defines two properties of its own
+c.r = 2; // c overrides its inherited property
+unitcircle.r; // => 1: the prototype object is not affected
+```
+
+ If  o inherits the property  x , and that property is an accessor property with a setter method (see §6.6), then that setter method is called rather than creating a new property  x in  o .Note, however, that the setter method is called on the object  o , not on the prototype object that defines the property, so if the setter method defines any properties, it will do so on  o , and it will again leave the prototype chain unmodified.
+
+The rules that specify when a property assignment succeeds and when it fails are intuitive but difficult to express concisely. An attempt to set a property  p of an object  o fails in these circumstances:
+
+o has an own property  p that is read-only: it is not possible to set read-only properties. (See the  defineProperty() method, however, for an exception that allows configurable read-only properties to be set.)
+
+o has an inherited property  p that is read-only: it is not possible to hide an inherited read-only property with an own property of the same name.
+
+o does not have an own property  p ;  o does not inherit a property  p with a setter method, and  o ’s  extensible attribute (see §6.8.3) is  false . If  p does not already exist on  o , and if there is no setter method to call, then  p must be added to  o . But if  o is not extensible, then no new properties can be defined on it.
+
+
+##6.3 Deleting Properties
+
+The  delete operator only deletes own properties, not inherited ones. (To delete an inherited property, you must delete it from the prototype object in which it is defined.Doing this affects every object that inherits from that prototype.)
+
+A  delete expression evaluates to  true if the delete succeeded or if the delete had no effect (such as deleting a nonexistent property).  delete also evaluates to  true when used (meaninglessly) with an expression that is not a property access expression
+
+delete does not remove properties that have a configurable attribute of  false .
+
+##6.4 Testing Properties
+
+The  in operator expects a property name (as a string) on its left side and an object on its right. It returns  true if the object has an own property or an inherited property by that name(note :for/in loop just list the enumerable property (own or inherited) of the specified object )
+
+The  hasOwnProperty() method of an object tests whether that object has an own property with the given name. It returns  false for inherited properties
+
+The  propertyIsEnumerable() refines the  hasOwnProperty() test. It returns  true only if the named property is an own property and its  enumerable attribute is  true . Certain built-in properties are not enumerable.Properties created by normal JavaScript code are enumerable unless you’ve used one of the ECMAScript 5 methods shown later to make them nonenumerable
+
+There is one thing the  in operator can do that the simple property access technique shown above cannot do.  in can distinguish between properties that do not exist and properties that exist but have been set to  undefined .
+
+ !== and  === distinguish between  undefined and  null .
+
+##6.5 Enumerating Properties
+
+Built-in methods that objects inherit are not enumerable, but the properties that your code adds to objects are enumerable (unless
+you use one of the functions described later to make them nonenumerable).
+
+```javascript
+  Object.keys() :     returns an array of the names of the enumerable own properties of an object.
+  Object.getOwnPropertyNames() :     returns the names of all the own properties of the specified object, not just the enumerable properties.
+```
+
+##6.6 Property Getters and Setters
+
+Properties defined by getters and setters are sometimes known as accessor properties to distinguish them from data properties that have a simple value.
+
+Accessor properties are defined as one or two functions whose name is the same as the property name, and with the  function keyword replaced with  get and/or  set .
+
+##6.7 Property Attributes
+
+ The four attributes of a data property are value, writable, enumerable, and configurable.
+
+ The four attributes of an accessor property are get, set, enumerable, and configurable.
+
+To obtain the property descriptor for a named property of a specified object, call Object.getOwnPropertyDescriptor()          note:works only for own properties.(Object.getOwnPropertyDescriptor() returns undefined for inherited properties and properties that don't exist.)
+
+To set the attributes of a property, or to create a new property with the specified attributes, call  Object.defineProperty()
+
+![](https://cloud.githubusercontent.com/assets/3389862/9292645/7bb142f0-4438-11e5-844c-728eff3bff75.png)
+
+
+- Object.defineProperty(): If you’re creating a new property, then omitted attributes are taken to be  false or  undefined .Note that this method alters an existing own property or creates a new own property, but it will not alter an inherited property.
+
+- Modify multiple properties:Object.defineProperties()
+
+![](https://cloud.githubusercontent.com/assets/3389862/9292658/bd8143c4-4438-11e5-98c5-d302e9b91a43.png)
+
+
+Calls to Object.defineProperty() or  Object.defineProperties() that attempt to violate them throw TypeError:
+
+	1. If an object is not extensible, you can edit its existing own properties, but you cannot add new properties to it.
+	2. If a property is not configurable, you cannot change its configurable or enumerable attributes.
+	3. If an accessor property is not configurable, you cannot change its getter or setter method, and you cannot change it to a data property.
+	4. If a data property is not configurable, you cannot change it to an accessor property.
+	5. If a data property is not configurable, you cannot change its writable attribute from false to  true , but you can change it from  true to  false .
+	6. If a data property is not configurable and not writable, you cannot change its value. You can change the value of a property that is configurable but nonwritable, however (because that would be the same as making it writable, then changing the value, then converting it back to nonwritable).
+
+
+###6.7.1 Legacy API for Getters and Setters
+
+__lookupGetter__() and  __lookupSetter__() return the getter or setter method for a named property. And  __defineGetter__() and  __defineSetter__() define a getter or setter: pass the property name first and the getter or setter method second
+
+###6.8.1 The prototype Attribute
+
+Objects created with  new use the value of the  prototype property of their constructor function as their prototype. And objects created with  Object.create() use the first argument to that function (which may be  null ) as their prototype.
+
+To determine whether one object is the prototype of (or is part of the prototype chain of) another object, use the  isPrototypeOf() method.
+
+Objects created with a  new expression usually inherit a constructor property that refers to the constructor function used to create the object.
+
+###6.8.3 The extensible Attribute
+
+To determine whether an object is extensible, pass it to  Object.isExtensible() . To make an object nonextensible, pass it to Object.preventExtensions() . Note that there is no way to make an object extensible again once you have made it nonextensible. Also note that calling  preventExtensions() only affects the extensibility of the object itself. If new properties are added to the prototype of a nonextensible object, the nonextensible object will inherit those new properties.
+
+Object.seal() works like  Object.preventExtensions() , but in addition to making the object nonextensible, it also makes all of the own properties of that object nonconfigurable
+
+Object.isSealed() :determine whether an object is sealed.
+
+Object.freeze() In addition to making the object nonextensible and its properties nonconfigurable, it also makes all of the object’s own data properties read-only. (If the object has accessor properties with setter methods,these are not affected and can still be invoked by assignment to the property.)
+
+Object.isFrozen(): to determine if an object is frozen.
+
+Object.seal() and  Object.freeze() affect only the object they are passed: they have no effect on the prototype of that object. If you want to thoroughly lock down an object, you probably need to seal or freeze the objects in the prototype chain as well.
+
+##6.9 Serializing Objects
+
+JSON.stringify() and JSON.parse() to serialize and restore JavaScript objects.
+
+JSON.parse() leaves these in string form and does not restore the original Date object. Function, RegExp, and Error objects and the  undefined value cannot be serialized or restored.  JSON.stringify() serializes only the enumerable own properties of an object. If a property value cannot be serialized, that property is simply omitted from the stringified output
+
+
+#Chapter 7
+
+##7.1 Creating Arrays
+
+Array literal syntax allows an optional trailing comma, so  [,,] has only two elements,not three
+
+Array() :Call it with a single numeric argument, which specifies a length: var a = new Array(10);
+
+##7.3 Sparse Arrays
+
+when you omit value in an array literal, you are not creating a sparse array.The omitted element exists in the array and has the value  undefined .
+
+##7.4 Array Length
+
+the length property specifies the number of elements in the array. Its value is one more than the highest index in the array
+
+if you set the  length property to a non-negative integer  n smaller than its current value, any array elements whose index is greater than or equal to  n are deleted from the array
+
+##7.5 Adding and Deleting Array Elements
+
+Note that using  delete on an array element does not alter the  length property and does not shift elements with higher indexes down to fill in the gap that is left by the deleted property. If you delete an element from an array, the array becomes sparse.
+
+You can delete array elements with the  delete operator, just as you can delete object properties. using  delete on an array element does not alter the  length property and does not shift elements with higher indexes down to fill in the gap that is left by the deleted property
+
+##7.8 Array Methods
+
+ Array.join() method converts all the elements of an array to strings and concatenates them, returning the resulting string. the inverse of the  String.split() method.Array.join() :If no separator string is specified, a comma is used.
+
+ Array.reverse() method reverses the order of the elements of an array and returns the reversed array.It doesn’t create a new array with the elements rearranged but instead rearranges them in the already existing array.
+
+ Array.sort() sorts the elements of an array in place and returns the sorted array. If an array contains undefined elements, they are sorted to the end of the array. When sort() is called with no arguments, it sorts the array elements in alphabetical order (temporarily converting them to strings to perform the comparison, if necessary).If an array contains undefined elements, they are sorted to the end of the array.
+
+To sort an array into some order other than alphabetical, you must pass a comparison function as an argument to
+
+```javascript
+sort() .var a = [33, 4, 1111, 222];
+a.sort(); // Alphabetical order: 1111, 222, 33, 4
+a.sort(function(a,b) { // Numerical order: 4, 33, 222, 1111
+        return a-b; // Returns &lt; 0, 0, or &gt; 0, depending on order
+        });
+a.sort(function(a,b) {return b-a}); // Reverse numerical order
+```
+
+Array.concat() method creates and returns a new array that contains the elements of the original array on which  concat() was invoked,followed by each of the arguments to  concat()
+
+Array.slice() method returns a slice, or subarray, of the specified array. slice() does not modify the array on which it is invoked.
+
+Array.splice() method is a general-purpose method for inserting or removing elements from an array. The first argument to  splice() specifies the array position at which the insertion and/or deletion is to begin. The second argument specifies the number of elements that should be deleted from (spliced out of) the array. If this second argument is omitted, all array elements from the start element to the end of the array are removed. These arguments may be followed by any number of additional arguments that specify elements to be inserted into the array, starting at the position specified by the first argument.
+
+###7.8.8 unshift() and shift()
+
+unshift() adds an element or elements to the beginning of the array, shifts the existing array elements up to higher indexes to make room, and returns the new length of the array.
+
+shift() removes and returns the first element of the array, shifting all subsequent elements down one place to occupy the newly vacant space at the start of the array.
+
+###7.9.1 forEach()
+
+The  forEach() method iterates through an array, invoking a function you specify for each element. forEach() then invokes your function with three arguments: the value of the array element, the index of the array element, and the array itself. forEach() does not provide a way to terminate iteration before all elements have been passed to the function. (no equivalent of the  break statement you can use with a regular  for loop,but you can throw an exception, and place the call to  forEach() within a  try block to terminate the loop)
+
+###7.9.2 map()
+
+map() method passes each element of the array on which it is invoked to the function you specify, and returns an array containing the values returned by that function.
+
+##7.10 Array Type
+
+```javascript
+     var isArray = Function.isArray || function(o) {
+          return typeof o === "object" &&
+          Object.prototype.toString.call(o) === "[object Array]";
+};
+```
+
+##7.11 Array-Like Objects
+
+JavaScript arrays have some special features that other objects do not have:
+
+The  length property is automatically updated as new elements are added to the list.
+
+Setting  length to a smaller value truncates the array.
+
+Arrays inherit useful methods from  Array.prototype .
+
+Arrays have a class attribute of “Array”.
+
+
+#Chapter 8 Function
+
+If a function is assigned to the property of an object, it is known as a method of that object. When a function is invoked on or through an object, that object is the invocation context or  this value for the function.
+
+##8.1 Defining Functions
+
+Functions are defined with the  function keyword, which can be used in a function definition expression  or in a function declaration statement.
+
+function definitions needs an identifier that names the function. The name is a required part of function declaration statements: it is used as the name of a variable, and the newly defined function object is assigned to the variable. For function definition expressions, the name is optional: if present, the name refers to the function object only within the body of the function itself.
+
+If a function definition expression includes a name, the local function scope for that function will include a binding of that name to the function object. In effect, the function name becomes a local variable within the function.  (For function definition expressions, the name is optional: if present, the name refers to the function object only within the body of the function itself.)
+
+###8.2.1 Function Invocation
+
+if the function is the property of an object or an element of an array—then it is a method invocation expression.
+
+For function invocation in ECMAScript 3 and nonstrict ECMAScript 5, the invocation context (the  this value) is the global object. In strict mode, however, the invocation context is  undefined .
+
+###8.2.2 Method Invocation
+
+When methods return objects, you can use the return value of one method invocation as part of a subsequent invocation.
+
+```javascript
+// Find all headers, map to their ids, convert to an array and sort them
+$(":header").map(function() { return this.id }).get().sort();
+```
+
+If a nested function is invoked as a method, its this value is the object it was invoked on.
+
+If a nested function is invoked as a function then its  this value will be either the global object (non-strict mode) or  undefined (strict mode).
+
+Note that  this is a keyword, not a variable or property name. JavaScript syntax does not allow you to assign a value to  this .
+
+![](https://cloud.githubusercontent.com/assets/3389862/9292680/bc4483da-4439-11e5-92a8-6f6bd61ef9e7.png)
+
+
+
+###8.2.3 Constructor Invocation
+
+If a function or method invocation is preceded by the keyword  new , then it is a constructor invocation.
+
+if a constructor has no parameters, then JavaScript constructor invocation syntax allows the argument list and parentheses to be omitted entirely.
+
+```javascript
+var o = new Object();
+var o = new Object;
+```
+
+A constructor invocation creates a new, empty object that inherits from the prototype property of the constructor. Constructor functions are intended to initialize objects and this newly created object is used as the invocation context, so the constructor function can refer to it with the  this keyword.Note that the new object is used as the invocation context even if the constructor invocation looks like a method invocation. That is, in the expression  new o.m() ,  o is not used as the invocation context.
+
+Constructor functions do not normally use the  return keyword.They typically initialize the new object and then return implicitly when they reach the end of their body. In this case, the new object is the value of the constructor invocation expression. If, however, a constructor explicitly used the  return statement to return an object, then that object becomes the value of the invocation expression. If the constructor uses  return with no value, or if it returns a primitive value, that return value is ignored and the new object is used as the value of the invocation.
+
+###8.2.4 Indirect Invocation
+
+The  call() method uses its own argument list as arguments to the function
+
+The apply() method expects an array of values to be used as arguments.
+
+###8.3.1 Optional Parameters
+
+When a function is invoked with fewer arguments than declared parameters, the additional parameters are set to the  undefined value.
+
+###8.3.2 Variable-Length Argument Lists: The Arguments Object
+
+Remember that  arguments is not really an array; it is an Arguments object. Each Arguments object defines numbered array elements and a  length property, but it is not technically an array;
+
+##8.5 Functions As Namespaces
+Variables declared within a function are visible throughout the function (including within nested functions) but do not exist outside of the function.
+
+We work around an IE bug here: in many versions of IE, the for/in loop won't enumerate an enumerable property of o if the prototype of o has a nonenumerable property by the same name. This means that properties like toString are not handled correctly unless we explicitly check for them.
+
+##8.6 Closures
+
+functions are executed using the scope chain that was in effect when they were defined.
+
+Each time a JavaScript function is invoked, a new object is created to hold the local variables for that invocation, and that object is added to the scope chain. When the function returns, that variable binding object is removed from the scope chain. If there were no nested functions, there are no more references to the binding object and it gets garbage collected. If there were nested functions defined,then each of those functions has a reference to the scope chain, and that scope chain refers to the variable binding object. If those nested functions objects remained within their outer function, however, then they themselves will be garbage collected, along with the variable binding object they referred to. But if the function defines a nested function and returns it or stores it into a property somewhere, then there will be an external reference to the nested function. It won’t be garbage collected, and the variable binding object it refers to won’t be garbage collected either.
+
+Nested functions do not make private copies of the scope or make static snapshots of the variable bindings.
+
+```javascript
+// Return an array of functions that return the values 0-9
+function constfuncs() {
+var funcs = [];
+for(var i = 0; i < 10; i++)
+           funcs[i] = function() { return i; };
+           return funcs;
+}
+var funcs = constfuncs();
+funcs[5]() // What does this return?  10 : When  constfuncs() returns, the value of the variable  i is 10, and all 10 closures share this value.
+```
+
+every function invocation has a  this value, and a closure cannot access the  this value of its outer function unless the outer function has saved that value into a variable
+
+Since a closure has its own binding for arguments , it cannot access the outer function’s arguments array unless the outer function has saved that array into a variable by a different name
+
+Scope chain associated with a closure is “live.” Nested functions do not make private copies of the scope or make static snapshots of the variable bindings.
+
+###8.7.3 The call() and apply() Methods
+
+call() and  apply() allow you to indirectly invoke a function as if it were a method of some other object.
+Any arguments to  call() after the first invocation context argument are the values that are passed to the function that is invoked.
+The  apply() method is like the  call() method, except that the arguments to be passed to the function are specified as an array
+
 
 ##Chapter 18
 An HTTP request consists of four parts:
@@ -313,6 +633,63 @@ The HTTP response sent by a server has three parts:
 	1. a numeric and textual status code that indicates the success or failure of the request
 	2. a set of respons headers
 	3. the response body
+
+
+
+#Chapter 9 Classes and Modules
+
+In JavaScript, classes are based on JavaScript’s prototype-based inheritance mechanism. If two objects inherit properties from the same prototype object, then we say that they are instances of the same class.
+
+One of the important features of JavaScript classes is that they are dynamically extendable
+
+##9.1 Classes and Prototypes
+
+In JavaScript, a class is a set of objects that inherit properties from the same prototype object.
+
+##9.2 Classes and Constructors
+
+Constructor invocations using  new automatically create the new object, so the constructor itself only needs to initialize the state of that new object.
+
+The critical feature of constructor invocations is that the prototype property of the constructor is used as the prototype of the new object. This means that all objects created with the same constructor inherit from the same object and are therefore members of the same class.
+
+Constructor invocation automatically creates a new object, invokes the constructor as a method of that object, and returns the new object.
+
+###9.2.1 Constructors and Class Identity
+
+two objects are instances of the same class if and only if they inherit from the same prototype object.
+
+The  instanceof operator does not actually check whether  r was initialized by the Range constructor.It checks whether it inherits from  Range.prototype .
+
+###9.2.2 The constructor Property
+
+Therefore, every JavaScript function automatically has a  prototype property. The value of this property is an object that has a single nonenumerable  constructor property.The value of the  constructor property is the function object.
+
+objects typically inherit a  constructor property that refers to their constructor.
+
+##9.3 Java-Style Classes in JavaScript
+
+
+In JavaScript, there are three different objects involved in any class definition (see Figure 9-1), and the properties of these three objects act like different kindsof class members:
+
+Constructor object:     As we’ve noted, the constructor function (an object) defines a name for a JavaScript class. Properties you add to this constructor object serve as class fields and class methods (depending on whether the property values are functions or not).
+
+Prototype object:     The properties of this object are inherited by all instances of the class, and properties whose values are functions behave like instance methods of the class.
+
+Instance object:     Each instance of a class is an object in its own right, and properties defined directly on an instance are not shared by any other instances. Nonfunction properties defined on instances behave as the instance fields of the class.
+
+Note that JavaScript instance methods must use the this keyword to access the instance fields.
+
+###9.5.1 The instanceof operator
+
+The expression  o instanceof c evaluates to  true if  o inherits from  c.prototype . The inheritance need not be direct.
+
+constructors act as the public identity of classes, but prototypes are the fundamental identity a web application uses more than one window or frame. Each window or frame is a distinct execution context, and each has its own global object and its own set of constructor functions. Two arrays created in two different frames inherit from two identical but distinct prototype objects, and an array created in one frame is not  instanceof the Array() constructor of another frame.
+
+
+###9.5.3 The Constructor Name
+	The  Array constructor in one window is not equal to the  Array constructor in another window, but their names are equal.
+	NaN is the only value not equal to itself:
+
 
 
 ###18.1.1 Specifying the Request
