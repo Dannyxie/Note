@@ -2,14 +2,15 @@
 
 two types:
 
-	1.reference types
-	2.primitive types
+1. reference types
+2. primitive types
 
 ![](https://cloud.githubusercontent.com/assets/3389862/9289389/71520f58-43a0-11e5-8f90-d3c9423aa267.png)
 ##CHAPTER 18 Scripted HTTP
 
 
 ###3.6 Wrapper Objects
+
 When the value of a property is a function, we call it a method.
 Wrapper Objects differ from objects in that their properties are read-only and that you can’t define new properties on them.
 
