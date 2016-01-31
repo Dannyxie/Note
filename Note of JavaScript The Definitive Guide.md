@@ -49,13 +49,43 @@ If you don’t specify an initial value for a variable with the  var statement, 
 
 - JavaScript uses function scope: variables are visible within the function in which they are defined and within any functions that are nested within that function.
 - JavaScript’s function scope means that all variables declared within a function are visible throughout the body of the function.
+```javascript
+function test(o){
+	var i = 0 ; // i is defined throughout Function
+	if(typeof o === 'object'){
+		var j = 0; // j is defined  everywhere, not just block;
+		for(var k = 0; k < 10; k++ ){ // k is defined everywhere not just loop
+			console.log(k); //  print numbers 0 through 9
+		}
+		console.log(k);// k is still defined: prints 10
+	}
+	console.log(j); // j is defined, but my not be initialized;
+}
+```
 - hoisting: JavaScript code behaves as if all variable declarations in a function (but not any associated assignments) are “hoisted” to the top of the function
+```javascript
+var scope = 'global';
+function f(){
+	console.log(scope); // Prints "undefined", not "global"
+	var scrope = 'local';// Variable initialized here, but defined everywhere
+	console.log(scope); // Prints "local"
+}
+```
 
 ####3.10.2 Variables As Properties
 
 When you declare a global JavaScript variable, what you are actually doing is defining a property of the global object (§3.5). If you use  var to declare the variable, the property that is created is nonconfigurable (see §6.7), which means that it cannot be deleted with the  delete operator.
 
 if you’re not using strict mode and you assign a value to an undeclared variable, JavaScript automatically creates a global variable for you. Variables created in this way are regular, configurable properties of the global object and they can be deleted
+
+```javascript
+var truevar = 1; // A properly declared global variable, nondeletable.
+fakevar = 2; // Creates a deletable property of the global object;
+this.fakevar2 = 3; // This does the same thing.
+delete truevar; // => false: variable not deleted;
+delete fakevar; // => true: variable deleted;
+delete this.fakevar2 // => true: variable deleted;
+```
 
 ####3.10.3 The Scope Chain
 
