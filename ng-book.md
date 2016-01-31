@@ -13,4 +13,4 @@
 ##Controller Hierarchy (Scopes Within Scopes)
 - Every part of an AngularJS application has a parent scope ( as we've seen, at the ng-app level, this scope is called the $rootScope), regardless of the context within which it is rendered.
 - With the exception of isolate scopes, all scopes are created with prototypal inheritance, meaning that they have access to their parent scopes.
-- By default, for any property that AngularJS cannot find on a local scope, AngularJS will crawl up to the containing (parent) scope and look for the property or method there. If AngularJS can't find the property there, it will walk to that scope's parent and so on and so forth until it reaches the controllers.
+- By default, for any property that AngularJS cannot find on a local scope, AngularJS will crawl up to the containing (parent) scope and look for the property or method there. If AngularJS can't find the property there, it will walk to that scope's parent and so on and so forth until it reaches the $rootScope. If it doesn't find it on the $rootScope, then it moves on and is unable to update the view.
