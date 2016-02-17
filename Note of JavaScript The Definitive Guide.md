@@ -356,28 +356,33 @@ unitcircle.r; // => 1: the prototype object is not affected
 
 The rules that specify when a property assignment succeeds and when it fails are intuitive but difficult to express concisely. An attempt to set a property  p of an object  o fails in these circumstances:
 
-o has an own property  p that is read-only: it is not possible to set read-only properties. (See the  defineProperty() method, however, for an exception that allows configurable read-only properties to be set.)
-
-o has an inherited property  p that is read-only: it is not possible to hide an inherited read-only property with an own property of the same name.
-
-o does not have an own property  p ;  o does not inherit a property  p with a setter method, and  o ’s  extensible attribute (see §6.8.3) is  false . If  p does not already exist on  o , and if there is no setter method to call, then  p must be added to  o . But if  o is not extensible, then no new properties can be defined on it.
+- o has an own property  p that is read-only: it is not possible to set read-only properties. (See the  defineProperty() method, however, for an exception that allows configurable read-only properties to be set.)
+- o has an inherited property  p that is read-only: it is not possible to hide an inherited read-only property with an own property of the same name.
+- o does not have an own property  p ;  o does not inherit a property  p with a setter method, and  o ’s  extensible attribute (see §6.8.3) is  false . If  p does not already exist on  o , and if there is no setter method to call, then  p must be added to  o . But if  o is not extensible, then no new properties can be defined on it.
 
 
 ##6.3 Deleting Properties
 
-The  delete operator only deletes own properties, not inherited ones. (To delete an inherited property, you must delete it from the prototype object in which it is defined.Doing this affects every object that inherits from that prototype.)
+The  `delete` operator only deletes own properties, not inherited ones. (To delete an inherited property, you must delete it from the prototype object in which it is defined.Doing this affects every object that inherits from that prototype.)
 
-A  delete expression evaluates to  true if the delete succeeded or if the delete had no effect (such as deleting a nonexistent property).  delete also evaluates to  true when used (meaninglessly) with an expression that is not a property access expression
+A  `delete` expression evaluates to  true if the delete succeeded or if the delete had no effect (such as deleting a nonexistent property).  delete also evaluates to  true when used (meaninglessly) with an expression that is not a property access expression
+```javascript
+o = {x : 1}; // o has own property x and inherits property toString
+delete o.x;  // Delete x, and return true
+delete o.x;  // Do nothing (x  doesn't exist), and  return true
+delete o.toString; // Do nothing (toString isn't and own property), return true
+delete 1; // Nonsense, but evaluates to true
+```
 
-delete does not remove properties that have a configurable attribute of  false .
+`delete` does not remove properties that have a configurable attribute of  false . ( In strict mode, attempting to delete a nonconfigurable property causes a TypeError)
 
 ##6.4 Testing Properties
 
 The  in operator expects a property name (as a string) on its left side and an object on its right. It returns  true if the object has an own property or an inherited property by that name(note :for/in loop just list the enumerable property (own or inherited) of the specified object )
 
-The  hasOwnProperty() method of an object tests whether that object has an own property with the given name. It returns  false for inherited properties
+The  `hasOwnProperty()` method of an object tests whether that object has an own property with the given name. It returns  false for inherited properties
 
-The  propertyIsEnumerable() refines the  hasOwnProperty() test. It returns  true only if the named property is an own property and its  enumerable attribute is  true . Certain built-in properties are not enumerable.Properties created by normal JavaScript code are enumerable unless you’ve used one of the ECMAScript 5 methods shown later to make them nonenumerable
+The  `propertyIsEnumerable()` refines the  `hasOwnProperty()` test. It returns  true only if the named property is an own property and its  enumerable attribute is  true . Certain built-in properties are not enumerable.Properties created by normal JavaScript code are enumerable unless you’ve used one of the ECMAScript 5 methods shown later to make them nonenumerable
 
 There is one thing the  in operator can do that the simple property access technique shown above cannot do.  in can distinguish between properties that do not exist and properties that exist but have been set to  undefined .
 
